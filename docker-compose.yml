@@ -1,0 +1,16 @@
+services:
+
+  side-shopy-db:
+    image: postgres:16.3
+    restart: always
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - side_shopy_data:/var/lib/postgresql/data
+    ports:
+      - 5434:5432
+
+volumes:
+  side_shopy_data:
