@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :passwords, param: :token
+  namespace :authentication, path: "", as: "" do
+    resource :session, only: [ :new, :create, :destroy ], path: "login", path_names: { new: "/" }
+    resources :users, only: [ :new, :create ], path: "register", path_names: { new: "/" }
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
