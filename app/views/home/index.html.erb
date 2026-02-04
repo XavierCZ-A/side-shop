@@ -1,0 +1,269 @@
+<!-- Navbar -->
+    <%= button_to session_path, method: :delete, class: "w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 group transition-colors duration-150 w-full text-left cursor-pointer" do %>
+      <span class="mr-3">
+        <%= render_svg("logout.svg", styles: "w-5 h-5 text-red-400") %>
+      </span>
+      Cerrar sesión
+    <% end %>
+<nav class="sticky top-0 z-50 w-full border-b border-gray-100/50 backdrop-blur-md bg-white/80">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex items-center gap-2">
+        <div class="w-8 h-8 bg-[#820BFF] rounded-lg flex items-center justify-center text-white">
+            <%= render_svg("cart.svg", styles: "w-5 h-5") %>
+        </div>
+        <span class="hidden sm:inline text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700">PocketShop</span>
+      </div>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#features" class="text-gray-500 hover:text-gray-900 transition-colors font-medium text-sm">Características</a>
+        <a href="#pricing" class="text-gray-500 hover:text-gray-900 transition-colors font-medium text-sm">Planes</a>
+        <a href="#faq" class="text-gray-500 hover:text-gray-900 transition-colors font-medium text-sm">Preguntas</a>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-4">
+        <%= link_to "Inicia Sesión", new_session_path, class: "hidden md:block text-sm font-semibold text-gray-900 hover:text-[#820BFF] transition-colors" %>
+        <%= link_to "Crear mi Tienda", new_user_path, class: "bg-[#820BFF] hover:bg-[#7209df] text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 whitespace-nowrap" %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative overflow-hidden pt-12 pb-16 lg:pt-20 lg:pb-32 bg-[#F9F9FB]">
+  <!-- Background decoration -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl">
+      <div class="absolute top-20 right-0 w-[500px] h-[500px] bg-purple-200/20 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-100/20 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+      
+      <!-- Left Content -->
+      <div class="max-w-2xl text-center lg:text-left mx-auto lg:mx-0">
+        <div class="inline-flex items-center gap-2 bg-green-50 px-3 py-1 rounded-full border border-green-100 mb-6">
+          <span class="text-green-600">🚀</span>
+          <span class="text-xs font-semibold text-green-700 tracking-wide uppercase">Ideal para emprendedores</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-[1.1] mb-6">
+          Tu tienda online <span class="block text-[#820BFF]">en un solo link.</span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl text-gray-500 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0">
+          Olvídate de Shopify o WooCommerce. Sube tus 5, 10 o 15 productos top y comparte tu link. Simple, rápido y hermoso.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+          <%= link_to new_user_path, class: "w-full sm:w-auto px-8 py-3.5 bg-[#820BFF] hover:bg-[#7209df] text-white text-base font-semibold rounded-full shadow-xl shadow-purple-500/20 transition-all flex items-center justify-center gap-2 group" do %>
+            Comenzar Gratis
+            <%= render_svg("arrow_right.svg", styles: "w-5 h-5 group-hover:translate-x-1 transition-transform") %>
+          <% end %>
+          
+          <button class="w-full sm:w-auto px-8 py-3.5 bg-white text-gray-900 border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-base font-semibold rounded-full transition-all">
+            Ver Demo
+          </button>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-gray-500">
+          <div class="flex items-center gap-2">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500") %>
+            <span>Sin tarjetas de crédito</span>
+          </div>
+          <div class="flex items-center gap-2">
+           <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500") %>
+            <span>Configuración en 2 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Content (Mockup Visual) -->
+      <div class="relative lg:h-[600px] flex items-center justify-center">
+        <!-- Abstract Shapes backing -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-purple-50 to-white rounded-[3rem] -rotate-3 scale-95 border border-purple-100 shadow-sm"></div>
+        
+        <!-- Main Card Container (Floating) -->
+        <div class="relative w-full max-w-md bg-white rounded-[2rem] shadow-2xl shadow-purple-900/10 border border-gray-100 p-6 rotate-2 hover:rotate-0 transition-transform duration-500">
+            <!-- Profile Header -->
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                   <div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Sarah" class="w-full h-full object-cover">
+                   </div>
+                   <div>
+                       <h3 class="font-bold text-gray-900">Tienda de Sarah</h3>
+                       <p class="text-xs text-gray-500">@sarah_crafts</p>
+                   </div>
+                </div>
+                <button class="bg-[#820BFF] text-white text-xs font-semibold px-4 py-1.5 rounded-full">Seguir</button>
+            </div>
+
+            <!-- Product Grid Mockup -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="aspect-square bg-gray-50 rounded-xl"></div>
+                <div class="aspect-square bg-gray-50 rounded-xl"></div>
+                <div class="aspect-square bg-gray-50 rounded-xl"></div>
+                <div class="aspect-square bg-gray-50 rounded-xl"></div>
+            </div>
+            
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight mb-4">
+        Planes simples para <span class="text-[#820BFF]">crecer contigo</span>
+      </h2>
+      <p class="text-xl text-gray-500">
+        Comienza gratis y mejora tu plan a medida que aumenten tus ventas. Sin comisiones ocultas por transacción.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      
+      <!-- Plan Gratis -->
+      <div class="border border-gray-200 rounded-3xl p-8 hover:shadow-xl transition-shadow duration-300 flex flex-col">
+        <div class="mb-6">
+          <h3 class="text-xl font-bold text-gray-900">Inicial</h3>
+          <p class="text-sm text-gray-500 mt-2 min-h-[40px]">Perfecto para probar tu idea sin riesgos.</p>
+        </div>
+        <div class="mb-8">
+          <span class="text-5xl font-black text-gray-900">Gratis</span>
+        </div>
+        
+        <ul class="space-y-4 mb-8 flex-1">
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Hasta 5 productos
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Link de tienda básico
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Pedidos por WhatsApp
+          </li>
+           <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Soporte básico
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-400">
+            <%= render_svg("close.svg", styles: "w-5 h-5 text-red-500 flex-shrink-0") %>
+            Estadísticas de visitas
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-400">
+            <%= render_svg("close.svg", styles: "w-5 h-5 text-red-500 flex-shrink-0") %>
+            Personalización de colores
+          </li>
+           <li class="flex items-center gap-3 text-sm text-gray-400">
+            <%= render_svg("close.svg", styles: "w-5 h-5 text-red-500 flex-shrink-0") %>
+            Dominio propio
+          </li>
+        </ul>
+
+        <%= link_to "Comenzar Gratis", new_session_path, class: "block w-full text-center py-3 px-6 rounded-full border border-gray-900 text-gray-900 font-semibold hover:bg-gray-50 transition-colors" %>
+      </div>
+
+       <!-- Plan Emprendedor (Featured) -->
+      <div class="border-2 border-[#820BFF] rounded-3xl p-8 shadow-2xl shadow-purple-900/10 transform md:-translate-y-4 bg-white relative flex flex-col z-10">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+             <span class="bg-[#820BFF] text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide shadow-lg">Más Popular</span>
+        </div>
+
+        <div class="mb-6">
+          <h3 class="text-xl font-bold text-gray-900">Emprendedor</h3>
+          <p class="text-sm text-gray-500 mt-2 min-h-[40px]">Para quienes ya están vendiendo activamente.</p>
+        </div>
+        <div class="mb-8 flex items-baseline gap-1">
+          <span class="text-5xl font-black text-gray-900">$99</span>
+          <span class="text-xl font-bold text-gray-500">/mes</span>
+          <span class="text-xs text-gray-400 ml-1">mxn</span>
+        </div>
+        
+        <ul class="space-y-4 mb-8 flex-1">
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Hasta 50 productos
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Link personalizado
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Estadísticas de ventas
+          </li>
+           <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Personalización de colores
+          </li>
+           <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Soporte prioritario
+          </li>
+           <li class="flex items-center gap-3 text-sm text-gray-400">
+            <%= render_svg("close.svg", styles: "w-5 h-5 text-red-500 flex-shrink-0") %>
+            Dominio propio (.com)
+          </li>
+        </ul>
+
+        <%= link_to "Elegir Emprendedor", new_session_path, class: "block w-full text-center py-3.5 px-6 rounded-full bg-[#820BFF] text-white font-bold hover:bg-[#7209df] shadow-lg shadow-purple-500/30 transition-all hover:scale-[1.02]" %>
+      </div>
+
+       <!-- Plan Negocio -->
+      <div class="border border-gray-200 rounded-3xl p-8 hover:shadow-xl transition-shadow duration-300 flex flex-col">
+        <div class="mb-6">
+          <h3 class="text-xl font-bold text-gray-900">Negocio</h3>
+          <p class="text-sm text-gray-500 mt-2 min-h-[40px]">Tu marca al siguiente nivel.</p>
+        </div>
+        <div class="mb-8 flex items-baseline gap-1">
+          <span class="text-5xl font-black text-gray-900">$299</span>
+          <span class="text-xl font-bold text-gray-500">/mes</span>
+          <span class="text-xs text-gray-400 ml-1">mxn</span>
+        </div>
+        
+        <ul class="space-y-4 mb-8 flex-1">
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Productos ilimitados
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Dominio propio incluido
+          </li>
+          <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Estadísticas avanzadas
+          </li>
+           <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Sin marca de agua
+          </li>
+           <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Soporte VIP 24/7
+          </li>
+           <li class="flex items-center gap-3 text-sm text-gray-600">
+            <%= render_svg("check_circle.svg", styles: "w-5 h-5 text-green-500 flex-shrink-0") %>
+            Integración con Facebook Pixel
+          </li>
+        </ul>
+
+        <%= link_to "Contactar Ventas", "#", class: "block w-full text-center py-3 px-6 rounded-full border border-gray-900 text-gray-900 font-semibold hover:bg-gray-50 transition-colors" %>
+      </div>
+
+    </div>
+  </div>
+</section>

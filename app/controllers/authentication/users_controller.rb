@@ -1,4 +1,5 @@
 class Authentication::UsersController < ApplicationController
+  skip_before_action :check_onboarding_status
   allow_unauthenticated_access only: %i[ new create ]
 
   def new

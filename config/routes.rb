@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :products, only: [ :index, :new, :create, :edit, :update ]
+  get '/store/:store_slug', to: 'stores#show', as: :store
+  
+  resource :onboardings, path: "get-started", only: [ :show, :create ]
   resources :passwords, param: :token
   namespace :authentication, path: "", as: "" do
     resource :session, only: [ :new, :create, :destroy ], path: "login", path_names: { new: "/" }
@@ -15,5 +19,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "home#index"
 end
