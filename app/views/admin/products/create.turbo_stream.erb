@@ -1,0 +1,11 @@
+<%= turbo_stream.update "modal", "" %>
+
+<%= turbo_stream.remove "empty_products_message" %>
+
+<%= turbo_stream.prepend "products_list" do %>
+  <%= render "admin/products/product_card", product: @product %>
+<% end %>
+
+<%= turbo_stream.update "flash_notice_container" do %>
+  <%= render "shared/flash_notice" %>
+<% end %>

@@ -1,0 +1,23 @@
+<div data-controller="flash-notice">
+  <% if alert || notice %>
+    <% color = alert ? 'text-black' : 'text-black' %>
+    <% flash_type = alert ? 'text-black text-sm bg-gray-100' : 'text-black text-sm bg-gray-100' %>
+    <div class="fixed top-4 right-4 max-w-sm z-[100]">
+      <div class="flex items-center space-x-4 shadow-lg rounded px-4 py-3 opacity-100 <%= flash_type %>" data-flash-notice-target="flash">
+        <div class=" <%= color %>">
+          <% if alert %>
+            <%= render_svg('exclamation_triangle.svg', styles: "h-5 w-5 text-red-500") %>
+          <% else %>
+            <%= render_svg('check_circle.svg', styles: "h-5 w-5 text-green-500") %>
+          <% end %>
+        </div>
+        <p>
+          <%= alert || notice %>
+        </p>
+        <%# <button class="inline-flex focus:outline-none focus:text-gray-300 transition ease-in-out duration-150" data-action="click->flash-notice#close">
+          <%= render_svg('close.svg') %>
+        <%# </button> %>
+      </div>
+    </div>
+  <% end %>
+</div>

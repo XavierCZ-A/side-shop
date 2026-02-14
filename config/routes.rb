@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :products, only: [ :index, :new, :create, :edit, :update ]
   get '/store/:store_slug', to: 'stores#show', as: :store
   
   resource :onboardings, path: "get-started", only: [ :show, :create ]
@@ -7,6 +6,13 @@ Rails.application.routes.draw do
   namespace :authentication, path: "", as: "" do
     resource :session, only: [ :new, :create, :destroy ], path: "login", path_names: { new: "/" }
     resources :users, only: [ :new, :create ], path: "register", path_names: { new: "/" }
+  end
+
+  namespace :admin, path: "dashboard" do
+    root "dashboards#index"
+    resources :products, only: [ :new, :create, :edit, :update ]
+    # get "customize", to: "dashboard#edit", as: :customize
+    # patch "customize", to: "dashboard#update"
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

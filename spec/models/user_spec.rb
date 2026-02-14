@@ -22,10 +22,11 @@ RSpec.describe User, type: :model do
   end
 
   describe "Validations" do
+    subject { build(:user) }
+
     it { should validate_presence_of(:email_address) }
     it { should validate_presence_of(:password) }
 
-    # Test de unicidad (ignora mayúsculas/minúsculas)
     it { should validate_uniqueness_of(:email_address).case_insensitive }
 
     it "normalizes email_address" do
@@ -33,7 +34,6 @@ RSpec.describe User, type: :model do
       expect(user.email_address).to eq("test@example.com")
     end
     
-    # Validaciones de formato o longitud
     it { should validate_length_of(:password).is_at_least(6) }
   end
 end

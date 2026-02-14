@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class Admin::ProductsController < ApplicationController
   before_action :set_product, only: %i[ edit update ]
 
   def index
@@ -16,11 +16,13 @@ class ProductsController < ApplicationController
 
   # POST /products or /products.json
   def create
-    # todo: aqui se agrega turbo stream para que se actualice la pagina sin recargar
     @store = current_user.store
     @product = @store.products.build(product_params)
     if @product.save
-      redirect_to root_path, notice: "Product was successfully created."
+      respond_to do |format|
+        format.turbo_stream { flash.now[:notice] = "Producto creado exitosamente." }
+        format.html { redirect_to admin_root_path, notice: "Producto creado exitosamente." }
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +31,10 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1 or /products/1.json
   def update
     if @product.update(product_params)
-      redirect_to @product, notice: "Product was successfully updated.", status: :see_other
+      respond_to do |format|
+        format.turbo_stream { flash.now[:notice] = "Producto actualizado exitosamente." }
+        format.html { redirect_to admin_root_path, notice: "Producto actualizado exitosamente." }
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,6 +48,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.expect(product: [ :name, :price, :active ])
+      params.expect(product: [ :name, :price, :active, :store_id ])
     end
 end

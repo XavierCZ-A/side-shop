@@ -1,0 +1,40 @@
+<%= form_with(model: [:admin, product], class: "space-y-6 w-full") do |form| %>
+
+  <!-- Name Field -->
+  <div>
+    <div class="flex gap-1 mb-2">
+      <%= form.label :name, "Nombre", class: "block text-sm font-medium leading-6 text-gray-900" %>
+      <span class="text-red-500">*</span>
+    </div>
+    <div class="relative rounded-md shadow-sm">
+      <%= form.text_field :name,
+          placeholder: "Nombre del producto",
+          class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6 #{'ring-red-300 focus:ring-red-500' if product.errors[:name].any?}"
+      %>
+    </div>
+    <%= display_field_errors(product, :name) %>
+  </div>
+
+  <!-- Price Field -->
+  <div>
+    <div class="flex gap-1 mb-2">
+      <%= form.label :price, "Precio", class: "block text-sm font-medium leading-6 text-gray-900" %>
+      <span class="text-red-500">*</span>
+    </div>
+    <div class="relative rounded-md shadow-sm">
+      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <span class="text-gray-500 sm:text-sm">$</span>
+      </div>
+      <%= form.text_field :price,
+          placeholder: "0.00",
+          class: "block w-full rounded-xl border-0 p-3 pl-7 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6 #{'ring-red-300 focus:ring-red-500' if product.errors[:price].any?}"
+      %>
+    </div>
+    <%= display_field_errors(product, :price) %>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="pt-4">
+    <%= form.submit "Guardar producto", class: "flex w-full justify-center rounded-full bg-purple-600 px-3 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600 transition-all cursor-pointer" %>
+  </div>
+<% end %>

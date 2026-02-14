@@ -1,0 +1,44 @@
+<main class="min-h-screen bg-[#F9F8F6] p-8">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- welcome section -->
+    <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">
+          Hola, <%= current_user.store.name %>
+        </h1>
+        <span class="text-gray-500 text-base">
+          Aquí tienes un resumen de tu negocio hoy.
+        </span>
+      </div>
+    </div>
+  
+    <!-- cards section -->
+    <div class="flex flex-col justify-between md:flex-row gap-6">
+      <%= render "admin/card/card_info", title: "Ingresos", value: "$1000", trend: "10", trendPositive: true, trendLabel: "Mes pasado", icon: "dollar.svg", style: "w-6 h-6 text-green-500" %>
+      <%= render "admin/card/card_info", title: "Visitas", value: "1000", trend: "10", trendPositive: true, trendLabel: "Mes pasado", icon: "users.svg", style: "w-6 h-6 text-blue-500" %>
+      <%= render "admin/card/card_info", title: "Pedidos", value: "1000", trend: "10", trendPositive: true, trendLabel: "Mes pasado", icon: "cart.svg", style: "w-6 h-6 text-purple-500" %>
+    </div>
+
+    <%= turbo_frame_tag "dashboard_content" do %>
+      <div class="bg-gray-100 rounded-full inline-flex my-8 p-1">
+        <% 
+          base_classes = "px-6 py-2 rounded-full text-sm font-medium transition-all duration-200" 
+          active_classes = "bg-white shadow-sm text-gray-900"
+          inactive_classes = "text-gray-500 hover:text-gray-900"
+        %>
+        
+        <%= link_to "Productos", admin_root_path(tab: "products"), 
+            data: { turbo_frame: "dashboard_content" },
+            class: "#{base_classes} #{@tab == 'products' ? active_classes : inactive_classes}" %>
+            
+        <%= link_to "Pedidos", admin_root_path(tab: "orders"), 
+            data: { turbo_frame: "dashboard_content" },
+            class: "#{base_classes} #{@tab == 'orders' ? active_classes : inactive_classes}" %>
+      </div>
+
+      <%= render "admin/products/#{@tab}_list", products: @products, orders: @orders %>
+    <% end %>
+
+  </div>
+</main> 

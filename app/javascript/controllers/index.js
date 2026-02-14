@@ -4,8 +4,17 @@
 
 import { application } from "./application"
 
+import FlashNoticeController from "./flash_notice_controller"
+application.register("flash-notice", FlashNoticeController)
+
+import FormErrorsController from "./form_errors_controller"
+application.register("form-errors", FormErrorsController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import ModalController from "./modal_controller"
+application.register("modal", ModalController)
 
 import OnboardingController from "./onboarding_controller"
 application.register("onboarding", OnboardingController)

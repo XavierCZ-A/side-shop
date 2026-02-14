@@ -1,0 +1,32 @@
+<%= turbo_frame_tag "dashboard_content" do %>
+  <div class="space-y-4">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h2 class="text-xl font-semibold text-gray-900">Catalogo</h2>
+        <p class="text-gray-500 text-base">Gestiona lo que vendes en tu tienda.</p>
+      </div>
+      <%= link_to new_admin_product_path, data: { turbo_frame: "modal" }, class: "group flex items-center justify-center gap-2 rounded-full p-3 sm:px-5 sm:py-2.5 bg-purple-600 hover:bg-purple-500 text-white text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5" do %>
+        <%= render_svg("plus.svg", styles: "w-5 h-5 transition-transform group-hover:rotate-90") %>
+        <span class="hidden sm:inline">Nuevo producto</span>
+      <% end %>
+    </div>
+
+    <div id="products_list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <% products.each do |product| %>
+        <%= render "admin/products/product_card", product: product %>
+      <% end %>
+    </div>
+
+    <% unless products.any? %>
+      <div id="empty_products_message" class="flex flex-col items-center justify-center py-16 px-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 text-center mx-4 md:mx-0">
+        <div class="bg-white p-4 rounded-full shadow-sm mb-4 mt-4">
+          <%= render_svg("paint.svg", styles: "w-8 h-8 text-purple-600") %>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Tu catálogo está vacío</h3>
+        <p class="text-gray-500 mb-8 max-w-xs mx-auto leading-relaxed">
+          ¡Es hora de llear tu tienda! Agrega tu primer producto para empezar a vender hoy mismo.
+        </p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
