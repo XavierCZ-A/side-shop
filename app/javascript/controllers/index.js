@@ -4,6 +4,12 @@
 
 import { application } from "./application"
 
+import ClipboardController from "./clipboard_controller"
+application.register("clipboard", ClipboardController)
+
+import DropdownController from "./dropdown_controller"
+application.register("dropdown", DropdownController)
+
 import FlashNoticeController from "./flash_notice_controller"
 application.register("flash-notice", FlashNoticeController)
 

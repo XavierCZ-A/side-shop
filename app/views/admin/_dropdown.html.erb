@@ -1,0 +1,24 @@
+<div data-dropdown-target="menu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 z-50 top-full">
+  <div class="p-4 border-b border-gray-200">
+    <p class="text-sm font-medium text-gray-900 truncate"><%= current_user.store.name %></p>
+    <p class="text-xs text-gray-500 truncate mt-0.5"><%= current_user.email_address %></p>
+  </div>
+
+  <div class="py-1">
+    <%= link_to root_path, class: "flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 group transition-colors duration-150" do %>
+      <span class="mr-3">
+        <%= render_svg("paint.svg", styles: "w-5 h-5") %>
+      </span>
+      Personaliza tu tienda
+    <% end %>
+  </div>
+
+  <div class="py-1 border-t border-gray-100">
+    <%= button_to session_path, method: :delete, class: "w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 group transition-colors duration-150 w-full text-left cursor-pointer" do %>
+      <span class="mr-3">
+        <%= render_svg("logout.svg", styles: "w-5 h-5 text-red-400") %>
+      </span>
+      Cerrar sesión
+    <% end %>
+  </div>
+</div>

@@ -5,11 +5,11 @@
       <h1 class="text-xl font-bold">Shopy</h1>
 
       <div class="flex items-center gap-4 relative" data-controller="dropdown" data-action="click@window->dropdown#hide">
-        <%# <%= render "admin/components/share_store" %> %>
+        <%= render "admin/share_store" %>
         <button class="cursor-pointer" data-action="dropdown#toggle">
           <%= user_avatar(current_user.email_address, "#1b69d8", "white") %>
         </button>
-        <%# <%= render "admin/components/dropdown" %> %>
+        <%= render "admin/dropdown" %>
       </div>
 
     </div>
