@@ -11,7 +11,7 @@ class Authentication::SessionsController < ApplicationController
       start_new_session_for user
       redirect_to after_authentication_url
     else
-      redirect_to new_session_path, alert: "Try another email address or password."
+      redirect_to new_session_path, alert: "La contraseña o el correo electrónico es incorrecto."
     end
   end
 

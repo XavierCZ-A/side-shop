@@ -12,7 +12,7 @@ class OnboardingsController < ApplicationController
 
     # TODO aqui seria un redirect a dashboard si ya tiene tienda creada
     if @onboarding.save
-      redirect_to root_path, notice: "¡Tienda creada exitosamente! 🎉"
+      redirect_to admin_root_path, notice: "¡Tienda creada exitosamente! 🎉"
     else
       render :show, status: :unprocessable_entity
     end

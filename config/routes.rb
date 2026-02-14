@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   namespace :admin, path: "dashboard" do
     root "dashboards#index"
     resources :products, only: [ :new, :create, :edit, :update ]
-    # get "customize", to: "dashboard#edit", as: :customize
-    # patch "customize", to: "dashboard#update"
+    get "customize", to: "dashboards#edit", as: :customize
+    patch "customize", to: "dashboards#update"
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

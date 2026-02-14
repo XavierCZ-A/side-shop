@@ -1,0 +1,164 @@
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8 flex items-center gap-4">
+        <%= link_to admin_root_path, class: "p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200" do %>
+            <%= render_svg("arrow_left.svg", styles: "w-5 h-5 text-gray-500") %>
+        <% end %>
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Personalizar Tienda</h1>
+            <p class="text-sm text-gray-500 mt-1">Gestiona la información y apariencia de tu tienda</p>
+        </div>
+    </div>
+
+    <%= form_with(model: current_user.store, url: admin_customize_path, method: :patch, local: true, class: "space-y-6") do |form| %>
+
+        <!-- Información de la tienda -->
+        <div class="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
+            <div class="border-b border-gray-900/5 bg-gray-50 p-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-purple-50 rounded-lg">
+                        <%= render_svg("store.svg", styles: "w-5 h-5 text-purple-600") %>
+                    </div>
+                    <h2 class="text-base font-semibold leading-7 text-gray-900">Información General</h2>
+                </div>
+            </div>
+            
+            <div class="p-4 sm:p-6 space-y-6">
+                <div>
+                    <%= form.label :name, "Nombre de la tienda", class: "block text-sm font-medium leading-6 text-gray-900" %>
+                    <div class="mt-2">
+                        <%= form.text_field :name,
+                            placeholder: "Ej. Mi Tienda Increíble",
+                            class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6"
+                        %>
+                    </div>
+                    <% if current_user.store.errors[:name].any? %>
+                        <p class="mt-2 text-sm text-red-600"><%= current_user.store.errors[:name].first %></p>
+                    <% end %>
+                </div>
+
+                <div>
+                    <%= form.label :description, "Biografía / Descripción", class: "block text-sm font-medium leading-6 text-gray-900" %>
+                    <div class="mt-2">
+                        <%= form.text_area :description,
+                            rows: 4,
+                            placeholder: "Cuenta un poco sobre tu tienda...",
+                            class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6"
+                        %>
+                    </div>
+                    <% if current_user.store.errors[:description].any? %>
+                        <p class="mt-2 text-sm text-red-600"><%= current_user.store.errors[:description].first %></p>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Redes Sociales -->
+        <div class="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
+            <div class="border-b border-gray-900/5 bg-gray-50 p-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-pink-50 rounded-lg">
+                        <%= render_svg("share.svg", styles: "w-5 h-5 text-pink-600") %>
+                    </div>
+                    <h2 class="text-base font-semibold leading-7 text-gray-900">Redes Sociales</h2>
+                </div>
+            </div>
+            
+            <div class="p-4 sm:p-6 space-y-6">
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <%= render_svg("instagram.svg", styles: "w-4 h-4 text-gray-500") %>
+                            <%= form.label :instagram, "Instagram", class: "block text-sm font-medium leading-6 text-gray-900" %>
+                        </div>
+                        <%= form.text_field :instagram,
+                            placeholder: "@usuario",
+                            class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6"
+                        %>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <%= render_svg("facebook.svg", styles: "w-4 h-4 text-gray-500") %>
+                            <%= form.label :facebook, "Facebook", class: "block text-sm font-medium leading-6 text-gray-900" %>
+                        </div>
+                        <%= form.text_field :facebook,
+                            placeholder: "facebook.com/pagina",
+                            class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6"
+                        %>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <div class="flex items-center gap-2 mb-2">
+                            <%= render_svg("whatsapp.svg", styles: "w-4 h-4 text-gray-500") %>
+                            <%= form.label :whatsapp, "WhatsApp", class: "block text-sm font-medium leading-6 text-gray-900" %>
+                        </div>
+                        <%= form.text_field :whatsapp,
+                            placeholder: "+52 123 456 7890",
+                            class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6"
+                        %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Color Principal -->
+        <div class="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
+            <div class="border-b border-gray-900/5 bg-gray-50 p-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-50 rounded-lg">
+                        <%= render_svg("paint.svg", styles: "w-5 h-5 text-blue-600") %>
+                    </div>
+                    <h2 class="text-base font-semibold leading-7 text-gray-900">Apariencia</h2>
+                </div>
+            </div>
+            
+            <div class="p-4 sm:p-6">
+                 <% options = [
+                      "#4F46E5", # Indigo
+                      "#EF4444", # Red
+                      "#F59E0B", # Amber
+                      "#10B981", # Emerald
+                      "#3B82F6", # Blue
+                      "#8B5CF6", # Violet
+                      "#EC4899", # Pink
+                      "#14B8A6", # Teal
+                      "#F97316", # Orange
+                      "#6366F1", # Indigo (Lighter)
+                      "#84CC16", # Lime
+                      "#06B6D4"  # Cyan
+                    ] %>
+                
+                <label class="block text-sm font-medium leading-6 text-gray-900 mb-4">Color Principal</label>
+                <div class="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-4">
+                    <% options.each_with_index do |color, idx| %>
+                        <% element_id = "primary_color_#{color.gsub('#', '')}" %>
+                        <div class="relative flex items-center justify-center">
+                            <%= form.radio_button :primary_color, color, 
+                                id: element_id, 
+                                class: "peer sr-only",
+                                data: { action: "change->onboarding#updateColor" } 
+                            %>
+                
+                            <label 
+                                for="<%= element_id %>"
+                                class="cursor-pointer w-10 h-10 rounded-full shadow-sm ring-2 ring-transparent peer-checked:ring-offset-2 peer-checked:ring-gray-300 hover:scale-110 transition-all duration-200"
+                                style="background-color: <%= color %>;"
+                            >
+                                <span class="sr-only">Color <%= color %></span>
+                                <div class="hidden peer-checked:flex w-full h-full items-center justify-center">
+                                    <%= render_svg("check.svg", styles: "w-5 h-5 text-white drop-shadow-sm") %>
+                                </div>
+                            </label>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-x-6 pt-4">
+            <%= link_to "Cancelar", admin_root_path, class: "text-sm font-semibold leading-6 text-gray-900 hover:text-gray-700" %>
+            <%= form.submit "Guardar Cambios", class: "rounded-lg bg-purple-600 px-8 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600 transition-colors duration-200 cursor-pointer" %>
+        </div>
+
+    <% end %>
+</div>
