@@ -48,7 +48,7 @@ RSpec.describe "Onboardings", type: :request do
 
       it "redirects to root path with a success message" do
         post onboardings_path, params: valid_params
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(admin_root_path)
         expect(flash[:notice]).to eq("¡Tienda creada exitosamente! 🎉")
       end
     end

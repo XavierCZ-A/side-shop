@@ -1,1 +1,65 @@
-<h1>hola</h1>
+<% content_for :title, @store.name %>
+<% primary_color = @store.primary_color.presence || "#8B5CF6" %>
+
+<div class="relative" data-controller="cart" data-store-id="<%= @store.id %>">
+    <!-- Tu header gradient -->
+    <div class="h-16 sm:h-20 md:h-24 w-full" style="background: linear-gradient(135deg, <%= primary_color %> 0%, <%= primary_color %>99 50%, <%= primary_color %>66 100%);"></div>
+
+    <!-- Store Info Card -->
+    <div class="max-w-2xl mx-auto px-4 -mt-12 sm:-mt-16 relative z-10">
+        <!-- Avatar -->
+        <div class="flex justify-center mb-4">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-white text-2xl sm:text-3xl font-bold" style="background-color: <%= primary_color %>;">
+                <%= @store.name.first.upcase %>
+            </div>
+        </div>
+
+        <!-- Store Name & Description -->
+        <div class="text-center">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2" style="font-family: 'Georgia', serif;">
+                <%= @store.name %>
+            </h1>
+            <% if @store.description.present? %>
+                <p class="text-gray-600 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+                    <%= @store.description %>
+                </p>
+            <% end %>
+
+            <!-- Social Links -->
+            <% if @store.instagram.present? || @store.facebook.present? || @store.whatsapp.present? %>
+                <div class="flex justify-center items-center gap-4 my-4">
+                    <% if @store.instagram.present? %>
+                        <%= link_to "https://instagram.com/#{@store.instagram.gsub('@', '')}", target: "_blank", class: "p-2 rounded-full hover:bg-gray-100 transition-colors duration-200" do %>
+                            <%= render_svg("instagram.svg", styles: "w-5 h-5 text-gray-600 hover:text-pink-500") %>
+                        <% end %>
+                    <% end %>
+                    <% if @store.facebook.present? %>
+                        <%= link_to @store.facebook.start_with?("http") ? @store.facebook : "https://facebook.com/#{@store.facebook}", target: "_blank", class: "p-2 rounded-full hover:bg-gray-100 transition-colors duration-200" do %>
+                            <%= render_svg("facebook.svg", styles: "w-5 h-5 text-gray-600 hover:text-blue-600") %>
+                        <% end %>
+                    <% end %>
+                    <% if @store.whatsapp.present? %>
+                        <%= link_to "https://wa.me/#{@store.whatsapp.gsub(/\D/, '')}", target: "_blank", class: "p-2 rounded-full hover:bg-gray-100 transition-colors duration-200" do %>
+                            <%= render_svg("whatsapp.svg", styles: "w-5 h-5 text-gray-600 hover:text-green-500") %>
+                        <% end %>
+                    <% end %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <%# <%= render "stores/cart/cart_sidebar", primary_color: primary_color %>
+        
+    <!-- Shopping Cart Button (Botón flotante) -->
+    <%= render "stores/cart/shopping_cart", primary_color: primary_color %>
+
+    <!-- Products Section -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            <% @products.each do |product| %>
+                <%= render "stores/products/product_card", product: product, primary_color: primary_color %>
+            <% end %>
+        </div>
+    </div>
+</div>

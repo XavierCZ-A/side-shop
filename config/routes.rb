@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   
   resource :onboardings, path: "get-started", only: [ :show, :create ]
   resources :passwords, param: :token
+  resources :carts, only: [ :show, :destroy ]
+  resources :line_items, only: [ :create, :destroy, :update ]
+
   namespace :authentication, path: "", as: "" do
     resource :session, only: [ :new, :create, :destroy ], path: "login", path_names: { new: "/" }
     resources :users, only: [ :new, :create ], path: "register", path_names: { new: "/" }

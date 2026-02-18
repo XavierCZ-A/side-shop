@@ -1,0 +1,7 @@
+<%= turbo_stream.update "line_item_#{@line_item.id}_quantity", @line_item.quantity %>
+<%= turbo_stream.update "line_item_#{@line_item.id}_price", number_to_currency(@line_item.total_price) %>
+
+<%= turbo_stream.update "cart_header_count", @cart.line_items.sum(:quantity) %>
+<%= turbo_stream.update "cart_summary_count", @cart.line_items.sum(:quantity) %>
+<%= turbo_stream.update "cart_subtotal", number_to_currency(@cart.total_price) %>
+<%= turbo_stream.update "cart_total", number_to_currency(@cart.total_price) %>

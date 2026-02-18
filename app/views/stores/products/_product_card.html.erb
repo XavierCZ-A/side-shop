@@ -1,0 +1,27 @@
+<% primary_color = @store&.primary_color.presence || "#8B5CF6" %>
+
+<div id="<%= dom_id(product) %>" 
+     class="bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow duration-300"
+     data-controller="cart"
+     data-cart-product-value='<%= { id: product.id, name: product.name, price: product.price.to_f, store_id: @store.id }.to_json %>'>
+  
+  <div class="relative h-64 overflow-hidden">
+    <%= image_tag "pain.jpg", 
+        alt: product.name, 
+        class: "w-full h-full object-cover transition-transform duration-500 hover:scale-110",
+        id: "#{dom_id(product)}-image" %>
+  </div>
+
+  <div class="p-5">
+    <div class="flex justify-between items-start mb-2 gap-4">
+      <h3 class="text-lg font-bold text-gray-900 leading-tight">
+        <%= product.name %>
+      </h3>
+      <span class="text-lg font-bold shrink-0" style="color: <%= primary_color %>;">
+        <%= number_to_currency(product.price) %>
+      </span>
+    </div>
+
+    <%= button_to "Agregar al carrito", line_items_path(product_id: product), class: "flex items-center justify-center gap-4 p-3 rounded-full w-full text-black font-medium cursor-pointer border border-black transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]" %>
+  </div>
+</div>

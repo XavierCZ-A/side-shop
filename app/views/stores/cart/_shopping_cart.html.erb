@@ -1,0 +1,23 @@
+<%= link_to cart_path(@cart), id: "cart_nav", class: "fixed bottom-6 right-6 z-50 transition-all duration-300" do %>
+    <div class="flex items-center justify-between p-2 pr-4 rounded-2xl shadow-md w-fit gap-6 cursor-pointer hover:brightness-110 transition-all z-40" style="background-color: <%= primary_color %>">
+        
+        <div class="flex items-center gap-3">
+            <div class="relative bg-white/20 p-2 rounded-xl">
+                <span class="absolute -top-1 -right-1 bg-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full" style="border: 1px solid" style="color: <%= primary_color %>">
+                    <%= @cart&.line_items&.sum(:quantity) %>
+                </span>
+                <%= render_svg("shopping_bag.svg", styles: "w-5 h-5 text-white") %>
+            </div>
+
+            <div class="flex flex-col leading-none">
+                <span class="text-white/80 text-[9px] font-semibold uppercase tracking-tight">Ver Pedido</span>
+                <h1 class="text-white text-sm font-bold">Mi Carrito</h1>    
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <span class="text-white text-lg font-bold tracking-tight">$0.00</span>
+            <%= render_svg("arrow_right.svg", styles: "w-4 h-4 text-white") %>
+        </div>
+    </div>
+<% end %>
