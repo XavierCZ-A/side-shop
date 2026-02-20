@@ -1,5 +1,52 @@
 <%= form_with(model: [:admin, product], class: "space-y-6 w-full") do |form| %>
 
+  <!-- Images Field -->
+  <div data-controller="image-preview" data-image-preview-max-files-value="2">
+    <div class="flex gap-1 mb-2">
+      <%= form.label :images, "Imágenes", class: "block text-sm font-medium leading-6 text-gray-900" %>
+      <span class="text-red-500">*</span>
+      <span data-image-preview-target="counter" class="ml-auto text-xs text-gray-400">0 / 2</span>
+    </div>
+
+    <% if product.persisted? && product.images.attached? %>
+      <div class="mb-3">
+        <p class="text-xs text-gray-500 mb-2">Imágenes actuales:</p>
+        <div class="flex gap-3 flex-wrap">
+          <% product.images.each do |img| %>
+            <div class="relative w-20 h-20 rounded-xl overflow-hidden ring-1 ring-gray-200 shadow-sm">
+              <%= image_tag img, class: "w-full h-full object-cover" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div data-image-preview-target="dropzone"
+         data-action="dragover->image-preview#dragover dragleave->image-preview#dragleave drop->image-preview#drop"
+         class="relative rounded-xl border-2 border-dashed border-gray-200 p-6 text-center transition-all hover:border-purple-300 cursor-pointer"
+         onclick="this.querySelector('input[type=file]').click()">
+
+      <div data-placeholder>
+        <%= render_svg("upload.svg", styles: "mx-auto h-10 w-10 text-gray-300") %>
+        <p class="mt-2 text-sm text-gray-500">
+          Arrastra tus imágenes aquí o <span class="text-purple-600 font-medium">haz clic para seleccionar</span>
+        </p>
+        <p class="mt-1 text-xs text-gray-400">JPG, PNG o WebP · Máx. 10 MB · Hasta 2 imágenes</p>
+      </div>
+
+      <%= form.file_field :images,
+          multiple: true,
+          accept: "image/jpeg,image/png,image/webp",
+          data: { image_preview_target: "input", action: "change->image-preview#selectFiles" },
+          class: "sr-only",
+          direct_upload: true %>
+    </div>
+
+    <div data-image-preview-target="preview" class="flex gap-3 flex-wrap mt-3"></div>
+
+    <%= display_field_errors(product, :images) %>
+  </div>
+
   <!-- Name Field -->
   <div>
     <div class="flex gap-1 mb-2">
@@ -31,6 +78,21 @@
       %>
     </div>
     <%= display_field_errors(product, :price) %>
+  </div>
+
+  <div>
+    <div class="flex gap-1 mb-2">
+      <%= form.label :description, "Descripción", class: "block text-sm font-medium leading-6 text-gray-900" %>
+      <span class="text-red-500">*</span>
+    </div>
+    <div class="relative rounded-md shadow-sm">
+      <%= form.text_area :description,
+          rows: 4,
+          placeholder: "Describe materiales, tamaños, colores disponibles...",
+          class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6 #{'ring-red-300 focus:ring-red-500' if product.errors[:description].any?}"
+      %>
+    </div>
+    <%= display_field_errors(product, :description) %>
   </div>
 
   <!-- Submit Button -->

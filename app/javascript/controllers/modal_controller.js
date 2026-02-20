@@ -8,12 +8,6 @@ export default class extends Controller {
       this.sidebarTarget.classList.remove("opacity-0", "scale-95");
       this.sidebarTarget.classList.add("opacity-100", "scale-100");
     }, 50);
-
-    // this.element.addEventListener("turbo:submit-end", (event) => {
-    //   if (event.detail.success) {
-    //     Turbo.visit(event.detail.fetchResponse.response.url);
-    //   }
-    // });
   }
 
   close() {

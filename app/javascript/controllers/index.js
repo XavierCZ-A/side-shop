@@ -7,6 +7,9 @@ import { application } from "./application"
 import ClipboardController from "./clipboard_controller"
 application.register("clipboard", ClipboardController)
 
+import CarouselController from "./carousel_controller"
+application.register("carousel", CarouselController)
+
 import DropdownController from "./dropdown_controller"
 application.register("dropdown", DropdownController)
 
@@ -18,6 +21,9 @@ application.register("form-errors", FormErrorsController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import ImagePreviewController from "./image_preview_controller"
+application.register("image-preview", ImagePreviewController)
 
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)

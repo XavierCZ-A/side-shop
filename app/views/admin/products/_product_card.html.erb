@@ -1,13 +1,44 @@
 <div id="<%= dom_id(product) %>" class="bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow duration-300">
-  
-  <div class="relative h-64 overflow-hidden">
-    <%= image_tag "pain.jpg", 
-        alt: "Pain", 
-        class: "w-full h-full object-cover transition-transform duration-500 hover:scale-110" %>
-  </div>
+
+  <% if product.images.attached? %>
+    <div data-controller="carousel" class="relative h-64 overflow-hidden group">
+      <% product.images.each_with_index do |image, index| %>
+        <div data-carousel-target="slide" class="<%= 'hidden' unless index == 0 %> w-full h-full">
+          <%= image_tag image.variant(resize_to_fill: [400, 256]),
+              alt: product.name,
+              class: "w-full h-full object-cover" %>
+        </div>
+      <% end %>
+
+      <% if product.images.count > 1 %>
+        <button type="button" data-action="carousel#prev"
+          class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+          <%= render_svg("chevron_left.svg", styles: "w-4 h-4") %>
+        </button>
+        <button type="button" data-action="carousel#next"
+          class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+          <%= render_svg("chevron_rigth.svg", styles: "w-4 h-4") %>
+        </button>
+
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+          <% product.images.each_with_index do |_, index| %>
+            <button type="button"
+              data-carousel-target="indicator"
+              data-action="carousel#goTo"
+              data-index="<%= index %>"
+              class="w-2 h-2 rounded-full transition-colors cursor-pointer <%= index == 0 ? 'bg-white' : 'bg-white/50' %>">
+            </button>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="h-64 bg-gray-100 flex items-center justify-center">
+      <%= render_svg("photo.svg", styles: "w-12 h-12 text-gray-300") %>
+    </div>
+  <% end %>
 
   <div class="p-5">
-    <%# Resto del contenido (Título, Precio, Descripción, Botón) %>
     <div class="flex justify-between items-start mb-2 gap-4">
       <h3 class="text-lg font-bold text-gray-900 leading-tight">
         <%= product.name %>
@@ -16,8 +47,6 @@
         <%= number_to_currency(product.price) %>
       </span>
     </div>
-
-    <%# TODO agregar rich text para la descripcion del producto %>
 
     <%= link_to edit_admin_product_path(product), data: { turbo_frame: "modal" }, class: "flex items-center justify-center gap-4 p-2 rounded-lg w-full border-dashed border-2 border-gray-900 text-gray-900 hover:bg-gray-50 font-medium cursor-pointer" do %>
       <%= render_svg("pencil.svg", styles: "w-6 h-6") %>

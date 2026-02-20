@@ -1,19 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["menu"]
-
-  connect() {
-    console.log("Dropdown connected")
-  }
+  static targets = ["open"]
 
   toggle() {
-    this.menuTarget.classList.toggle("hidden")
+    this.openTarget.classList.toggle("hidden")
   }
 
   hide(event) {
     if (this.element.contains(event.target) === false) {
-      this.menuTarget.classList.add("hidden")
+      this.openTarget.classList.add("hidden")
     }
   }
 }
