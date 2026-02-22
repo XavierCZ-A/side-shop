@@ -4,9 +4,9 @@
   <div class="bg-white border-b border-gray-200 sticky top-0 z-20">
     <div class="max-w-7xl mx-auto px-4 py-4 sm:py-5">
       <div class="flex items-center gap-3">
-        <a href="javascript:history.back()" class="p-1.5 rounded-full hover:bg-gray-100 transition-colors">
+        <%= link_to request.referer || root_path, class: "p-1.5 rounded-full hover:bg-gray-100 transition-colors" do %>
           <%= render_svg("arrow_left.svg", styles: "w-5 h-5 text-gray-700") %>
-        </a>
+        <% end %>
         <div>
           <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Carrito de Compras</h1>
           <p class="text-sm text-gray-500"><span id="cart_header_count"><%= @cart&.line_items&.sum(:quantity) %></span> productos</p>
@@ -29,7 +29,7 @@
             <% end %>
           </div>
 
-          <% @cart.line_items.each do |line_item| %>
+          <% @products.each do |line_item| %>
             <%= render "carts/products/product_cart_info", product: line_item %>
           <% end %>
 

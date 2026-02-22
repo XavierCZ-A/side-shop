@@ -10,7 +10,6 @@ class OnboardingsController < ApplicationController
     @onboarding = Onboarding.new(onboarding_params)
     @onboarding.current_user = current_user
 
-    # TODO aqui seria un redirect a dashboard si ya tiene tienda creada
     if @onboarding.save
       redirect_to admin_root_path, notice: "¡Tienda creada exitosamente! 🎉"
     else
@@ -28,13 +27,14 @@ class OnboardingsController < ApplicationController
       :primary_color,
       :product_name,
       :price,
+      :description,
+      images: []
     ])
   end
 
-  # TODO aqui seria un redirect a dashboard si ya tiene tienda creada
   def redirect_if_already_completed
     if current_user&.store&.onboarding_complete?
-      redirect_to root_path
+      redirect_to admin_root_path
     end
   end
 end

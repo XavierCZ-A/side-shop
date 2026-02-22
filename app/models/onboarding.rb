@@ -12,6 +12,8 @@ class Onboarding
   # Product attributes
   attribute :product_name, :string
   attribute :price, :decimal
+  attribute :description, :string
+  attribute :images
 
   # Validations
   validates :name, presence: { message: "El nombre de la tienda es requerido" }
@@ -64,6 +66,8 @@ class Onboarding
     store.products.create!(
       name: product_name,
       price: price,
+      description: description,
+      images: images
     )
   end
 

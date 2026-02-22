@@ -7,7 +7,7 @@ RSpec.describe LineItem, type: :model do
   end
 
   describe "#total_price" do
-    let(:product) { create(:product, price: 15.00) }
+    let(:product) { create(:product, :with_images, price: 15.00) }
     let(:line_item) { create(:line_item, product: product, quantity: 3) }
 
     it "returns price * quantity" do

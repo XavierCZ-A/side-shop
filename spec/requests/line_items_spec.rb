@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "LineItems", type: :request do
   let(:user) { create(:user, password: "password") }
   let!(:store) { create(:store, user: user) }
-  let(:product) { create(:product, store: store, price: 20.00) }
+  let(:product) { create(:product, :with_images, store: store, price: 20.00) }
 
   before { login_as(user) }
 

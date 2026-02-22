@@ -1,11 +1,12 @@
 class Admin::DashboardsController < ApplicationController
   layout "dashboard_layout"
+  before_action :set_store
+
   def index
     @tab = %w[products orders].include?(params[:tab]) ? params[:tab] : "products"
-    user_store = current_user.store
 
     if @tab == "products"
-      @products = user_store.products.order(created_at: :desc)
+      @products = @store.products.with_attached_images.order(created_at: :desc)
     else
       @orders = []
     end
@@ -15,8 +16,6 @@ class Admin::DashboardsController < ApplicationController
   end
 
   def update
-    @store = current_user.store
-
     if @store.update(store_params)
       redirect_to admin_root_path, notice: "Tienda actualizada correctamente."
     else
@@ -28,5 +27,9 @@ class Admin::DashboardsController < ApplicationController
 
   def store_params
     params.require(:store).permit(:name, :description, :instagram, :facebook, :whatsapp, :primary_color)
+  end
+
+  def set_store
+    @store = current_user.store
   end
 end

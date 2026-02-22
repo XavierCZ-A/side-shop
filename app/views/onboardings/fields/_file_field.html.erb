@@ -1,0 +1,30 @@
+  <div data-controller="image-preview" data-image-preview-max-files-value="2">
+    <div class="flex gap-1 mb-2">
+      <%= form.label :images, "Imágenes", class: "block text-sm font-medium leading-6 text-gray-900" %>
+      <span class="text-red-500">*</span>
+      <span data-image-preview-target="counter" class="ml-auto text-xs text-gray-400">0 / 2</span>
+    </div>
+
+    <div data-image-preview-target="dropzone"
+         data-action="dragover->image-preview#dragover dragleave->image-preview#dragleave drop->image-preview#drop"
+         class="relative rounded-xl border-2 border-dashed border-gray-200 p-6 text-center transition-all hover:border-purple-300 cursor-pointer"
+         onclick="this.querySelector('input[type=file]').click()">
+
+      <div data-placeholder>
+        <%= render_svg("upload.svg", styles: "mx-auto h-10 w-10 text-gray-300") %>
+        <p class="mt-2 text-sm text-gray-500">
+          Arrastra tus imágenes aquí o <span class="text-purple-600 font-medium">haz clic para seleccionar</span>
+        </p>
+        <p class="mt-1 text-xs text-gray-400">JPG, PNG o WebP · Máx. 10 MB · Hasta 2 imágenes</p>
+      </div>
+
+      <%= form.file_field :images,
+          multiple: true,
+          accept: "image/jpeg,image/png,image/webp",
+          data: { image_preview_target: "input", action: "change->image-preview#selectFiles" },
+          class: "sr-only",
+          direct_upload: true %>
+    </div>
+
+    <div data-image-preview-target="preview" class="flex gap-3 flex-wrap mt-3"></div>
+  </div>

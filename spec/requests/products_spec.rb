@@ -19,17 +19,20 @@ RSpec.describe "/products", type: :request do
   # adjust the attributes here as well.
   let(:user) { create(:user) }
   let!(:store) { create(:store, user: user) }
+  let(:image) do
+    fixture_file_upload('test.png', 'image/png')
+  end
 
   before do
     login_as(user)
   end
 
   let(:valid_attributes) {
-    { name: "My Product", price: 10, active: true, store_id: store.id }
+    { name: "My Product", price: 10, active: true, store_id: store.id, images: [image] }
   }
 
   let(:invalid_attributes) {
-    { name: nil, price: nil, active: nil, store_id: store.id }
+    { name: nil, price: nil, active: nil, store_id: store.id, images: [] }
   }
 
   describe "GET /new" do

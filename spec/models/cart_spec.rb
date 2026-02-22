@@ -16,7 +16,7 @@ RSpec.describe Cart, type: :model do
 
   describe "#add_product" do
     let(:cart) { create(:cart) }
-    let(:product) { create(:product) }
+    let(:product) { create(:product, :with_images) }
 
     context "when product is not in cart" do
       it "builds a new line item with quantity 1" do
@@ -43,8 +43,9 @@ RSpec.describe Cart, type: :model do
 
   describe "#total_price" do
     let(:cart) { create(:cart) }
-    let(:product1) { create(:product, price: 10.00) }
-    let(:product2) { create(:product, price: 25.50) }
+    let(:product1) { create(:product, :with_images, price: 10.00) }
+    let(:product2) { create(:product, :with_images, price: 25.50) }
+
 
     it "returns sum of all line item prices" do
       create(:line_item, cart: cart, product: product1, quantity: 2)

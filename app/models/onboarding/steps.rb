@@ -85,6 +85,19 @@ module Onboarding::Steps
             type: :number_field,
             placeholder: "100",
             required: true
+          },
+          {
+            name: :description,
+            label: "Descripción",
+            type: :text_area,
+            placeholder: "Breve descripción de tu producto",
+            required: true
+          },
+          {
+            name: :images,
+            label: "Imágenes",
+            type: :file_field,
+            required: true
           }
         ]
       }

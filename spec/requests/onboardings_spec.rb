@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Onboardings", type: :request do
   let(:user) { create(:user) }
+  let(:image) do
+    fixture_file_upload('test.png', 'image/png')
+  end
 
   before do
     post session_path, params: { email_address: user.email_address, password: user.password }
@@ -20,7 +23,7 @@ RSpec.describe "Onboardings", type: :request do
 
       it "redirects to root path" do
         get onboardings_path
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(admin_root_path)
       end
     end
   end
@@ -34,6 +37,8 @@ RSpec.describe "Onboardings", type: :request do
             industry: "Tecnología",
             primary_color: "#FF5733",
             product_name: "Super Gadget",
+            description: "Super Gadget Description",
+            images: [image],
             price: 99.99
           }
         }
@@ -61,6 +66,8 @@ RSpec.describe "Onboardings", type: :request do
             industry: "",
             primary_color: "",
             product_name: "",
+            description: "",
+            images: [image],
             price: nil
           }
         }
@@ -87,7 +94,7 @@ RSpec.describe "Onboardings", type: :request do
 
       it "redirects to root path" do
         post onboardings_path, params: { onboarding: { name: "New Store" } }
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(admin_root_path)
       end
     end
   end

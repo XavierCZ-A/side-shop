@@ -1,27 +1,65 @@
 <% primary_color = @store&.primary_color.presence || "#8B5CF6" %>
 
-<div id="<%= dom_id(product) %>" 
-     class="bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow duration-300"
-     data-controller="cart"
-     data-cart-product-value='<%= { id: product.id, name: product.name, price: product.price.to_f, store_id: @store.id }.to_json %>'>
-  
-  <div class="relative h-64 overflow-hidden">
-    <%= image_tag "pain.jpg", 
-        alt: product.name, 
-        class: "w-full h-full object-cover transition-transform duration-500 hover:scale-110",
-        id: "#{dom_id(product)}-image" %>
-  </div>
+<div id="<%= dom_id(product) %>" class="h-full flex flex-col bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow duration-300">
 
-  <div class="p-5">
+  <% if product.images.attached? %>
+    <div data-controller="carousel" class="relative h-64 overflow-hidden group shrink-0">
+      <% product.images.each_with_index do |image, index| %>
+        <div data-carousel-target="slide" class="<%= 'hidden' unless index == 0 %> w-full h-full">
+          <%= image_tag image.variant(resize_to_fill: [400, 256]),
+              alt: product.name,
+              class: "w-full h-full object-cover" %>
+        </div>
+      <% end %>
+
+      <% if product.images.length > 1 %>
+        <button type="button" data-action="carousel#prev"
+          class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+          <%= render_svg("chevron_left.svg", styles: "w-4 h-4") %>
+        </button>
+        <button type="button" data-action="carousel#next"
+          class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+          <%= render_svg("chevron_rigth.svg", styles: "w-4 h-4") %>
+        </button>
+
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+          <% product.images.each_with_index do |_, index| %>
+            <button type="button"
+              data-carousel-target="indicator"
+              data-action="carousel#goTo"
+              data-index="<%= index %>"
+              class="w-2 h-2 rounded-full transition-colors cursor-pointer <%= index == 0 ? 'bg-white' : 'bg-white/50' %>">
+            </button>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="h-64 bg-gray-100 flex items-center justify-center shrink-0">
+      <%= render_svg("photo.svg", styles: "w-12 h-12 text-gray-300") %>
+    </div>
+  <% end %>
+
+  <div class="p-5 flex flex-col grow">
+    
     <div class="flex justify-between items-start mb-2 gap-4">
-      <h3 class="text-lg font-bold text-gray-900 leading-tight">
+      <h3 class="text-xl font-bold text-gray-900 leading-tight">
         <%= product.name %>
       </h3>
-      <span class="text-lg font-bold shrink-0" style="color: <%= primary_color %>;">
+      <span class="text-xl font-bold shrink-0" style="color: <%= primary_color %>;" >
         <%= number_to_currency(product.price) %>
       </span>
     </div>
 
-    <%= button_to "Agregar al carrito", line_items_path(product_id: product), class: "flex items-center justify-center gap-4 p-3 rounded-full w-full text-black font-medium cursor-pointer border border-black transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]" %>
+    <p class="text-gray-600 leading-relaxed mb-6 line-clamp-3">
+      <%= product.description %>
+    </p>
+
+    <%= button_to line_items_path(product_id: product), 
+        class: "flex items-center justify-center gap-3 py-2 px-3 rounded-full text-white w-full font-bold text-sm transition-all duration-200 hover:opacity-90 active:scale-[0.98] border-none cursor-pointer", style: "background-color: #{primary_color};" do %>
+      <%= render_svg("cart.svg", styles: "w-5 h-5") %>
+      Agregar
+    <% end %>
   </div>
 </div>
+

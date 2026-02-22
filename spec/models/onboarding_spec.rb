@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe Onboarding, type: :model do
   let(:user) { create(:user) }
   let(:onboarding) { Onboarding.new(valid_params) }
-
+  let(:image) do
+    fixture_file_upload('test.png', 'image/png')
+  end
+  
   let(:valid_params) do
     {
       name: "My Awesome Store",
@@ -11,6 +14,8 @@ RSpec.describe Onboarding, type: :model do
       primary_color: "#FF5733",
       product_name: "Super Gadget",
       price: 99.99,
+      description: "Super Gadget Description",
+      images: [image],
       current_user: user
     }
   end
