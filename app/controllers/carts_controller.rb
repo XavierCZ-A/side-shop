@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
+  before_action :set_store
 
   def show
     @products = @cart.line_items.includes(:product)
@@ -16,5 +17,9 @@ class CartsController < ApplicationController
   def invalid_cart
     logger.error "Attempt to access invalid cart #{params[:id]}"
     redirect_to admin_root_path, notice: "El carrito no existe"
+  end
+
+  def set_store
+    @store = Store.find_by(slug: params[:store_slug])
   end
 end

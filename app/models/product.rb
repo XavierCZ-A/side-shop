@@ -3,6 +3,7 @@ class Product < ApplicationRecord
 
   belongs_to :store
   has_many :line_items
+  has_many :order_items
 
   # after_commit :generate_variants, on: [:create, :update], if: -> { images.attached? }
 
