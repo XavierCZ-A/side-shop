@@ -2,7 +2,7 @@ class Product < ApplicationRecord
   has_many_attached :images, dependent: :destroy
 
   belongs_to :store
-  has_many :line_items
+  has_many :line_items, dependent: :destroy
   has_many :order_items
 
   # after_commit :generate_variants, on: [:create, :update], if: -> { images.attached? }

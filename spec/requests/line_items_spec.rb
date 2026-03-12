@@ -7,24 +7,24 @@ RSpec.describe "LineItems", type: :request do
 
   before { login_as(user) }
 
-  describe "POST /line_items" do
+  describe "POST store/:store_slug/line_items" do
     it "adds a product to the cart" do
       expect {
-        post line_items_path, params: { product_id: product.id }
+        post line_items_path(store.slug), params: { product_id: product.id }
       }.to change(LineItem, :count).by(1)
     end
 
     it "redirects on html format" do
-      post line_items_path, params: { product_id: product.id }
-      expect(response).to redirect_to(admin_root_path)
+      post line_items_path(store.slug), params: { product_id: product.id }
+      expect(response).to redirect_to(store_path(store.slug))
     end
 
     context "when product is already in cart" do
-      before { post line_items_path, params: { product_id: product.id } }
+      before { post line_items_path(store.slug), params: { product_id: product.id } }
 
       it "increments quantity instead of creating a new line item" do
         expect {
-          post line_items_path, params: { product_id: product.id }
+          post line_items_path(store.slug), params: { product_id: product.id }
         }.not_to change(LineItem, :count)
 
         expect(LineItem.last.quantity).to eq(2)
@@ -34,13 +34,13 @@ RSpec.describe "LineItems", type: :request do
 
   describe "PATCH /line_items/:id" do
     let!(:line_item) do
-      post line_items_path, params: { product_id: product.id }
+      post line_items_path(store.slug), params: { product_id: product.id }
       LineItem.last
     end
 
     context "with increment operation" do
       it "increments the quantity" do
-        patch line_item_path(line_item), params: { operation: "increment" }
+        patch line_item_path(store.slug, line_item), params: { operation: "increment" }
         expect(line_item.reload.quantity).to eq(2)
       end
     end
@@ -51,39 +51,40 @@ RSpec.describe "LineItems", type: :request do
       end
 
       it "decrements the quantity" do
-        patch line_item_path(line_item), params: { operation: "decrement" }
+        patch line_item_path(store.slug, line_item), params: { operation: "decrement" }
         expect(line_item.reload.quantity).to eq(2)
       end
     end
 
     context "with decrement when quantity is 1" do
       it "does not decrement below 1" do
-        patch line_item_path(line_item), params: { operation: "decrement" }
+        patch line_item_path(store.slug, line_item.id), params: { operation: "decrement" }
         expect(line_item.reload.quantity).to eq(1)
       end
     end
 
     it "redirects on html format" do
-      patch line_item_path(line_item), params: { operation: "increment" }
-      expect(response).to redirect_to(cart_path(Cart.last))
+      cart = Cart.last
+      patch line_item_path(store.slug, line_item), params: { operation: "increment" }
+      expect(response).to redirect_to(carts_path(store.slug, cart))
     end
   end
 
   describe "DELETE /line_items/:id" do
     let!(:line_item) do
-      post line_items_path, params: { product_id: product.id }
+      post line_items_path(store.slug), params: { product_id: product.id }
       LineItem.last
     end
 
     it "removes the line item" do
       expect {
-        delete line_item_path(line_item)
+        delete line_item_path(store.slug, line_item)
       }.to change(LineItem, :count).by(-1)
     end
 
     it "redirects to cart" do
-      delete line_item_path(line_item)
-      expect(response).to redirect_to(cart_path(Cart.last))
+      delete line_item_path(store.slug, line_item)
+      expect(response).to redirect_to(carts_path(store.slug, Cart.last))
     end
   end
 end

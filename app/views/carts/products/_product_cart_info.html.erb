@@ -10,7 +10,7 @@
                     <h3 class="text-sm sm:text-base font-semibold text-gray-900 truncate"><%= product.product.name %></h3>
                     <p class="text-xs text-gray-500 mt-0.5 line-clamp-2 hidden sm:block"><%= product.product.description %></p>
                 </div>
-                <%= button_to line_item_path(product), method: :delete, class: "p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-400 transition-colors cursor-pointer shrink-0" do %>
+                <%= button_to line_item_path(@store.slug, product), method: :delete, class: "p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-400 transition-colors cursor-pointer shrink-0" do %>
                     <%= render_svg("trash.svg", styles: "w-4 h-4") %>
                 <% end %>
             </div>
@@ -18,13 +18,13 @@
             <div class="flex items-end justify-between mt-3">
                 <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden">
 
-                    <%= button_to line_item_path(product, operation: "decrement"), method: :patch, class: "w-8 h-8 flex items-center justify-center text-black hover:bg-gray-100 transition-colors cursor-pointer" do %>
+                    <%= button_to line_item_path(@store.slug, product, operation: "decrement"), method: :patch, class: "w-8 h-8 flex items-center justify-center text-black hover:bg-gray-100 transition-colors cursor-pointer" do %>
                       <%= render_svg("minus.svg", styles: "w-3.5 h-3.5") %>
                     <% end %>
 
                     <span id="line_item_<%= product.id %>_quantity" class="w-8 h-8 flex items-center justify-center text-sm font-semibold text-gray-800 border-x border-gray-200 bg-gray-50"><%= product.quantity %></span>
 
-                    <%= button_to line_item_path(product, operation: "increment"), method: :patch, class: "w-8 h-8 flex items-center justify-center text-black hover:bg-gray-100 transition-colors cursor-pointer" do %>
+                    <%= button_to line_item_path(@store.slug, product, operation: "increment"), method: :patch, class: "w-8 h-8 flex items-center justify-center text-black hover:bg-gray-100 transition-colors cursor-pointer" do %>
                       <%= render_svg("plus.svg", styles: "w-3.5 h-3.5") %>
                     <% end %>
 

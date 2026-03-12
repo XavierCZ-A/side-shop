@@ -40,11 +40,11 @@ class Admin::ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params.expect(:id))
+      @product = current_user.store.products.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.expect(product: [ :name, :price, :description, :active, :store_id, images: [] ])
+      params.expect(product: [ :name, :price, :description, :active, images: [] ])
     end
 end

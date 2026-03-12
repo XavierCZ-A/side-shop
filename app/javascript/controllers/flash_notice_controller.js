@@ -15,7 +15,7 @@ export default class extends Controller {
         "transition",
         "duration-500",
         "opacity-0",
-        "translate-x-100"
+        "translate-x-full"
       );
 
       setTimeout(() => {

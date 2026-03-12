@@ -1,5 +1,5 @@
 <%= turbo_stream.replace "cart_nav" do %>
-  <%= render partial: "stores/cart/shopping_cart", locals: { primary_color: @primary_color } %>
+  <%= render partial: "stores/cart/shopping_cart" %>
 <% end %>
 
 <%= turbo_stream.update "flash_notice_container" do %>

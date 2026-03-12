@@ -1,1 +1,159 @@
 @import "tailwindcss";
+
+@theme {
+  /* 
+    =========================================
+    PALETA DE COLORES (Color Palette)
+    =========================================
+    Aquí definimos los colores semánticos de la aplicación.
+    Si necesitas cambiar el "look" de la app, modifica estos valores.
+  */
+
+  /*
+    --color-primary: Color principal de la marca. 
+    Usado para botones principales (`bg-primary`), enlaces activos, y elementos destacados.
+    Recomendación: Un color fuerte y legible (ej. Azul, Índigo, Esmeralda).
+  */
+  --color-primary: oklch(0.58 0.28 296);
+  /* Purple Brand (#820BFF approx) */
+  --color-primary-foreground: oklch(1 0 0);
+  /* Texto blanco sobre fondo primario */
+
+  /*
+    --color-secondary: Color secundario. 
+    Usado para elementos de menor jerarquía, fondos de tarjetas secundarias o estados neutros.
+  */
+  --color-secondary: oklch(0.968 0.007 247.896);
+  /* Gris muy suave (Slate-100) */
+  --color-secondary-foreground: oklch(0.208 0.042 265.755);
+  /* Texto oscuro (Slate-900) */
+
+  /*
+    --color-accent: Color de acento.
+    Usado para interacciones momentáneas (hover, active) o detalles decorativos.
+  */
+  --color-accent: oklch(0.968 0.007 247.896);
+  /* Mismo gris suave por defecto */
+  --color-accent-foreground: oklch(0.208 0.042 265.755);
+
+  /*
+    --color-destructive: Color para acciones peligrosas o errores.
+    Usado para botones de "Eliminar", alertas de error, etc.
+  */
+  --color-destructive: oklch(0.577 0.245 27.325);
+  /* Rojo Intenso (Red-600) */
+  --color-destructive-foreground: oklch(0.985 0 0);
+  /* Texto blanco */
+
+  /*
+    --color-success: Color para acciones positivas.
+    Usado para mensajes de éxito, checks, etc.
+  */
+  --color-success: oklch(0.623 0.188 145.371);
+  /* Green-600 */
+  --color-success-foreground: oklch(0.985 0 0);
+
+  /*
+    --color-muted: Color apagado.
+    Usado para textos secundarios, pies de página, o fondos deshabilitados.
+  */
+  --color-muted: oklch(0.968 0.007 247.896);
+  /* Slate-100 */
+  --color-muted-foreground: oklch(0.554 0.046 257.417);
+  /* Slate-500 (Gris medio) */
+
+  /* 
+    =========================================
+    FONDO Y TEXTO BASE (Background & Foreground)
+    =========================================
+  */
+
+  /* --color-background: El fondo general de la página (<body>). */
+  --color-background: oklch(1 0 0);
+  /* Blanco puro */
+
+  /* --color-foreground: El color de texto principal estándar. */
+  --color-foreground: oklch(0.141 0.005 285.823);
+  /* Slate-950 (Casi negro) */
+
+  /* --color-card: Fondo para tarjetas o contenedores independientes. */
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.141 0.005 285.823);
+
+  /* --color-popover: Fondo para elementos flotantes (menús, modales). */
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.141 0.005 285.823);
+
+  /* --color-border: Color para bordes sutiles y separadores. */
+  --color-border: oklch(0.897 0.01 220);
+  /* Slate-200 */
+
+  /* --color-input: Color específico para bordes de campos de formulario. */
+  --color-input: oklch(0.897 0.01 220);
+  /* Slate-200 */
+
+  /* --color-ring: Color del anillo de enfoque (focus outline) para accesibilidad. */
+  --color-ring: oklch(0.141 0.005 285.823);
+  /* Slate-950 */
+
+  /* 
+    =========================================
+    VARIABLES DE DISEÑO (Layout & Typography)
+    =========================================
+  */
+
+  /* 
+    --radius: Radio de borde base.
+    Las variantes md/lg/sm se calculan a partir de un estándar.
+    Cámbialo aquí para que toda la app sea más "redonda" o más "cuadrada".
+  */
+  --radius-lg: 0.5rem;
+  /* 8px - Radio estándar grande */
+  --radius-md: calc(var(--radius-lg) - 2px);
+  /* 6px */
+  --radius-sm: calc(var(--radius-md) - 2px);
+  /* 4px */
+
+  /*
+    --font-sans: Fuente principal de la aplicación.
+    Se recomienda usar fuentes del sistema para mejor performance inicial, o importar Google Fonts.
+  */
+  --font-family-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/*
+  =========================================
+  CAPA BASE (Base Layer)
+  =========================================
+  Aplicación global de estilos usando las variables definidas.
+*/
+@layer base {
+
+  *,
+  ::after,
+  ::before {
+    @apply border-border;
+    /* Aplica el color de borde estándar a todos los bordes por defecto */
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    /* Fondo y texto base */
+    /* Mejora de renderizado de fuentes */
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/*
+  =========================================
+  UTILIDADES PERSONALIZADAS (Custom Utilities)
+  =========================================
+  Si necesitas clases específicas que combinen varias propiedades.
+*/
+@layer utilities {
+
+  /* Ejemplo: Centrado absoluto */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+}

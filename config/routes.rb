@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   get '/store/:store_slug', to: 'stores#show', as: :store
+
+  scope '/store/:store_slug' do
+    resources :line_items, only: [ :create, :destroy, :update ]
+    resource :carts, only: [ :show, :destroy ]
+  end
   
   resource :onboardings, path: "get-started", only: [ :show, :create ]
   resources :passwords, param: :token
-  resources :carts, only: [ :show, :destroy ]
-  resources :line_items, only: [ :create, :destroy, :update ]
 
   namespace :authentication, path: "", as: "" do
     resource :session, only: [ :new, :create, :destroy ], path: "login", path_names: { new: "/" }

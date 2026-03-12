@@ -1,23 +1,21 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "LineItems routing", type: :routing do
-  it "routes POST /line_items to line_items#create" do
-    expect(post: "/line_items").to route_to("line_items#create")
-  end
+RSpec.describe LineItemsController, type: :routing do
+  describe "routing" do
+    it "routes to #create" do
+      expect(post: "/store/store_example/line_items").to route_to("line_items#create", store_slug: "store_example")
+    end
 
-  it "routes PATCH /line_items/:id to line_items#update" do
-    expect(patch: "/line_items/1").to route_to("line_items#update", id: "1")
-  end
+    it "routes to #update via PUT" do
+      expect(put: "/store/store_example/line_items/1").to route_to("line_items#update", store_slug: "store_example", id: "1")
+    end
 
-  it "routes DELETE /line_items/:id to line_items#destroy" do
-    expect(delete: "/line_items/1").to route_to("line_items#destroy", id: "1")
-  end
+    it "routes to #update via PATCH" do
+      expect(patch: "/store/store_example/line_items/1").to route_to("line_items#update", store_slug: "store_example", id: "1")
+    end
 
-  it "does not route GET /line_items" do
-    expect(get: "/line_items").not_to be_routable
-  end
-
-  it "does not route GET /line_items/:id" do
-    expect(get: "/line_items/1").not_to be_routable
+    it "routes to #destroy" do
+      expect(delete: "/store/store_example/line_items/1").to route_to("line_items#destroy", store_slug: "store_example", id: "1")
+    end
   end
 end

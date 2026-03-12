@@ -19,7 +19,6 @@ export default class extends Controller {
     this.#updateIndicators();
     this.#updateProgressLines();
     this.#updateCurrentStepText();
-    console.log("connect onboat");
   }
 
   stepValueChanged() {
@@ -67,7 +66,7 @@ export default class extends Controller {
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/\s+/g, "-")
       .replace(/[^\w\-]+/g, "")
-      .replace(/\-\-+/g, "-");
+      .replace(/\-\-+/g, "-")
   }
 
   showOtherInput() {
@@ -84,12 +83,10 @@ export default class extends Controller {
 
     const currentStepElement = this.stepTargets[this.stepValue];
 
-    // Add exit animation
     if (currentStepElement) {
       currentStepElement.classList.add("opacity-0", "scale-95");
     }
 
-    // Validate current step fields
     const inputs = currentStepElement.querySelectorAll(
       "input, select, textarea",
     );
