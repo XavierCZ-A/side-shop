@@ -4,14 +4,17 @@ class Authentication::SessionsController < ApplicationController
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
   def new
+    @user = User.new
   end
 
   def create
     if user = User.authenticate_by(params.permit(:email_address, :password))
       start_new_session_for user
-      redirect_to after_authentication_url
+      redirect_to admin_root_path
     else
-      redirect_to new_session_path, alert: "La contraseña o el correo electrónico es incorrecto."
+      @email = params[:email_address]
+      flash.now[:alert] = "La contraseña o el correo electrónico es incorrecto."
+      render :new, status: :unprocessable_entity
     end
   end
 

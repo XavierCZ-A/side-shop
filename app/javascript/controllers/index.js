@@ -4,11 +4,11 @@
 
 import { application } from "./application"
 
-import ClipboardController from "./clipboard_controller"
-application.register("clipboard", ClipboardController)
-
 import CarouselController from "./carousel_controller"
 application.register("carousel", CarouselController)
+
+import ClipboardController from "./clipboard_controller"
+application.register("clipboard", ClipboardController)
 
 import DropdownController from "./dropdown_controller"
 application.register("dropdown", DropdownController)
@@ -30,3 +30,6 @@ application.register("modal", ModalController)
 
 import OnboardingController from "./onboarding_controller"
 application.register("onboarding", OnboardingController)
+
+import AuthTabsController from "./auth_tabs_controller"
+application.register("auth-tabs", AuthTabsController)

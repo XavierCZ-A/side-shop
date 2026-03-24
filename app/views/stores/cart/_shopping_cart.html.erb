@@ -1,23 +1,23 @@
-<%= link_to carts_path(@store.slug), id: "cart_nav", class: "fixed bottom-6 right-6 z-50 transition-all duration-300" do %>
-    <div class="flex items-center justify-between p-2 pr-4 rounded-2xl shadow-md w-fit gap-6 cursor-pointer hover:brightness-110 transition-all z-40" style="background-color: <%= @store.primary_color %>">
+<%= link_to carts_path(@store.slug), id: "cart_nav", class: "fixed bottom-5 right-5 md:bottom-6 md:right-6 z-50 group hover:-translate-y-1 transition-transform duration-300" do %>
+    <div class="flex items-center justify-center md:justify-between p-3.5 md:p-2.5 md:pl-2.5 md:pr-5 rounded-full md:rounded-[1.25rem] shadow-2xl w-14 h-14 md:w-auto md:h-auto cursor-pointer hover:brightness-[1.05] active:scale-[0.98] transition-all relative group-hover:shadow-[0_12px_30px_rgb(0,0,0,0.25)]" style="background-color: <%= @store.primary_color %>">
         
-        <div class="flex items-center gap-3">
-            <div class="relative bg-white/20 p-2 rounded-xl">
-                <span class="absolute -top-1 -right-1 bg-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full" style="border: 1px solid" style="color: <%= @store.primary_color %>">
-                    <%= @cart&.line_items&.sum(:quantity) %>
+        <div class="flex items-center md:gap-3">
+            <div class="relative flex items-center justify-center md:bg-white/20 md:p-2.5 md:rounded-[0.85rem] shrink-0 md:backdrop-blur-sm">
+                <span class="absolute -top-2 -right-2 bg-white text-[10px] md:text-[11px] font-extrabold min-w-[20px] h-[20px] px-1.5 flex items-center justify-center rounded-full shadow-md border-[1.5px] border-transparent" style="color: <%= @store.primary_color %>; border-color: <%= @store.primary_color %>">
+                    <%= @cart&.line_items&.sum(:quantity) || 0 %>
                 </span>
-                <%= render_svg("shopping_bag.svg", styles: "w-5 h-5 text-white") %>
+                <%= render_svg("shopping_bag.svg", styles: "w-6 h-6 md:w-6 md:h-6 text-white") %>
             </div>
 
-            <div class="flex flex-col leading-none">
-                <span class="text-white/80 text-[9px] font-semibold uppercase tracking-tight">Ver Pedido</span>
-                <h1 class="text-white text-sm font-bold">Mi Carrito</h1>    
+            <div class="hidden md:flex flex-col leading-tight justify-center mt-0.5">
+                <span class="text-white/80 text-[11px] font-bold uppercase tracking-widest text-left">Ver Pedido</span>
+                <span class="text-white text-base font-black whitespace-nowrap text-left">Mi Carrito</span>    
             </div>
         </div>
 
-        <div class="flex items-center gap-2">
-            <span class="text-white text-lg font-bold tracking-tight">$0.00</span>
-            <%= render_svg("arrow_right.svg", styles: "w-4 h-4 text-white") %>
+        <div class="hidden md:flex items-center gap-3 pl-6 border-l border-white/20 shrink-0">
+            <span class="text-white text-xl font-black tracking-tight"><%= number_to_currency(@cart&.total_price || 0) %></span>
+            <%= render_svg("arrow_right.svg", styles: "w-6 h-6 text-white opacity-80 group-hover:opacity-100 group-hover:translate-x-1.5 transition-transform duration-300") %>
         </div>
     </div>
 <% end %>

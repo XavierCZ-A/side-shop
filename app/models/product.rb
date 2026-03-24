@@ -5,7 +5,7 @@ class Product < ApplicationRecord
   has_many :line_items, dependent: :destroy
   has_many :order_items
 
-  # after_commit :generate_variants, on: [:create, :update], if: -> { images.attached? }
+  after_commit :generate_variants, on: [:create, :update], if: -> { images.attached? }
 
 
   validates :name, presence: true
@@ -14,12 +14,6 @@ class Product < ApplicationRecord
   validates :images, presence: true
   validate :image_count_within_limits
   validate :acceptable_images
-
-  # VARIANTS = {
-  #   thumb: { resize_to_fill: [150, 150] },
-  #   card: { resize_to_fill: [400, 400] },
-  #   large: { resize_to_limit: [1000, 1000] }
-  # }
 
   private
 
@@ -43,7 +37,7 @@ class Product < ApplicationRecord
     end
   end
   
-  # def generate_variants
-  #   GenerateImageVariantsJob.perform_later(self)
-  # end
+  def generate_variants
+    GenerateImageVariantsJob.perform_later(self)
+  end
 end

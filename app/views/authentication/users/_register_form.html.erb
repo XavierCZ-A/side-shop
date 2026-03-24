@@ -1,0 +1,31 @@
+<%= form_with(model: @user, class: "w-full") do |form| %>
+  <div class="mb-5">
+    <div class="flex justify-between items-center mb-2">
+      <label class="text-[0.8125rem] font-medium text-[#1a1a2e]" for="email_address">Correo Electrónico</label>
+    </div>
+    <%= form.email_field :email_address,
+        required: true,
+        autofocus: true,
+        autocomplete: "username",
+        placeholder: "tu@email.com",
+        value: @email,
+        id: "email_address",
+          class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-violet-500 focus:ring-[3px] focus:ring-violet-500/12 focus:bg-white" %>
+  </div>
+
+  <div class="mb-5">
+    <div class="flex justify-between items-center mb-2">
+      <label class="text-[0.8125rem] font-medium text-[#1a1a2e]" for="password">Contraseña</label>
+      <%= link_to "¿Olvidaste tu contraseña?", new_password_path, class: "text-xs text-violet-500 font-medium hover:text-violet-600 transition-colors" %>
+    </div>
+    <%= form.password_field :password,
+        required: true,
+        autocomplete: "current-password",
+        placeholder: "••••••••",
+        maxlength: 72,
+        id: "password",
+        class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-violet-500 focus:ring-[3px] focus:ring-violet-500/12 focus:bg-white" %>
+  </div>
+
+  <%= form.submit "Entrar", class: "block w-full p-[0.8125rem] text-[0.9375rem] font-semibold text-white bg-gradient-to-br from-violet-500 to-violet-600 rounded-[10px] cursor-pointer transition-all duration-150 hover:shadow-[0_4px_16px_rgba(124,58,237,0.35)] hover:-translate-y-[1px] active:translate-y-0 mt-1" %>
+<% end %>

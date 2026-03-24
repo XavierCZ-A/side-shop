@@ -72,3 +72,4 @@ end
 
 gem 'bullet', group: 'development'
 gem 'dotenv', groups: [:development, :test]
+gem "good_job", "~> 4.13"
