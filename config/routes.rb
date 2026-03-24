@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount GoodJob::Engine => "good_job"
   get '/store/:store_slug', to: 'stores#show', as: :store
 
   scope '/store/:store_slug' do
