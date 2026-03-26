@@ -5,10 +5,15 @@
         <h2 class="text-xl font-semibold text-gray-900">Catalogo</h2>
         <p class="text-gray-500 text-base">Gestiona lo que vendes en tu tienda.</p>
       </div>
-      <%= link_to new_admin_product_path, data: { turbo_frame: "modal" }, class: "group flex items-center justify-center gap-2 rounded-full p-3 sm:px-5 sm:py-2.5 bg-primary hover:bg-primary/80 text-white text-sm font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5" do %>
-        <%= render_svg("plus.svg", styles: "w-5 h-5 transition-transform group-hover:rotate-90") %>
-        <span class="hidden sm:inline">Nuevo producto</span>
-      <% end %>
+
+      <%= render Buttons::Component.new(
+        text: "Agregar producto",
+        icon: render_svg("plus.svg", styles: "w-4 h-4"),
+        data: { turbo_frame: "modal" },
+        href: new_admin_product_path,
+        classes: "[&_span:not(.shrink-0)]:hidden md:[&_span:not(.shrink-0)]:inline",
+      ) %>
+
     </div>
 
     <div id="products_list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

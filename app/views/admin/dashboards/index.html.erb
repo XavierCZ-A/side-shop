@@ -1,7 +1,6 @@
 <main class="min-h-screen bg-[#F9F8F6] p-8">
   <div class="max-w-7xl mx-auto">
 
-    <!-- welcome section -->
     <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
         <h1 class="text-3xl font-bold text-gray-900">
@@ -13,13 +12,12 @@
       </div>
     </div>
   
-    <!-- cards section -->
     <div class="flex flex-col justify-between md:flex-row gap-6">
       <%= render "admin/card/card_info", title: "Ingresos", value: "$1000", trend: "10", trendPositive: true, trendLabel: "Mes pasado", icon: "dollar.svg", style: "w-6 h-6 text-green-500" %>
       <%= render "admin/card/card_info", title: "Visitas", value: "1000", trend: "10", trendPositive: true, trendLabel: "Mes pasado", icon: "users.svg", style: "w-6 h-6 text-blue-500" %>
       <%= render "admin/card/card_info", title: "Pedidos", value: "1000", trend: "10", trendPositive: true, trendLabel: "Mes pasado", icon: "cart.svg", style: "w-6 h-6 text-purple-500" %>
     </div>
-
+    
     <%= turbo_frame_tag "dashboard_content" do %>
       <div class="bg-gray-100 rounded-full inline-flex my-8 p-1">
         <% 
@@ -41,4 +39,4 @@
     <% end %>
 
   </div>
-</main> 
+</main>

@@ -1,7 +1,11 @@
-<button class="flex items-center justify-center gap-2 border border-gray-200 md:ml-4 px-3 py-2 md:px-4 md:py-2.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-gray-50 hover:text-gray-900 active:scale-95 cursor-pointer text-gray-700 bg-white shadow-sm" type="button" commandfor="share-store-dialog" command="show-modal">
-  <%= render_svg("share.svg", styles: "w-4 h-4 md:w-5 md:h-5") %>
-  <span class="hidden md:inline">Compartir Tienda</span>
-</button>
+<%= render Buttons::Component.new(
+  text: "Compartir Tienda",
+  icon: render_svg("share.svg", styles: "w-4 h-4"),
+  pill: true,
+  classes: "[&_span:not(.shrink-0)]:hidden md:[&_span:not(.shrink-0)]:inline",
+  commandfor: "share-store-dialog",
+  command: "show-modal"
+) %>
 
 <dialog id="share-store-dialog" closedby="any" role="alertdialog" aria-labelledby="dialog-title" aria-describedby="dialog-desc" class="w-[calc(100%-2rem)] max-w-sm sm:max-w-md m-auto p-0 rounded-3xl shadow-2xl bg-white backdrop:bg-black/40 open:animate-in open:fade-in open:zoom-in-95 backdrop:open:animate-in backdrop:open:fade-in duration-200 border-0">
 
@@ -19,27 +23,21 @@
   <div class="p-5 sm:p-6 space-y-6 sm:space-y-7">
     <section>
       <label class="text-[11px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Link público</label>
-      <div class="bg-gray-50/80 rounded-2xl p-2.5 border border-gray-100" data-controller="clipboard">
+      <div class="rounded-2xl">
         <div class="flex items-center gap-2">
           <div class="flex-1 relative">
             <input type="text" readonly value="<%= request.base_url %>/store/<%= current_user.store.slug %>" 
-                   class="w-full bg-white border border-gray-200 rounded-xl pl-3 pr-3 py-3 text-gray-700 text-sm truncate font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/20 shadow-sm transition-shadow"
-                   data-clipboard-target="source">
+                   class="w-full bg-white border border-gray-200 rounded-xl pl-3 pr-3 py-3 text-gray-700 text-sm truncate font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/20 shadow-sm transition-shadow">
           </div>
-          <button type="button" data-action="clipboard#copy" class="shrink-0 p-3 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 text-gray-600 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 active:scale-95 group">
-            <div data-clipboard-target="icon" class="transition-all duration-300 group-hover:scale-110">
-              <%= render_svg("clipboard.svg", styles: "w-5 h-5") %>
-            </div>
-          </button>
-        </div>
-        <div class="h-4 mt-2">
-          <p data-clipboard-target="successIcon" class="text-emerald-500 text-xs font-medium hidden flex-row items-center gap-1 ml-1 animate-in fade-in slide-in-from-top-1">
-            ¡Enlace copiado!
-          </p>
+          <%= render Clipboard::Component.new(
+            text: "#{request.base_url}/store/#{current_user.store.slug}",
+            icon_only: true,
+            variant: :ghost,
+            size: :lg,
+          ) %>
         </div>
       </div>
     </section>
-
     
     <section class="flex flex-col gap-3">
       <div>
@@ -48,14 +46,14 @@
       <div class="flex justify-between gap-2">
         <%= link_to store_path(@store.slug), target: "_blank", class: "flex flex-col w-1/2 items-center justify-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-2xl border-2 border-gray-500 bg-white hover:bg-gray-50 hover:border-gray-300 hover:shadow-md transition-all group active:scale-95" do %>
           <div class="p-2 sm:p-2.5 bg-blue-50 text-blue-600 rounded-xl group-hover:scale-110 group-hover:bg-blue-100 transition-all duration-300">
-            <%= render_svg("qr.svg", styles: "w-5 h-5 sm:w-6 sm:h-6") %>
+            <%= render_svg("qr.svg", styles: "w-4 h-4") %>
           </div>
           <span class="text-[13px] sm:text-sm font-semibold text-gray-700">Generar QR</span>
         <% end %>
 
         <%= link_to store_path(@store.slug), target: "_blank", class: "flex flex-col w-1/2 items-center justify-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-2xl border-2 border-gray-500 bg-white hover:bg-gray-50 hover:border-gray-300 hover:shadow-md transition-all group active:scale-95" do %>
           <div class="p-2 sm:p-2.5 bg-purple-50 text-purple-600 rounded-xl group-hover:scale-110 group-hover:bg-purple-100 transition-all duration-300">
-            <%= render_svg("store.svg", styles: "w-5 h-5 sm:w-6 sm:h-6") %>
+            <%= render_svg("store.svg", styles: "w-4 h-4") %>
           </div>
           <span class="text-[13px] sm:text-sm font-semibold text-gray-700">Ver Tienda</span>
         <% end %>

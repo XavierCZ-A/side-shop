@@ -53,9 +53,11 @@
       <%= product.description %>
     </p>
 
-    <%= link_to edit_admin_product_path(product), data: { turbo_frame: "modal" }, class: "mt-auto flex items-center justify-center gap-4 p-2 rounded-lg w-full border-dashed border-2 border-gray-900 text-gray-900 hover:bg-gray-50 font-medium cursor-pointer" do %>
-      <%= render_svg("pencil.svg", styles: "w-6 h-6") %>
-      Editar Producto
-    <% end %>
+    <%= render Buttons::Component.new(
+      text: "Editar",
+      href: edit_admin_product_path(product),
+      data: { turbo_frame: "modal" },
+      classes: "mt-auto"
+    ) %>
   </div>
 </div>

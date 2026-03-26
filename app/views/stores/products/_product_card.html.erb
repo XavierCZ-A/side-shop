@@ -53,10 +53,13 @@
       <%= product.description %>
     </p>
 
-    <%= button_to line_items_path(store_slug: @store.slug, product_id: product), 
-        class: "flex items-center justify-center gap-3 py-2 px-3 rounded-full text-white w-full font-bold text-sm transition-all duration-200 hover:opacity-90 active:scale-[0.98] border-none cursor-pointer", style: "background-color: #{@store.primary_color};" do %>
-      <%= render_svg("cart.svg", styles: "w-5 h-5") %>
-      Agregar
+    <%= form_with url: line_items_path(store_slug: @store.slug, product_id: product), method: :post, class: "w-full" do %>
+      <%= render Buttons::Component.new(
+        text: "Agregar al carrito",
+        type: "submit",
+        pill: true,
+        full_width: true,
+    ) %>
     <% end %>
   </div>
 </div>
