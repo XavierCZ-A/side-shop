@@ -1,29 +1,29 @@
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="mb-8 flex items-center gap-2">
-        <%= link_to admin_root_path, class: "p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200" do %>
+        <%= link_to admin_root_path, class: "p-2 rounded-lg hover:bg-[#F3F4F6] transition-colors duration-200" do %>
             <%= render_svg("arrow_left.svg", styles: "w-5 h-5 text-gray-500") %>
         <% end %>
-        <h1 class="text-2xl font-bold text-gray-900">Personalizar Tienda</h1>
+        <h1 class="text-2xl font-bold text-[#1A2B3C]">Personalizar Tienda</h1>
     </div>
 
     <%= form_with(model: current_user.store, url: admin_customize_path, method: :patch, local: true, class: "space-y-6") do |form| %>
         <div class="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
-            <div class="border-b border-gray-900/5 bg-gray-50 p-4">
+            <div class="border-b border-gray-900/5 bg-[#F3F4F6] p-4">
                 <div class="flex items-center gap-3">
-                    <div class="p-2 bg-purple-50 rounded-lg">
-                        <%= render_svg("store.svg", styles: "w-5 h-5 text-purple-600") %>
+                    <div class="p-2 bg-[#ECFDF5] rounded-lg">
+                        <%= render_svg("store.svg", styles: "w-5 h-5 text-[#10B981]") %>
                     </div>
-                    <h2 class="text-base font-semibold leading-7 text-gray-900">Información General</h2>
+                    <h2 class="text-base font-semibold leading-7 text-[#1A2B3C]">Información General</h2>
                 </div>
             </div>
             
             <div class="p-4 sm:p-6 space-y-6">
                 <div>
-                    <%= form.label :name, "Nombre de la tienda", class: "block text-sm font-medium leading-6 text-gray-900" %>
+                    <%= form.label :name, "Nombre de la tienda", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
                     <div class="mt-2">
                         <%= form.text_field :name,
                             placeholder: "Ej. Mi Tienda Increíble",
-                            class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6"
+                            class: "block w-full rounded-xl border-0 p-3 text-[#1A2B3C] shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:ring-offset-0 sm:text-sm sm:leading-6"
                         %>
                     </div>
                     <% if current_user.store.errors[:name].any? %>
@@ -32,12 +32,12 @@
                 </div>
 
                 <div>
-                    <%= form.label :description, "Biografía / Descripción", class: "block text-sm font-medium leading-6 text-gray-900" %>
+                    <%= form.label :description, "Biografía / Descripción", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
                     <div class="mt-2">
                         <%= form.text_area :description,
                             rows: 4,
                             placeholder: "Cuenta un poco sobre tu tienda...",
-                            class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6"
+                            class: "block w-full rounded-xl border-0 p-3 text-[#1A2B3C] shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:ring-offset-0 sm:text-sm sm:leading-6"
                         %>
                     </div>
                     <% if current_user.store.errors[:description].any? %>
@@ -49,12 +49,12 @@
 
         
         <div class="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
-            <div class="border-b border-gray-900/5 bg-gray-50 p-4">
+            <div class="border-b border-gray-900/5 bg-[#F3F4F6] p-4">
                 <div class="flex items-center gap-3">
                     <div class="p-2 bg-pink-50 rounded-lg">
                         <%= render_svg("share.svg", styles: "w-5 h-5 text-pink-600") %>
                     </div>
-                    <h2 class="text-base font-semibold leading-7 text-gray-900">Redes Sociales</h2>
+                    <h2 class="text-base font-semibold leading-7 text-[#1A2B3C]">Redes Sociales</h2>
                 </div>
             </div>
             
@@ -63,33 +63,33 @@
                     <div>
                         <div class="flex items-center gap-2 mb-2">
                             <%= render_svg("instagram.svg", styles: "w-4 h-4 text-gray-500") %>
-                            <%= form.label :instagram, "Instagram", class: "block text-sm font-medium leading-6 text-gray-900" %>
+                            <%= form.label :instagram, "Instagram", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
                         </div>
                         <%= form.text_field :instagram,
                             placeholder: "@usuario",
-                            class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6"
+                            class: "block w-full rounded-xl border-0 p-3 text-[#1A2B3C] shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:ring-offset-0 sm:text-sm sm:leading-6"
                         %>
                     </div>
                     
                     <div>
                         <div class="flex items-center gap-2 mb-2">
                             <%= render_svg("facebook.svg", styles: "w-4 h-4 text-gray-500") %>
-                            <%= form.label :facebook, "Facebook", class: "block text-sm font-medium leading-6 text-gray-900" %>
+                            <%= form.label :facebook, "Facebook", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
                         </div>
                         <%= form.text_field :facebook,
                             placeholder: "facebook.com/pagina",
-                            class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6"
+                            class: "block w-full rounded-xl border-0 p-3 text-[#1A2B3C] shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:ring-offset-0 sm:text-sm sm:leading-6"
                         %>
                     </div>
 
                     <div class="sm:col-span-2">
                         <div class="flex items-center gap-2 mb-2">
                             <%= render_svg("whatsapp.svg", styles: "w-4 h-4 text-gray-500") %>
-                            <%= form.label :whatsapp, "WhatsApp", class: "block text-sm font-medium leading-6 text-gray-900" %>
+                            <%= form.label :whatsapp, "WhatsApp", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
                         </div>
                         <%= form.text_field :whatsapp,
                             placeholder: "+52 123 456 7890",
-                            class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6"
+                            class: "block w-full rounded-xl border-0 p-3 text-[#1A2B3C] shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:ring-offset-0 sm:text-sm sm:leading-6"
                         %>
                     </div>
                 </div>
@@ -98,17 +98,17 @@
 
         
         <div class="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl overflow-hidden">
-            <div class="border-b border-gray-900/5 bg-gray-50 p-4">
+            <div class="border-b border-gray-900/5 bg-[#F3F4F6] p-4">
                 <div class="flex items-center gap-3">
-                    <div class="p-2 bg-blue-50 rounded-lg">
-                        <%= render_svg("paint.svg", styles: "w-5 h-5 text-blue-600") %>
+                    <div class="p-2 bg-[#EAF2F8] rounded-lg">
+                        <%= render_svg("paint.svg", styles: "w-5 h-5 text-[#1A2B3C]") %>
                     </div>
-                    <h2 class="text-base font-semibold leading-7 text-gray-900">Apariencia</h2>
+                    <h2 class="text-base font-semibold leading-7 text-[#1A2B3C]">Apariencia</h2>
                 </div>
             </div>
             
             <div class="p-4 sm:p-6">                
-                <label class="block text-sm font-medium leading-6 text-gray-900 mb-4">Color Principal</label>
+                <label class="block text-sm font-medium leading-6 text-[#1A2B3C] mb-4">Color Principal</label>
                 <div class="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-4">
                     <% primary_colors.each_with_index do |color, idx| %>
                         <% element_id = "primary_color_#{color.gsub('#', '')}" %>

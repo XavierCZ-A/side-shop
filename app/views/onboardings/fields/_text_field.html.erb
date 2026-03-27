@@ -5,7 +5,7 @@
   <%= form.text_field field[:name], 
     placeholder: field[:placeholder],
     required: field[:required],
-    class: "w-full px-4 py-3.5 bg-white/80 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-200 text-base",
+    class: "w-full px-4 py-3.5 bg-white/80 border-2 border-gray-200 rounded-xl text-[#1A2B3C] placeholder-gray-400 focus:ring-4 focus:ring-[#10B981]/20 focus:border-[#10B981] transition-all duration-200 text-base",
     data: { 
       onboarding_target: "input",
       action: "input->onboarding#updateSlug"
@@ -18,7 +18,7 @@
       <!-- Preview Card -->
       <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
         <!-- Browser chrome -->
-        <div class="bg-gray-100 px-4 py-2.5 flex items-center gap-3 border-b border-gray-200">
+        <div class="bg-[#F3F4F6] px-4 py-2.5 flex items-center gap-3 border-b border-gray-200">
           <div class="flex gap-1.5">
             <div class="w-3 h-3 rounded-full bg-red-400"></div>
             <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
@@ -32,15 +32,15 @@
             </svg>
             <div class="flex items-center text-sm">
               <span class="text-gray-400">shopy.mx/</span>
-              <span class="font-semibold text-indigo-600" data-onboarding-target="slugPreview">tu-tienda</span>
+              <span class="font-semibold text-[#10B981]" data-onboarding-target="slugPreview">tu-tienda</span>
             </div>
           </div>
         </div>
         
         <!-- Content Preview -->
-        <div class="h-32 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center">
+        <div class="h-32 bg-gradient-to-br from-[#EAF2F8] via-[#F3F4F6] to-pink-50 flex items-center justify-center">
           <div class="text-center">
-            <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl mx-auto mb-2 flex items-center justify-center shadow-lg">
+            <div class="w-10 h-10 bg-gradient-to-br from-[#1A2B3C] to-[#10B981] rounded-xl mx-auto mb-2 flex items-center justify-center shadow-lg">
               <span class="text-white text-lg">✨</span>
             </div>
             <p class="text-sm text-gray-500">Tu tienda aparecerá aquí</p>

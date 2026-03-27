@@ -4,7 +4,7 @@ class Admin::DashboardsController < ApplicationController
 
   def index
     @tab = %w[products orders].include?(params[:tab]) ? params[:tab] : "products"
-
+    
     if @tab == "products"
       @products = @store.products.with_attached_images.order(created_at: :desc)
     else

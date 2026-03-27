@@ -1,9 +1,8 @@
 <%= form_with(model: [:admin, product], class: "space-y-6 w-full") do |form| %>
 
-  <!-- Images Field -->
   <div data-controller="image-preview" data-image-preview-max-files-value="2">
     <div class="flex gap-1 mb-2">
-      <%= form.label :images, "Imágenes", class: "block text-sm font-medium leading-6 text-gray-900" %>
+      <%= form.label :images, "Imágenes", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
       <span class="text-red-500">*</span>
       <span data-image-preview-target="counter" class="ml-auto text-xs text-gray-400">0 / 2</span>
     </div>
@@ -23,13 +22,13 @@
 
     <div data-image-preview-target="dropzone"
          data-action="dragover->image-preview#dragover dragleave->image-preview#dragleave drop->image-preview#drop"
-         class="relative rounded-xl border-2 border-dashed border-gray-200 p-6 text-center transition-all hover:border-purple-300 cursor-pointer"
+         class="relative rounded-xl border-2 border-dashed border-gray-200 p-6 text-center transition-all hover:border-[#10B981] cursor-pointer"
          onclick="this.querySelector('input[type=file]').click()">
 
       <div data-placeholder>
         <%= render_svg("upload.svg", styles: "mx-auto h-10 w-10 text-gray-300") %>
         <p class="mt-2 text-sm text-gray-500">
-          Arrastra tus imágenes aquí o <span class="text-purple-600 font-medium">haz clic para seleccionar</span>
+          Arrastra tus imágenes aquí o <span class="text-[#10B981] font-medium">haz clic para seleccionar</span>
         </p>
         <p class="mt-1 text-xs text-gray-400">JPG, PNG o WebP · Máx. 10 MB · Hasta 2 imágenes</p>
       </div>
@@ -47,34 +46,31 @@
     <%= display_field_errors(product, :images) %>
   </div>
 
-  <!-- Name Field -->
   <div>
     <div class="flex gap-1 mb-2">
-      <%= form.label :name, "Nombre", class: "block text-sm font-medium leading-6 text-gray-900" %>
+      <%= form.label :name, "Nombre", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
       <span class="text-red-500">*</span>
     </div>
     <div class="relative rounded-md shadow-sm">
       <%= form.text_field :name,
           placeholder: "Nombre del producto",
-          class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6 #{'ring-red-300 focus:ring-red-500' if product.errors[:name].any?}"
+          class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white #{'border-red-300 focus:border-red-500 focus:ring-red-500/20' if product.errors[:name].any?}"
       %>
     </div>
     <%= display_field_errors(product, :name) %>
   </div>
 
-  <!-- Price Field -->
   <div>
     <div class="flex gap-1 mb-2">
-      <%= form.label :price, "Precio", class: "block text-sm font-medium leading-6 text-gray-900" %>
+      <%= form.label :price, "Precio", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
       <span class="text-red-500">*</span>
     </div>
     <div class="relative rounded-md shadow-sm">
       <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-        <span class="text-gray-500 sm:text-sm">$</span>
       </div>
       <%= form.text_field :price,
-          placeholder: "0.00",
-          class: "block w-full rounded-xl border-0 p-3 pl-7 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6 #{'ring-red-300 focus:ring-red-500' if product.errors[:price].any?}"
+          placeholder: "$ 0.00",
+          class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white #{'border-red-300 focus:border-red-500 focus:ring-red-500/20' if product.errors[:price].any?}"
       %>
     </div>
     <%= display_field_errors(product, :price) %>
@@ -82,14 +78,14 @@
 
   <div>
     <div class="flex gap-1 mb-2">
-      <%= form.label :description, "Descripción", class: "block text-sm font-medium leading-6 text-gray-900" %>
+      <%= form.label :description, "Descripción", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
       <span class="text-red-500">*</span>
     </div>
     <div class="relative rounded-md shadow-sm">
       <%= form.text_area :description,
           rows: 4,
           placeholder: "Describe materiales, tamaños, colores disponibles...",
-          class: "block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 sm:text-sm sm:leading-6 #{'ring-red-300 focus:ring-red-500' if product.errors[:description].any?}"
+          class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white #{'border-red-300 focus:border-red-500 focus:ring-red-500/20' if product.errors[:description].any?}"
       %>
     </div>
     <%= display_field_errors(product, :description) %>

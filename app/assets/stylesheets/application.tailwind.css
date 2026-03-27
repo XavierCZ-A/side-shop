@@ -1,21 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  /* 
-    =========================================
-    PALETA DE COLORES (Color Palette)
-    =========================================
-    Aquí definimos los colores semánticos de la aplicación.
-    Si necesitas cambiar el "look" de la app, modifica estos valores.
-  */
-
-  /*
-    --color-primary: Color principal de la marca. 
-    Usado para botones principales (`bg-primary`), enlaces activos, y elementos destacados.
-    Recomendación: Un color fuerte y legible (ej. Azul, Índigo, Esmeralda).
-  */
-  --color-primary: oklch(0.58 0.28 296);
-  /* Purple Brand (#820BFF approx) */
+  --color-primary: #1A2B3C;
+  /* Azul Medianoche */
   --color-primary-foreground: oklch(1 0 0);
   /* Texto blanco sobre fondo primario */
 
@@ -23,18 +10,18 @@
     --color-secondary: Color secundario. 
     Usado para elementos de menor jerarquía, fondos de tarjetas secundarias o estados neutros.
   */
-  --color-secondary: oklch(0.968 0.007 247.896);
-  /* Gris muy suave (Slate-100) */
-  --color-secondary-foreground: oklch(0.208 0.042 265.755);
-  /* Texto oscuro (Slate-900) */
+  --color-secondary: #F3F4F6;
+  /* Gris Nube */
+  --color-secondary-foreground: #1A2B3C;
+  /* Azul Medianoche para texto en superficies neutras */
 
   /*
     --color-accent: Color de acento.
     Usado para interacciones momentáneas (hover, active) o detalles decorativos.
   */
-  --color-accent: oklch(0.968 0.007 247.896);
-  /* Mismo gris suave por defecto */
-  --color-accent-foreground: oklch(0.208 0.042 265.755);
+  --color-accent: #10B981;
+  /* Verde Esmeralda Vital */
+  --color-accent-foreground: #FFFFFF;
 
   /*
     --color-destructive: Color para acciones peligrosas o errores.
@@ -49,18 +36,15 @@
     --color-success: Color para acciones positivas.
     Usado para mensajes de éxito, checks, etc.
   */
-  --color-success: oklch(0.623 0.188 145.371);
-  /* Green-600 */
-  --color-success-foreground: oklch(0.985 0 0);
+  --color-success: #10B981;
+  --color-success-foreground: #FFFFFF;
 
   /*
     --color-muted: Color apagado.
     Usado para textos secundarios, pies de página, o fondos deshabilitados.
   */
-  --color-muted: oklch(0.968 0.007 247.896);
-  /* Slate-100 */
-  --color-muted-foreground: oklch(0.554 0.046 257.417);
-  /* Slate-500 (Gris medio) */
+  --color-muted: #F3F4F6;
+  --color-muted-foreground: #4B5563;
 
   /* 
     =========================================
@@ -69,32 +53,29 @@
   */
 
   /* --color-background: El fondo general de la página (<body>). */
-  --color-background: oklch(1 0 0);
-  /* Blanco puro */
+  --color-background: #F3F4F6;
+  /* 60% Neutro */
 
   /* --color-foreground: El color de texto principal estándar. */
-  --color-foreground: oklch(0.141 0.005 285.823);
-  /* Slate-950 (Casi negro) */
+  --color-foreground: #1A2B3C;
+  /* Texto principal */
 
   /* --color-card: Fondo para tarjetas o contenedores independientes. */
-  --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(0.141 0.005 285.823);
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1A2B3C;
 
   /* --color-popover: Fondo para elementos flotantes (menús, modales). */
-  --color-popover: oklch(1 0 0);
-  --color-popover-foreground: oklch(0.141 0.005 285.823);
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #1A2B3C;
 
   /* --color-border: Color para bordes sutiles y separadores. */
-  --color-border: oklch(0.897 0.01 220);
-  /* Slate-200 */
+  --color-border: #E5E7EB;
 
   /* --color-input: Color específico para bordes de campos de formulario. */
-  --color-input: oklch(0.897 0.01 220);
-  /* Slate-200 */
+  --color-input: #D1D5DB;
 
   /* --color-ring: Color del anillo de enfoque (focus outline) para accesibilidad. */
-  --color-ring: oklch(0.141 0.005 285.823);
-  /* Slate-950 */
+  --color-ring: #10B981;
 
   /* 
     =========================================
@@ -141,6 +122,10 @@
     /* Fondo y texto base */
     /* Mejora de renderizado de fuentes */
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  main {
+    @apply bg-background;
   }
 }
 

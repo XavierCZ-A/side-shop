@@ -10,13 +10,13 @@
         placeholder: "tu@email.com",
         value: @email,
         id: "email_address",
-          class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-violet-500 focus:ring-[3px] focus:ring-violet-500/12 focus:bg-white" %>
+          class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white" %>
   </div>
 
   <div class="mb-5">
     <div class="flex justify-between items-center mb-2">
       <label class="text-[0.8125rem] font-medium text-[#1a1a2e]" for="password">Contraseña</label>
-      <%= link_to "¿Olvidaste tu contraseña?", new_password_path, class: "text-xs text-violet-500 font-medium hover:text-violet-600 transition-colors" %>
+      <%= link_to "¿Olvidaste tu contraseña?", new_password_path, class: "text-xs text-[#10B981] font-medium hover:text-[#0f9f72] transition-colors" %>
     </div>
     <%= form.password_field :password,
         required: true,
@@ -24,7 +24,7 @@
         placeholder: "••••••••",
         maxlength: 72,
         id: "password",
-        class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-violet-500 focus:ring-[3px] focus:ring-violet-500/12 focus:bg-white" %>
+        class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white" %>
   </div>
 
   <%= render Buttons::Component.new(

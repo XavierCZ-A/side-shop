@@ -33,7 +33,7 @@
       <% end %>
     </div>
   <% else %>
-    <div class="h-64 bg-gray-100 flex items-center justify-center shrink-0">
+    <div class="h-64 bg-[#F3F4F6] flex items-center justify-center shrink-0">
       <%= render_svg("photo.svg", styles: "w-12 h-12 text-gray-300") %>
     </div>
   <% end %>
@@ -41,7 +41,7 @@
   <div class="p-5 flex flex-col grow">
     
     <div class="flex justify-between items-start mb-2 gap-4">
-      <h3 class="text-xl font-bold text-gray-900 leading-tight">
+      <h3 class="text-xl font-bold text-[#1A2B3C] leading-tight">
         <%= product.name %>
       </h3>
       <span class="text-xl text-primary font-bold shrink-0">
@@ -57,7 +57,7 @@
       text: "Editar",
       href: edit_admin_product_path(product),
       data: { turbo_frame: "modal" },
-      classes: "mt-auto"
+      classes: "mt-auto",
     ) %>
   </div>
 </div>
