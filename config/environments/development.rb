@@ -25,6 +25,13 @@ Rails.application.configure do
     config.action_controller.perform_caching = false
   end
 
+  config.action_dispatch.tld_length = 1 
+
+  config.hosts << ".lvh.me"
+  # config.hosts << "shopy-tecnologia.lvh.me:3000"
+
+  # routes.default_url_options = { host: "lvh.me", port: 3000 }
+
   # Change to :null_store to avoid any caching.
   config.cache_store = :memory_store
 

@@ -1,19 +1,19 @@
-class LineItemsController < ApplicationController
+class LineItemsController < StoreBaseController
   skip_before_action :check_onboarding_status
   allow_unauthenticated_access
 
   def create
-    product = @store.products.find(params[:product_id])
+    product = @current_store.products.find(params[:product_id])
     @line_item = @cart.add_product(product)
 
     if @line_item.save
       flash.now[:notice] = "Añadido al carrito: #{product.name}"
       respond_to do |format|
-        format.html { redirect_to store_path(store_slug: @store.slug), notice: "Añadido al carrito" }
+        format.html { redirect_to store_path(store_slug: @current_store.slug), notice: "Añadido al carrito" }
         format.turbo_stream
       end
     else
-      redirect_to store_path(store_slug: @store.slug), alert: "No se pudo añadir al carrito"
+      redirect_to store_path(store_slug: @current_store.slug), alert: "No se pudo añadir al carrito"
     end
   end
   
@@ -28,17 +28,17 @@ class LineItemsController < ApplicationController
 
     if @line_item.save
       respond_to do |format|
-        format.html { redirect_to carts_path(@store.slug, @cart) }
+        format.html { redirect_to carts_path(@current_store.slug, @cart) }
         format.turbo_stream
       end
     else
-      redirect_to carts_path(@store.slug, @cart), alert: "No se pudo actualizar el carrito"
+      redirect_to carts_path(@current_store.slug, @cart), alert: "No se pudo actualizar el carrito"
     end
   end
 
   def destroy
     @line_item = @cart.line_items.find(params[:id])
     @line_item.destroy
-    redirect_to carts_path(@store.slug, @cart), status: :see_other
+    redirect_to cart_path, status: :see_other
   end
 end

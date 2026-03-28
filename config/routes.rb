@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   mount GoodJob::Engine => "good_job"
-  get '/store/:store_slug', to: 'stores#show', as: :store
 
-  scope '/store/:store_slug' do
-    resources :line_items, only: [ :create, :destroy, :update ]
-    resource :carts, only: [ :show, :destroy ]
+  constraints StoreSubdomain do
+    root "stores#show", as: :store_root
+    resources :line_items, only: [:create, :destroy, :update]
+    resource  :cart,       only: [:show, :destroy]
   end
   
   resource :onboardings, path: "get-started", only: [ :show, :create ]

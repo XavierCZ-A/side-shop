@@ -44,7 +44,7 @@
       <h3 class="text-xl font-bold text-[#1A2B3C] leading-tight">
         <%= product.name %>
       </h3>
-      <span class="text-xl font-bold shrink-0" style="color: <%= @store.primary_color %>;" >
+      <span class="text-xl font-bold shrink-0" style="color: <%= @current_store.primary_color %>;" >
         <%= number_to_currency(product.price) %>
       </span>
     </div>
@@ -53,7 +53,7 @@
       <%= product.description %>
     </p>
 
-    <%= form_with url: line_items_path(store_slug: @store.slug, product_id: product), method: :post, class: "w-full" do %>
+    <%= form_with url: line_items_path(store_slug: @current_store.slug, product_id: product), method: :post, class: "w-full" do %>
       <%= render Buttons::Component.new(
         text: "Agregar al carrito",
         type: "submit",
