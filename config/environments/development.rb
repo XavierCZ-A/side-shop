@@ -33,7 +33,7 @@ Rails.application.configure do
   # routes.default_url_options = { host: "lvh.me", port: 3000 }
 
   # Change to :null_store to avoid any caching.
-  config.cache_store = :memory_store
+  config.cache_store = :solid_cache_store
 
   # Configure Active Job adapter for immediate execution in development.
   config.active_job.queue_adapter = :good_job

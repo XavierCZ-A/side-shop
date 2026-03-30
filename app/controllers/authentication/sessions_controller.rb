@@ -13,6 +13,7 @@ class Authentication::SessionsController < ApplicationController
       redirect_to admin_root_path
     else
       @email = params[:email_address]
+      @user = User.new
       flash.now[:alert] = "La contraseña o el correo electrónico es incorrecto."
       render :new, status: :unprocessable_entity
     end

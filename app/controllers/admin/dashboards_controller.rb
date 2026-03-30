@@ -3,6 +3,7 @@ class Admin::DashboardsController < ApplicationController
   before_action :set_store
 
   def index
+    @store_url = "http://" + @store.slug + ".lvh.me"
     @tab = %w[products orders].include?(params[:tab]) ? params[:tab] : "products"
 
     if @tab == "products"

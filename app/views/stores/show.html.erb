@@ -42,16 +42,12 @@
             <% end %>
         </div>
     </div>
-
-    <%# <%= render "stores/cart/cart_sidebar", primary_color: primary_color %>
         
     <%= render "stores/cart/shopping_cart" %>
 
     <div class="w-full mx-auto px-4 py-8 border-t border-gray-200 bg-[#F3F4F6]">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-            <% @products.each do |product| %>
-                <%= render "stores/products/product_card", product: product %>
-            <% end %>
+            <%= render partial: "stores/products/product_card", collection: @products, as: :product, cached: true %>
         </div>
     </div>
 </div>
