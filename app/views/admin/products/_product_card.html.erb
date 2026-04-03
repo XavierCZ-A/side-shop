@@ -53,11 +53,21 @@
       <%= product.description %>
     </p>
 
-    <%= render Buttons::Component.new(
-      text: "Editar",
-      href: edit_admin_product_path(product),
-      data: { turbo_frame: "modal" },
-      classes: "mt-auto",
-    ) %>
+    <div class="flex gap-2 mt-auto">
+      <%= render Buttons::Component.new(
+        text: product.active? ? "Desactivar" : "Activar",
+        variant: :secondary,
+        full_width: true,
+        href: toggle_active_admin_product_path(product),
+        data: { turbo_method: :patch, turbo_confirm: "Cuando desactives este producto, no se mostrará en tu tienda." }
+      ) %>
+
+      <%= render Buttons::Component.new(
+        text: "Editar",
+        full_width: true,
+        href: edit_admin_product_path(product),
+        data: { turbo_frame: "modal" },
+      ) %>
+    </div>
   </div>
 </div>

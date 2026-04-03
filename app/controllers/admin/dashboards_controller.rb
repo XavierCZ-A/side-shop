@@ -3,11 +3,11 @@ class Admin::DashboardsController < ApplicationController
   before_action :set_store
 
   def index
-    @store_url = "http://" + @store.slug + ".lvh.me"
     @tab = %w[products orders].include?(params[:tab]) ? params[:tab] : "products"
 
     if @tab == "products"
-      @products = @store.products.with_attached_images.order(created_at: :desc)
+      @product_status = %w[active inactive].include?(params[:status]) ? params[:status] : "active"
+      @products = @store.products.with_attached_images.send(@product_status).order(created_at: :desc)
     else
       @orders = []
     end

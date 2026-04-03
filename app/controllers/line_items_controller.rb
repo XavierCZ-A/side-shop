@@ -7,13 +7,12 @@ class LineItemsController < StoreBaseController
     @line_item = @cart.add_product(product)
 
     if @line_item.save
-      flash.now[:notice] = "Añadido al carrito: #{product.name}"
       respond_to do |format|
-        format.html { redirect_to store_path(store_slug: @current_store.slug), notice: "Añadido al carrito" }
-        format.turbo_stream
+        format.html { redirect_to store_root_path(store_slug: @current_store.slug) }
+        format.turbo_stream { flash.now[:notice] = "Añadido al carrito test: #{product.name}" }
       end
     else
-      redirect_to store_path(store_slug: @current_store.slug), alert: "No se pudo añadir al carrito"
+      redirect_to store_root_path(store_slug: @current_store.slug), alert: "No se pudo añadir al carrito"
     end
   end
   
@@ -28,11 +27,11 @@ class LineItemsController < StoreBaseController
 
     if @line_item.save
       respond_to do |format|
-        format.html { redirect_to carts_path(@current_store.slug, @cart) }
+        format.html { redirect_to cart_path }
         format.turbo_stream
       end
     else
-      redirect_to carts_path(@current_store.slug, @cart), alert: "No se pudo actualizar el carrito"
+      redirect_to cart_path, alert: "No se pudo actualizar el carrito"
     end
   end
 

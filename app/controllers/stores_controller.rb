@@ -3,6 +3,6 @@ class StoresController < StoreBaseController
   skip_before_action :check_onboarding_status
 
   def show
-    @products = @current_store.products.with_attached_images
+    @products = @current_store.products.with_attached_images.active
   end
 end

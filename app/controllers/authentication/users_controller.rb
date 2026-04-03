@@ -1,4 +1,5 @@
 class Authentication::UsersController < ApplicationController
+  layout "authentication_layout"
   skip_before_action :check_onboarding_status
   allow_unauthenticated_access only: %i[ new create ]
 
@@ -12,7 +13,7 @@ class Authentication::UsersController < ApplicationController
       start_new_session_for(@user)
       redirect_to onboardings_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

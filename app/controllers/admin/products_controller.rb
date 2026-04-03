@@ -1,5 +1,5 @@
 class Admin::ProductsController < ApplicationController
-  before_action :set_product, only: %i[ edit update ]
+  before_action :set_product, only: %i[ edit update toggle_active ]
 
   # GET /products/new
   def new
@@ -34,6 +34,14 @@ class Admin::ProductsController < ApplicationController
       end
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def toggle_active
+    @product.toggle_active!
+    respond_to do |format|
+      format.turbo_stream { flash.now[:notice] = "Producto #{@product.active? ? 'activado' : 'desactivado'} exitosamente." }
+      format.html { redirect_to admin_root_path, notice: "Producto #{@product.active? ? 'activado' : 'desactivado'} exitosamente." }
     end
   end
 

@@ -16,6 +16,24 @@
 
     </div>
 
+    <div class="flex gap-2 mb-4">
+      <%= render Buttons::Component.new(
+        text: "Activos (#{current_user.store.products.active.count})",
+        href: admin_root_path(tab: "products", status: "active"),
+        pill: true,
+        data: { turbo_frame: "dashboard_content" },
+        variant: @product_status == "active" ? :primary : :outline
+      ) %>
+
+      <%= render Buttons::Component.new(
+        text: "Desactivados (#{current_user.store.products.inactive.count})",
+        href: admin_root_path(tab: "products", status: "inactive"),
+        pill: true,
+        data: { turbo_frame: "dashboard_content" },
+        variant: @product_status == "inactive" ? :primary : :outline
+      ) %>
+    </div>
+
     <div id="products_list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <% products.each do |product| %>
         <%= render "admin/products/product_card", product: product %>
@@ -27,10 +45,17 @@
         <div class="bg-white p-4 rounded-full shadow-sm mb-4 mt-4">
           <%= render_svg("paint.svg", styles: "w-8 h-8 text-primary") %>
         </div>
-        <h3 class="text-lg font-bold text-[#1A2B3C] mb-2">Tu catálogo está vacío</h3>
-        <p class="text-gray-500 mb-8 max-w-xs mx-auto leading-relaxed">
-          ¡Es hora de llear tu tienda! Agrega tu primer producto para empezar a vender hoy mismo.
-        </p>
+        <% if @product_status == 'active' %>
+          <h3 class="text-lg font-bold text-[#1A2B3C] mb-2">Tu catálogo está vacío</h3>
+          <p class="text-gray-500 mb-8 max-w-xs mx-auto leading-relaxed">
+            ¡Es hora de llenar tu tienda! Agrega tu primer producto para empezar a vender hoy mismo.
+          </p>
+        <% else %>
+          <h3 class="text-lg font-bold text-[#1A2B3C] mb-2">No tienes productos desactivados</h3>
+          <p class="text-gray-500 mb-8 max-w-xs mx-auto leading-relaxed">
+            Todos tus productos están activos y visibles en tu tienda.
+          </p>
+        <% end %>
       </div>
     <% end %>
   </div>

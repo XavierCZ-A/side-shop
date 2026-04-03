@@ -21,7 +21,7 @@ RSpec.describe "Authentication::Sessions", type: :request do
           post session_path, params: valid_credentials
         }.to change(Session, :count).by(1)
 
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(admin_root_path)
         expect(cookies[:session_id]).to be_present
       end
     end
@@ -32,7 +32,7 @@ RSpec.describe "Authentication::Sessions", type: :request do
           post session_path, params: invalid_credentials
         }.not_to change(Session, :count)
 
-        expect(response).to redirect_to(new_session_path)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(flash[:alert]).to eq("La contraseña o el correo electrónico es incorrecto.")
       end
     end

@@ -1,4 +1,5 @@
 class Authentication::SessionsController < ApplicationController
+  layout "authentication_layout"
   skip_before_action :check_onboarding_status
   allow_unauthenticated_access only: %i[ new create ]
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
@@ -14,7 +15,7 @@ class Authentication::SessionsController < ApplicationController
     else
       @email = params[:email_address]
       @user = User.new
-      flash.now[:alert] = "La contraseña o el correo electrónico es incorrecto."
+      flash.now[:alert] = "El correo electrónico o la contraseña son incorrectos."
       render :new, status: :unprocessable_entity
     end
   end

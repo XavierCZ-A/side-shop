@@ -17,7 +17,11 @@ Rails.application.routes.draw do
 
   namespace :admin, path: "dashboard" do
     root "dashboards#index"
-    resources :products, only: [ :new, :create, :edit, :update ]
+    resources :products, only: [ :new, :create, :edit, :update ] do 
+      member do
+        patch :toggle_active
+      end
+    end
     get "customize", to: "dashboards#edit", as: :customize
     patch "customize", to: "dashboards#update"
   end

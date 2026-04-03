@@ -15,6 +15,13 @@ class Product < ApplicationRecord
   validate :image_count_within_limits
   validate :acceptable_images
 
+  scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
+  
+  def toggle_active!
+    update!(active: !active)
+  end
+  
   private
 
   def image_count_within_limits

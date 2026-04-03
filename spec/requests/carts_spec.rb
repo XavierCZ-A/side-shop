@@ -3,29 +3,30 @@ require 'rails_helper'
 RSpec.describe "Carts", type: :request do
   let(:user) { create(:user, password: "password") }
   let!(:store) { create(:store, user: user) }
+  let(:subdomain_host) { "#{store.slug}.lvh.me" }
 
-  before { login_as(user) }
+  before do
+    login_as(user)
+    host! subdomain_host
+  end
 
-  describe "GET store/:store_slug/carts/" do
+  describe "GET /carts" do
     it "renders the cart page successfully" do
-      cart = Cart.last
-      get carts_path(store.slug, cart)
+      get cart_path
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "DELETE store/:store_slug/carts/" do
+  describe "DELETE /carts" do
     it "destroys the cart and redirects" do
-      cart = Cart.last
-      delete carts_path(store.slug, cart)
+      delete cart_path
 
-      expect(response).to redirect_to(store_path(store.slug))
+      expect(response).to redirect_to(store_root_path)
       follow_redirect! 
     end
 
     it "sets a flash notice" do
-      cart = Cart.last
-      delete carts_path(store.slug, cart)
+      delete cart_path
 
       expect(flash[:notice]).to eq("Tu carrito se vació")
     end

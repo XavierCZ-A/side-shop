@@ -1,0 +1,7 @@
+<%= render layout: "authentication/auth_layout", locals: {
+  active_tab: :register,
+  title: "Crea tu Tienda Gratis",
+  subtitle: "Únete a miles de vendedores. Solo necesitas 3 pasos para comenzar."
+} do %>
+  <%= render "authentication/users/register_form", user: @user %>
+<% end %>

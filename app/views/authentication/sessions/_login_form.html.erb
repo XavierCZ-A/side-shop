@@ -1,3 +1,12 @@
+<% if flash[:alert] %>
+  <div class="mb-5 p-3.5 bg-red-50 border border-red-200 rounded-xl">
+    <div class="flex items-center gap-2">
+      <%= render_svg("exclamation_circle.svg", styles: "w-5 h-5 text-red-500 shrink-0") %>
+      <span class="text-[0.8125rem] font-medium text-red-700"><%= flash[:alert] %></span>
+    </div>
+  </div>
+<% end %>
+
 <%= form_with url: session_url, class: "w-full" do |form| %>
   <div class="mb-5">
     <div class="flex justify-between items-center mb-2">

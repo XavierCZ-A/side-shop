@@ -1,0 +1,65 @@
+<div class="font-sans flex flex-col md:flex-row min-h-[100dvh] md:h-[100dvh]">
+
+  <div class="bg-gradient-to-br from-[#EAF2F8] via-[#F3F4F6] via-40% to-[#ECFDF5] p-6 pb-8 md:p-12 lg:p-14 flex flex-col justify-center relative overflow-hidden md:w-[45%] md:h-full">
+    <div class="absolute -top-[50%] -right-[30%] w-[80%] h-[200%] bg-[radial-gradient(ellipse,_rgba(255,255,255,0.15)_0%,_transparent_70%)] pointer-events-none"></div>
+    <div class="flex items-center gap-2 mb-8 relative z-10">
+      <div class="w-9 h-9 bg-primary rounded-[10px] flex items-center justify-center">
+        <%= render_svg "store.svg", styles: "w-5 h-5 text-white" %>
+      </div>
+      <span class="text-lg font-bold text-[#1a1a2e]">PocketShop</span>
+    </div>
+
+    <h1 class="text-[2rem] md:text-[2.5rem] lg:text-[2.75rem] font-extrabold text-[#0f0f23] leading-tight mb-8 max-w-[420px] relative z-10">
+      Empieza a vender online en minutos, no&nbsp;en&nbsp;semanas.
+    </h1>
+
+    <div class="mt-auto relative z-10">
+      <p class="text-[0.9rem] text-[#4a4a6a] italic leading-relaxed mb-4 max-w-[380px]">
+        "PocketShop cambió mi negocio. Pasé de tomar pedidos por DM a tener una tienda profesional en una tarde."
+      </p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#1A2B3C] to-[#10B981] flex items-center justify-center text-sm font-semibold text-white shrink-0">SM</div>
+        <div>
+          <div class="text-sm font-semibold text-[#1a1a2e]">Sarah M.</div>
+          <div class="text-xs text-[#6b6b8a]">Dueña de Sarah's Crafts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white p-6 py-10 md:p-12 lg:p-20 flex flex-col justify-center flex-1 md:overflow-y-auto">
+    <div class="w-full max-w-[420px] mx-auto md:my-auto">
+
+      <%= turbo_frame_tag "auth_form", target: "_top" do %>
+        <h2 class="text-[1.50rem] font-bold text-[#0f0f23] mb-1.5"><%= title %></h2>
+        <p class="text-sm text-[#7c7c9a] mb-7"><%= subtitle %></p>
+
+        <div class="flex bg-[#f4f4f8] rounded-full p-1 mb-7">
+          <%= render Buttons::Component.new(
+            text: "Iniciar Sesión",
+            pill: true,
+            variant: :ghost,
+            classes: "w-1/2 #{active_tab == :login ? 'bg-white shadow-sm text-[#1A2B3C]' : 'text-gray-500 hover:text-gray-700'}",
+            href: new_session_path,
+            data: { turbo_frame: "auth_form" } 
+          ) %>
+
+          <%= render Buttons::Component.new(
+            text: "Registrarse",
+            pill: true,
+            variant: :ghost,
+            classes: "w-1/2 #{active_tab == :register ? 'bg-white shadow-sm text-[#1A2B3C]' : 'text-gray-500 hover:text-gray-700'}",
+            href: new_user_path,
+            data: { turbo_frame: "auth_form" }
+          ) %>
+        </div>
+
+        <%= yield %>
+      <% end %>
+
+      <p class="text-center text-[0.6875rem] text-[#9a9ab0] mt-6 leading-relaxed">
+        Al continuar, aceptas nuestros <a href="#" class="text-[#1a1a2e] underline underline-offset-2 font-medium hover:text-[#0f9f72] transition-colors">Términos de Servicio</a> y <a href="#" class="text-[#1a1a2e] underline underline-offset-2 font-medium hover:text-[#0f9f72] transition-colors">Política de Privacidad</a>.
+      </p>
+    </div>
+  </div>
+</div>
