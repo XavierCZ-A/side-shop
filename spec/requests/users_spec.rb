@@ -9,7 +9,7 @@ RSpec.describe "Authentication::Users", type: :request do
   describe "GET /register" do
     it "renders the registration page successfully" do
       get new_user_path
-      expect(response).to redirect_to(onboardings_path)
+      expect(response).to have_http_status(:success)
     end
   end
 

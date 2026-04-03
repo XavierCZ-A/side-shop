@@ -33,7 +33,7 @@ RSpec.describe "Authentication::Sessions", type: :request do
         }.not_to change(Session, :count)
 
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(flash[:alert]).to eq("La contraseña o el correo electrónico es incorrecto.")
+        expect(flash[:alert]).to eq("El correo electrónico o la contraseña son incorrectos.")
       end
     end
   end

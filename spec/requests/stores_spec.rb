@@ -19,14 +19,16 @@ RSpec.describe "/stores", type: :request do
   # adjust the attributes here as well.
   let(:user) { create(:user) }
   let!(:store) { create(:store, user: user) }
+  let(:subdomain_host) { "#{store.slug}.lvh.me" }
 
   before do
     login_as(user)
+    host! subdomain_host
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      get store_url(store.slug)
+      get store_root_url
       expect(response).to be_successful
     end
   end

@@ -1,22 +1,13 @@
 require "rails_helper"
 
 RSpec.describe StoresController, type: :routing do
-  describe "GET /store/:store_slug" do
-    it "routes to stores#show with the correct slug" do
-      expect(get: "/store/mi-tienda-increible").to route_to(
-        controller: "stores",
-        action: "show",
-        store_slug: "mi-tienda-increible"
-      )
-    end
+  let(:user) { create(:user, password: "password") }
+  let!(:store) { create(:store, user: user) }
+  let(:subdomain_host) { "#{store.slug}.lvh.me" }
 
-    it "generates the 'store_path' helper route" do
-      # Esto verifica que el 'as: :store' funcione correctamente
-      expect(get: store_path("mi-tienda")).to route_to(
-        controller: "stores",
-        action: "show",
-        store_slug: "mi-tienda"
-      )
+  describe "routing" do
+    it "routes subdomain root to stores#show" do
+      expect(get: "http://#{subdomain_host}/").to route_to("stores#show")
     end
   end
 end
