@@ -66,7 +66,7 @@ export default class extends Controller {
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/\s+/g, "-")
       .replace(/[^\w\-]+/g, "")
-      .replace(/\-\-+/g, "-")
+      .replace(/\-\-+/g, "-");
   }
 
   showOtherInput() {
@@ -145,30 +145,30 @@ export default class extends Controller {
       const isCurrent = index === this.stepValue;
 
       indicator.classList.remove(
-        "bg-indigo-500",
+        "bg-accent",
         "bg-white",
         "bg-gray-100",
         "text-white",
         "text-gray-500",
         "ring-2",
-        "ring-indigo-500",
+        "ring-accent",
         "ring-offset-2",
         "shadow-lg",
-        "shadow-indigo-500/30",
+        "shadow-accent/30",
       );
 
       if (isCompleted) {
         indicator.classList.add(
-          "bg-indigo-500",
+          "bg-accent",
           "text-white",
           "shadow-lg",
-          "shadow-indigo-500/30",
+          "shadow-accent/30",
         );
       } else if (isCurrent) {
         indicator.classList.add(
           "bg-white",
           "ring-2",
-          "ring-indigo-500",
+          "ring-accent",
           "ring-offset-2",
           "shadow-lg",
         );

@@ -83,7 +83,7 @@ module Onboarding::Steps
             name: :price,
             label: "Precio",
             type: :number_field,
-            placeholder: "100",
+            placeholder: "$ 100",
             required: true
           },
           {
