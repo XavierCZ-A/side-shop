@@ -77,4 +77,5 @@ RSpec.configure do |config|
     end
   end
   config.include AuthenticationHelpers, type: :request
+  config.include PayHelper
 end

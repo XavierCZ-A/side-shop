@@ -10,5 +10,4 @@ class ApplicationController < ActionController::Base
     return unless current_user
     redirect_to onboardings_path unless current_user.store&.onboarding_complete?
   end
-
 end

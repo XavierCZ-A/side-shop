@@ -10,6 +10,9 @@ application.register("accordion", AccordionController)
 import AuthTabsController from "./auth_tabs_controller"
 application.register("auth-tabs", AuthTabsController)
 
+import BannerController from "./banner_controller"
+application.register("banner", BannerController)
+
 import CarouselController from "./carousel_controller"
 application.register("carousel", CarouselController)
 

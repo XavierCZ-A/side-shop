@@ -14,13 +14,27 @@
 #
 
 class User < ApplicationRecord
+  pay_customer default_payment_processor: :stripe
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_one :store, dependent: :destroy
 
+  alias_attribute :email, :email_address
   
   validates :email_address, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+
+  def subscribed?
+    payment_processor&.subscribed? || false
+  end
+
+  def on_trial?
+    trial_ends_at? && trial_ends_at > Time.current
+  end
+
+  def active_subscription
+    payment_processor&.subscription
+  end
 end

@@ -78,3 +78,5 @@ gem 'dotenv', groups: [:development, :test]
 gem "good_job", "~> 4.13"
 gem "view_component"
 gem 'rqrcode'
+gem 'stripe'
+gem "pay", "~> 11.5"

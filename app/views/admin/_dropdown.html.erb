@@ -13,6 +13,15 @@
     <% end %>
   </div>
 
+  <div class="py-1">
+    <%= link_to admin_billing_path, class: "flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 group transition-colors duration-150" do %>
+      <span class="mr-3">
+        <%= render_svg("user.svg", styles: "w-5 h-5") %>
+      </span>
+      Gestionar cuenta
+    <% end %>
+  </div>
+
   <div class="py-1 border-t border-gray-100">
     <%= button_to session_path, method: :delete, class: "w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 group transition-colors duration-150 w-full text-left cursor-pointer" do %>
       <span class="mr-3">

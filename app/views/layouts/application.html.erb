@@ -23,9 +23,11 @@
   </head>
 
   <body>
-    <div id="flash_notice_container">
-      <%= render "shared/flash_notice" %>
-    </div>
+    <% unless content_for?(:skip_global_flash) %>
+      <div id="flash_notice_container">
+        <%= render "shared/flash_notice" %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

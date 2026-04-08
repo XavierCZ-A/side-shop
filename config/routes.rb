@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   mount GoodJob::Engine => "good_job"
+  # POST /pay/webhooks/stripe
+  mount Pay::Engine, at: "/pay", as: "pay_engine"
 
   constraints StoreSubdomain do
     root "stores#show", as: :store_root
@@ -17,6 +19,11 @@ Rails.application.routes.draw do
 
   namespace :admin, path: "dashboard" do
     root "dashboards#index"
+    resources :subscriptions, only: [:new, :create, :destroy] do
+      patch :resume, on: :member
+    end
+    get  "/billing",        to: "billing#show"
+    post "/billing/portal", to: "billing#portal"
     resources :products, only: [ :new, :create, :edit, :update ] do 
       member do
         patch :toggle_active
