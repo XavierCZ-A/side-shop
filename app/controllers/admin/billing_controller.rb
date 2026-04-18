@@ -1,12 +1,12 @@
 class Admin::BillingController < ApplicationController
-
   def show
     processor = current_user.payment_processor
 
-    @subscription   = processor&.subscription
+    @subscription   = processor&.subscriptions&.order(created_at: :desc)&.first
     @charges        = processor&.charges&.last(5)
     @plans          = PricingPlan.all
-    @current_plan   = @subscription&.name
+    @current_plan   = @subscription&.name || "Basico"
+    pp @current_plan
     @default_method = @charges.first
 
     if params[:success]

@@ -5,10 +5,10 @@ Rails.application.routes.draw do
 
   constraints StoreSubdomain do
     root "stores#show", as: :store_root
-    resources :line_items, only: [:create, :destroy, :update]
-    resource  :cart,       only: [:show, :destroy]
+    resources :line_items, only: [ :create, :destroy, :update ]
+    resource  :cart,       only: [ :show, :destroy ]
   end
-  
+
   resource :onboardings, path: "get-started", only: [ :show, :create ]
   resources :passwords, param: :token
 
@@ -19,12 +19,12 @@ Rails.application.routes.draw do
 
   namespace :admin, path: "dashboard" do
     root "dashboards#index"
-    resources :subscriptions, only: [:new, :create, :destroy] do
+    resources :subscriptions, only: [ :new, :create, :destroy ] do
       patch :resume, on: :member
     end
     get  "/billing",        to: "billing#show"
     post "/billing/portal", to: "billing#portal"
-    resources :products, only: [ :new, :create, :edit, :update ] do 
+    resources :products, only: [ :new, :create, :edit, :update ] do
       member do
         patch :toggle_active
       end

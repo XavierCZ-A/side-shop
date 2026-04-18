@@ -25,7 +25,7 @@ Rails.application.configure do
     config.action_controller.perform_caching = false
   end
 
-  config.hosts << "333e-187-205-235-233.ngrok-free.app"
+  config.hosts << "4198-187-139-51-122.ngrok-free.app"
 
   config.action_dispatch.tld_length = 1
 

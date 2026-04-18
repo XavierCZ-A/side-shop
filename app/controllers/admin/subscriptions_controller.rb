@@ -14,9 +14,9 @@ class Admin::SubscriptionsController < ApplicationController
       line_items: plan[:price_id],
       success_url: admin_billing_url + "?success=true",
       cancel_url:  new_admin_subscription_url,
-      subscription_data: { 
-        metadata: { 
-          pay_name: plan[:name] 
+      subscription_data: {
+        metadata: {
+          pay_name: plan[:name]
         }
       }
     )
@@ -29,20 +29,25 @@ class Admin::SubscriptionsController < ApplicationController
   end
 
   def destroy
-    current_user.payment_processor.subscription&.cancel
-    redirect_to admin_billing_url, notice: "Suscripción cancelada al final del periodo."
+    subscription = processor_subscription
+
+    if subscription
+      subscription.cancel
+      redirect_to admin_billing_url, notice: "Suscripción cancelada al final del periodo."
+    else
+      redirect_to admin_billing_url, alert: "No se encontró una suscripción activa."
+    end
   end
 
   def resume
-    subscription = current_user.payment_processor.subscription
+    subscription = processor_subscription
 
     if subscription&.on_grace_period?
-        subscription.resume
-        redirect_to admin_billing_url, notice: "¡Tu suscripción ha sido reactivada con éxito!"
+      subscription.resume
+      redirect_to admin_billing_url, notice: "¡Tu suscripción ha sido reactivada con éxito!"
     else
       redirect_to admin_billing_url, alert: "No se puede reactivar esta suscripción."
     end
-
   end
 
   private
@@ -50,5 +55,12 @@ class Admin::SubscriptionsController < ApplicationController
   def handle_payment_error(exception)
     logger.error "Error de pago: #{exception.message}"
     redirect_to admin_billing_url, alert: "Ocurrió un error al procesar tu pago. Por favor, intenta nuevamente o contacta soporte."
+  end
+
+  def processor_subscription
+  current_user.payment_processor
+              &.subscriptions
+              &.order(created_at: :desc)
+              &.first
   end
 end

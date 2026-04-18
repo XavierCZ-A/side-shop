@@ -116,12 +116,10 @@
                 class: "inline-flex w-full items-center justify-center rounded-xl bg-[#1A2B3C] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 sm:w-auto cursor-pointer" %>
 
           <% if @subscription.present? && !@subscription.canceled? %>
-            <%= render Buttons::Component.new(
-              text: "Cancelar al final del periodo",
-              href: admin_subscription_path(@subscription),
-              data: { turbo_method: :delete, turbo_confirm: "¿Quieres cancelar tu suscripcion al final del periodo actual?" },
-              variant: :outline,
-            ) %>
+          <%= button_to "Cancelar suscripción", admin_subscription_path(@subscription), 
+                method: :delete, 
+                data: { turbo_method: :delete, turbo_confirm: "¿Quieres cancelar tu suscripcion al final del periodo actual?" },
+                class: "inline-flex w-full items-center justify-center rounded-xl bg-[#EF4444] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 sm:w-auto cursor-pointer" %>
           <% end %>
 
           <% if @subscription&.on_grace_period? %>
