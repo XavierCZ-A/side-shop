@@ -19,8 +19,8 @@ gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-#use sqlite3 as solid cache
-gem 'sqlite3', '~> 2.0', '>= 2.0.2'
+# use sqlite3 as solid cache
+gem "sqlite3", "~> 2.0", ">= 2.0.2"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
@@ -55,13 +55,13 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem 'rspec-rails', '~> 8.0.0'
+  gem "rspec-rails", "~> 8.0.0"
   gem "factory_bot_rails"
-  gem 'faker'
+  gem "faker"
 end
 
 group :development do
-  gem 'annotate'
+  gem "annotate"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
@@ -70,13 +70,14 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  gem 'shoulda-matchers'
+  gem "shoulda-matchers"
 end
 
-gem 'bullet', group: 'development'
-gem 'dotenv', groups: [:development, :test]
+gem "bullet", group: "development"
+gem "dotenv", groups: [ :development, :test ]
 gem "good_job", "~> 4.13"
 gem "view_component"
-gem 'rqrcode'
-gem 'stripe'
+gem "rqrcode"
+gem "stripe"
 gem "pay", "~> 11.5"
+gem "ruby-vips"

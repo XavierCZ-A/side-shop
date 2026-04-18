@@ -26,13 +26,10 @@ Rails.application.configure do
   end
 
   config.hosts << "333e-187-205-235-233.ngrok-free.app"
-  
-  config.action_dispatch.tld_length = 1 
+
+  config.action_dispatch.tld_length = 1
 
   config.hosts << ".lvh.me"
-  # config.hosts << "shopy-tecnologia.lvh.me:3000"
-
-  # routes.default_url_options = { host: "lvh.me", port: 3000 }
 
   # Change to :null_store to avoid any caching.
   config.cache_store = :solid_cache_store
