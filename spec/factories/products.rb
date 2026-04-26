@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id          :integer          not null, primary key
+#  name        :string           not null
+#  price       :decimal(10, 2)   not null
+#  active      :boolean          default(TRUE), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  store_id    :integer          not null
+#  description :text
+#
+# Indexes
+#
+#  index_products_on_store_id  (store_id)
+#
+
 FactoryBot.define do
   factory :product do
     name { "MyString" }
