@@ -1,6 +1,6 @@
 <% content_for :title, "Carrito de Compras" %>
 
-<div class="min-h-screen bg-[#F3F4F6]">
+<div class="min-h-screen bg-[#F3F4F6]" data-controller="cart-motion">
   <div class="bg-white border-b border-gray-200 sticky top-0 z-20">
     <div class="max-w-7xl mx-auto px-4 py-4 sm:py-5">
       <div class="flex items-center gap-3">
@@ -47,7 +47,7 @@
             <div class="space-y-3 text-sm">
               <div class="flex justify-between">
                 <span class="text-gray-500">Subtotal (<span id="cart_summary_count"><%= @cart.line_items.sum(:quantity) %></span> productos)</span>
-                <span id="cart_subtotal" class="font-medium text-[#1A2B3C]"><%= number_to_currency(@cart.total_price) %></span>
+                <span id="cart_subtotal" class="font-medium text-[#1A2B3C]" data-cart-motion-target="value" data-motion-kind="summary"><%= number_to_currency(@cart.total_price) %></span>
               </div>
 
               <div class="flex justify-between">
@@ -59,7 +59,7 @@
 
             <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-200">
               <span class="text-base font-bold text-[#1A2B3C]">Total</span>
-              <span id="cart_total" class="text-xl sm:text-2xl font-bold text-[#1A2B3C]"><%= number_to_currency(@cart.total_price) %></span>
+              <span id="cart_total" class="text-xl sm:text-2xl font-bold text-[#1A2B3C]" data-cart-motion-target="value" data-motion-kind="summary"><%= number_to_currency(@cart.total_price) %></span>
             </div>
 
             <div class="mt-5 pt-4 border-t border-gray-100">

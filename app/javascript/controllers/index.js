@@ -7,8 +7,8 @@ import { application } from "./application"
 import AccordionController from "./accordion_controller"
 application.register("accordion", AccordionController)
 
-import AuthTabsController from "./auth_tabs_controller"
-application.register("auth-tabs", AuthTabsController)
+import AnimationProductsController from "./animation_products_controller"
+application.register("animation-products", AnimationProductsController)
 
 import BannerController from "./banner_controller"
 application.register("banner", BannerController)

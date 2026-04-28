@@ -54,7 +54,9 @@
           ) %>
         </div>
 
-        <%= yield %>
+        <div data-controller="animation-products" data-animation-products-target="card">
+          <%= yield %>
+        </div>
       <% end %>
 
       <p class="text-center text-[0.6875rem] text-[#9a9ab0] mt-6 leading-relaxed">

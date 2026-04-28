@@ -34,7 +34,7 @@
       ) %>
     </div>
 
-    <div id="products_list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div id="products_list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-controller="animation-products">
       <% products.each do |product| %>
         <%= render "admin/products/product_card", product: product %>
       <% end %>

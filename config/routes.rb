@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     end
     get "customize", to: "dashboards#edit", as: :customize
     patch "customize", to: "dashboards#update"
+    get "share", to: "dashboards#share"
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

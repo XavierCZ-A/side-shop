@@ -129,12 +129,6 @@
   }
 }
 
-/*
-  =========================================
-  UTILIDADES PERSONALIZADAS (Custom Utilities)
-  =========================================
-  Si necesitas clases específicas que combinen varias propiedades.
-*/
 @layer utilities {
 
   /* Ejemplo: Centrado absoluto */
@@ -142,3 +136,19 @@
     @apply flex items-center justify-center;
   }
 }
+
+/* .auth-form-content {
+  animation: authFadeIn 0.5s ease-out both;
+}
+
+@keyframes authFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */

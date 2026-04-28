@@ -3,10 +3,9 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["item", "trigger", "content", "icon"];
   static values = {
-    allowMultiple: { type: Boolean, default: false }, // Allow multiple items to be open at once
+    allowMultiple: { type: Boolean, default: false },
   };
 
-  // Get only the direct child targets (not nested accordion targets)
   get ownItemTargets() {
     return this.itemTargets.filter(
       (item) => item.closest('[data-controller="accordion"]') === this.element,

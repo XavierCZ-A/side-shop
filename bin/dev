@@ -1,2 +1,19 @@
 #!/usr/bin/env ruby
-exec "./bin/rails", "server", *ARGV
+
+require "fileutils"
+
+ROOT = File.expand_path("..", __dir__)
+
+def ensure_foreman!
+	return if system("foreman", "--version", out: File::NULL, err: File::NULL)
+
+	puts "Installing foreman..."
+	system("gem", "install", "foreman") || abort("Could not install foreman")
+end
+
+Dir.chdir(ROOT) do
+	ensure_foreman!
+
+	procfile = File.exist?("Procfile.dev") ? "Procfile.dev" : "Procfile"
+	exec "foreman", "start", "-f", procfile, *ARGV
+end

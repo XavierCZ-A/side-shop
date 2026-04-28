@@ -4,11 +4,21 @@
 
       <h1 class="text-xl font-bold">Shopy</h1>
 
-      <div class="flex items-center gap-4 relative" data-controller="dropdown" data-action="click@window->dropdown#hide">
-        <%= render "admin/share_store" %>
-        <button class="cursor-pointer" data-action="dropdown#toggle">
-          <%= user_avatar(current_user.email_address, "#1b69d8", "white") %>
-        </button>
+      <div class="flex items-center gap-4 relative">
+        <%= render Buttons::Component.new(
+          text: "Compartir Tienda",
+          icon: render_svg("share.svg", styles: "w-4 h-4"),
+          pill: true,
+          data: { turbo_frame: "modal" },
+          href: admin_share_path,
+          classes: "[&_span:not(.shrink-0)]:hidden md:[&_span:not(.shrink-0)]:inline",
+        ) %>
+        <div data-controller="dropdown" data-action="click@window->dropdown#close" class="relative">
+          <button class="cursor-pointer" data-action="click->dropdown#toggle">
+            <%= user_avatar(current_user.email_address, "#1b69d8", "white") %>
+          </button>
+          <%= render "admin/dropdown" %>
+        </div>
         <%= render "admin/dropdown" %>
       </div>
 
