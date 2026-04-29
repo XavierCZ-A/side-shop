@@ -1,7 +1,4 @@
-# config/initializers/good_job.rb OR config/application.rb OR config/environments/{RAILS_ENV}.rb
-
 Rails.application.configure do
-  # Configure options individually...
   # config.good_job.preserve_job_records = true
   # config.good_job.retry_on_unhandled_error = false
   # config.good_job.on_thread_error = -> (exception) { Rails.error.report(exception) }
@@ -14,7 +11,7 @@ Rails.application.configure do
   config.good_job.cron = {
     cleanup_abandoned_carts: {
       cron: "*/2 * * * *",
-      class: 'CleanupAbandonedCartsJob'
+      class: "CleanupAbandonedCartsJob"
     }
   }
   config.good_job.cron_graceful_restart_period = 5.minutes

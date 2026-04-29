@@ -15,10 +15,10 @@ class LineItemsController < StoreBaseController
       redirect_to store_root_path(store_slug: @current_store.slug), alert: "No se pudo añadir al carrito"
     end
   end
-  
+
   def update
     @line_item = @cart.line_items.find(params[:id])
-    
+
     if params[:operation] == "increment"
       @line_item.quantity += 1
     elsif params[:operation] == "decrement" && @line_item.quantity > 1

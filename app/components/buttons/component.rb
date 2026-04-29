@@ -1,7 +1,8 @@
 # frozen_string_literal: true
+
 module Buttons
   class Component < ViewComponent::Base
-    VARIANTS = %i[primary secondary outline ghost destructive].freeze
+    VARIANTS = %i[primary secondary outline ghost destructive accent].freeze
     SIZES = %i[xs sm md lg].freeze
     STYLES = %i[basic fancy].freeze
 
@@ -118,24 +119,6 @@ module Buttons
       "inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap transition-all duration-200 select-none active:scale-95 touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
     end
 
-    # def size_classes
-    #   if @icon_only
-    #     case @size
-    #     when :xs then "p-1.5 text-xs"
-    #     when :sm then "p-2 text-xs"
-    #     when :lg then "p-3 text-sm"
-    #     else "p-2.5 text-xs" # md
-    #     end
-    #   else
-    #     case @size
-    #     when :xs then "px-2.5 py-1.5 text-xs"
-    #     when :sm then "px-3 py-2 text-xs"
-    #     when :lg then "px-4 py-2.5 text-base"
-    #     else "px-3.5 py-2 text-sm" # md
-    #     end
-    #   end
-    # end
-
     def size_classes
       if @icon_only
         case @size
@@ -159,7 +142,7 @@ module Buttons
     end
 
     def variant_classes
-      @style == :fancy ? fancy_variant_classes : basic_variant_classes
+      @style = basic_variant_classes
     end
 
     def basic_variant_classes
@@ -174,22 +157,10 @@ module Buttons
         "bg-transparent text-primary hover:bg-primary-100 hover:text-primary-900 focus-visible:outline-primary-600"
       when :destructive
         "border border-red-300/30 bg-red-600 text-white shadow-sm hover:bg-red-500 focus-visible:outline-primary-600"
+      when :accent
+        "border border-accent-400/30 bg-accent text-white shadow-sm hover:bg-accent-700 focus-visible:outline-accent-600"
       else
         basic_variant_classes_for(:primary)
-      end
-    end
-
-    def fancy_variant_classes
-      case @variant
-      when :primary
-        "relative bg-primary-900 text-white shadow-[0_4px_12px_0_rgb(from_theme(colors.primary.900)_r_g_b_/_0.15),0_2px_4px_0_rgb(from_theme(colors.primary.950)_r_g_b_/_0.2),0_0_0_1px_theme(colors.primary.900),inset_0_1px_0_0_rgb(from_theme(colors.white)_r_g_b_/_0.15),inset_0_0_0_1px_rgb(from_theme(colors.white)_r_g_b_/_0.03)] transition-all duration-200 ease-out before:pointer-events-none before:absolute before:inset-0 before:z-10 before:rounded-[inherit] before:bg-gradient-to-b before:from-white/25 before:via-white/5 before:to-transparent before:p-px before:[mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] hover:bg-primary-800 hover:shadow-[0_4px_12px_0_rgb(from_theme(colors.primary.900)_r_g_b_/_0.15),0_2px_4px_0_rgb(from_theme(colors.primary.950)_r_g_b_/_0.2),0_0_0_1px_theme(colors.primary.900),inset_0_1px_0_0_rgb(from_theme(colors.white)_r_g_b_/_0.25),inset_0_0_0_1px_rgb(from_theme(colors.white)_r_g_b_/_0.03)] focus-visible:outline-primary-600"
-      when :secondary
-        "relative bg-white text-primary-800 shadow-[0_4px_12px_0_rgb(from_theme(colors.primary.900)_r_g_b_/_0.08),0_2px_4px_0_rgb(from_theme(colors.black)_r_g_b_/_0.06),0_0_0_1px_rgb(from_theme(colors.black)_r_g_b_/_0.1),inset_0_1px_0_0_rgb(from_theme(colors.white)_r_g_b_/_0.8),inset_0_0_0_1px_rgb(from_theme(colors.white)_r_g_b_/_0.03)] transition-all duration-200 ease-out before:pointer-events-none before:absolute before:inset-0 before:z-10 before:rounded-[inherit] before:bg-gradient-to-b before:from-white/15 before:to-white/5 before:p-px before:[mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] hover:bg-primary-50 hover:shadow-[0_4px_12px_0_rgb(from_theme(colors.primary.900)_r_g_b_/_0.08),0_2px_4px_0_rgb(from_theme(colors.black)_r_g_b_/_0.08),0_0_0_1px_rgb(from_theme(colors.black)_r_g_b_/_0.12),inset_0_1px_0_0_rgb(from_theme(colors.white)_r_g_b_/_0.9),inset_0_0_0_1px_rgb(from_theme(colors.white)_r_g_b_/_0.03)] focus-visible:outline-primary-600"
-      when :destructive
-        "relative bg-red-600 text-white shadow-[0_4px_12px_0_rgb(from_theme(colors.primary.900)_r_g_b_/_0.15),0_2px_4px_0_rgb(from_theme(colors.zinc.950)_r_g_b_/_0.2),0_0_0_1px_theme(colors.red.600),inset_0_1px_0_0_rgb(from_theme(colors.white)_r_g_b_/_0.25),inset_0_0_0_1px_rgb(from_theme(colors.white)_r_g_b_/_0.03)] transition-all duration-200 ease-out before:pointer-events-none before:absolute before:inset-0 before:z-10 before:rounded-[inherit] before:bg-gradient-to-b before:from-white/25 before:via-white/5 before:to-transparent before:p-px before:[mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] hover:bg-red-500 hover:shadow-[0_4px_12px_0_rgb(from_theme(colors.primary.900)_r_g_b_/_0.15),0_2px_4px_0_rgb(from_theme(colors.zinc.950)_r_g_b_/_0.2),0_0_0_1px_theme(colors.red.600),inset_0_1px_0_0_rgb(from_theme(colors.white)_r_g_b_/_0.25),inset_0_0_0_1px_rgb(from_theme(colors.white)_r_g_b_/_0.03)] focus-visible:outline-primary-600"
-      else
-        # For outline and ghost, use basic styles even in fancy mode
-        basic_variant_classes
       end
     end
 

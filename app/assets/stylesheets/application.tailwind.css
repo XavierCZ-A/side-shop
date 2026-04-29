@@ -131,7 +131,6 @@
 
 @layer utilities {
 
-  /* Ejemplo: Centrado absoluto */
   .flex-center {
     @apply flex items-center justify-center;
   }

@@ -3,6 +3,6 @@ class HomeController < ApplicationController
   skip_before_action :check_onboarding_status
 
   def index
-    @user = Current.user
+    @plans = PricingPlan.all
   end
 end

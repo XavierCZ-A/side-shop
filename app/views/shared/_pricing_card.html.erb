@@ -1,0 +1,33 @@
+<div class="border border-border p-6 sm:p-8 flex flex-col w-full rounded-lg">
+
+  <div class="mb-4">
+    <h3 class="text-xl font-bold text-foreground"><%= plan[:name] %></h3>
+    <p class="text-sm text-muted-foreground mt-1"><%= plan[:label] %></p>
+  </div>
+
+  <div class="mb-4">
+    <span class="text-5xl font-black text-foreground"><%= plan[:amount] %></span>
+  </div>
+
+  <hr class="border-border mb-6" />
+
+  <ul class="space-y-3 mb-8 flex-1">
+    <% plan[:features].each do |feature| %>
+      <li class="flex items-center gap-3 text-sm <%= feature[:included] ? 'text-foreground' : 'text-muted-foreground/60' %>">
+        <% if feature[:included] %>
+          <%= render_svg("check_circle.svg", styles: "w-5 h-5 flex-shrink-0 text-accent") %>
+        <% else %>
+          <%= render_svg("close.svg", styles: "w-5 h-5 flex-shrink-0 text-muted-foreground/40") %>
+        <% end %>
+        <%= feature[:label] %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= render Buttons::Component.new(
+    text: "Elegir plan",
+    full_width: true,
+    size: :lg,
+    href: new_user_path(plan: plan[:name])
+  ) %>
+</div>
