@@ -1,42 +1,37 @@
 <main class="min-h-screen bg-[#F3F4F6] p-8">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+  <div class="mx-auto max-w-7xl">
+    <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
       <div>
         <h1 class="text-3xl font-bold text-[#1A2B3C]">
           Hola, <%= current_user.store.name %>
         </h1>
-        <span class="text-[#4B5563] text-base">
-          Aquí tienes un resumen de tu negocio hoy.
-        </span>
+
+        <span class="text-base text-muted-foreground"> Aquí tienes un resumen de tu negocio hoy. </span>
       </div>
     </div>
-  
-    <div class="flex flex-col justify-between md:flex-row gap-6">
+
+    <div class="flex flex-col justify-between gap-6 md:flex-row">
       <%= render "admin/card/card_info", title: "Ingresos", value: "$1000", trend: "10", trendPositive: true, trendLabel: "Mes pasado", icon: "dollar.svg", style: "w-6 h-6 text-green-500" %>
       <%= render "admin/card/card_info", title: "Visitas", value: "1000", trend: "10", trendPositive: true, trendLabel: "Mes pasado", icon: "users.svg", style: "w-6 h-6 text-[#1A2B3C]" %>
       <%= render "admin/card/card_info", title: "Pedidos", value: "1000", trend: "10", trendPositive: true, trendLabel: "Mes pasado", icon: "cart.svg", style: "w-6 h-6 text-[#10B981]" %>
     </div>
-    
+
     <%= turbo_frame_tag "dashboard_content" do %>
-      <div class="bg-[#E5E7EB] rounded-full inline-flex my-8 p-1">
-        <% 
-          base_classes = "px-6 py-2 rounded-full text-sm font-medium transition-all duration-200" 
+      <div class="my-8 inline-flex rounded-full bg-[#E5E7EB] p-1">
+        <% base_classes = "px-6 py-2 rounded-full text-sm font-medium transition-all duration-200"
           active_classes = "bg-white shadow-sm text-[#1A2B3C]"
-          inactive_classes = "text-[#4B5563] hover:text-[#1A2B3C]"
-        %>
-        
-        <%= link_to "Productos", admin_root_path(tab: "products"), 
+          inactive_classes = "text-[#4B5563] hover:text-[#1A2B3C]" %>
+
+        <%= link_to "Productos", admin_root_path(tab: "products"),
             data: { turbo_frame: "dashboard_content" },
             class: "#{base_classes} #{@tab == 'products' ? active_classes : inactive_classes}" %>
-            
-        <%= link_to "Pedidos", admin_root_path(tab: "orders"), 
+
+        <%= link_to "Pedidos", admin_root_path(tab: "orders"),
             data: { turbo_frame: "dashboard_content" },
             class: "#{base_classes} #{@tab == 'orders' ? active_classes : inactive_classes}" %>
       </div>
 
       <%= render "admin/products/#{@tab}_list", products: @products, orders: @orders %>
     <% end %>
-
   </div>
 </main>

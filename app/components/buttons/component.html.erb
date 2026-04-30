@@ -3,21 +3,15 @@
     <%= loading_spinner %>
   <% elsif @icon.present? && (@icon_position == :left || @icon_only) %>
     <%# El span asegura que el icono mantenga su tamaño sin deformarse %>
-    <span class="inline-flex shrink-0 <%= icon_classes %>">
-      <%= @icon.html_safe %>
-    </span>
+    <span class="inline-flex shrink-0 <%= icon_classes %>"><%= @icon.html_safe %></span>
   <% end %>
 
   <% if @text.present? && !@icon_only %>
     <%# Agregamos una clase que podemos controlar desde afuera si queremos ocultar el texto en móvil %>
-    <span class="truncate">
-      <%= @text %>
-    </span>
+    <span class="truncate"><%= @text %></span>
   <% end %>
 
   <% if @icon.present? && @icon_position == :right && !@icon_only && !@loading %>
-    <span class="inline-flex shrink-0 <%= icon_classes %>">
-      <%= @icon.html_safe %>
-    </span>
+    <span class="inline-flex shrink-0 <%= icon_classes %>"><%= @icon.html_safe %></span>
   <% end %>
 <% end %>

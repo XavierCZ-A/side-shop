@@ -1,17 +1,16 @@
-<div class="border border-border p-6 sm:p-8 flex flex-col w-full rounded-lg">
-
+<div class="flex w-full flex-col rounded-lg border border-border p-6 sm:p-8">
   <div class="mb-4">
     <h3 class="text-xl font-bold text-foreground"><%= plan[:name] %></h3>
-    <p class="text-sm text-muted-foreground mt-1"><%= plan[:label] %></p>
+    <p class="mt-1 text-sm text-muted-foreground"><%= plan[:label] %></p>
   </div>
 
   <div class="mb-4">
     <span class="text-5xl font-black text-foreground"><%= plan[:amount] %></span>
   </div>
 
-  <hr class="border-border mb-6" />
+  <hr class="mb-6 border-border">
 
-  <ul class="space-y-3 mb-8 flex-1">
+  <ul class="mb-8 flex-1 space-y-3">
     <% plan[:features].each do |feature| %>
       <li class="flex items-center gap-3 text-sm <%= feature[:included] ? 'text-foreground' : 'text-muted-foreground/60' %>">
         <% if feature[:included] %>
@@ -19,6 +18,7 @@
         <% else %>
           <%= render_svg("close.svg", styles: "w-5 h-5 flex-shrink-0 text-muted-foreground/40") %>
         <% end %>
+
         <%= feature[:label] %>
       </li>
     <% end %>

@@ -1,19 +1,24 @@
 <% content_for :skip_global_flash, true %>
+<% content_for :title, "PocketShop - Suscripciónes" %>
 
-<div class="min-h-screen bg-background text-foreground pb-10">
+<div class="min-h-screen bg-background pb-10 text-foreground">
   <div class="mx-auto max-w-6xl px-4 py-6 sm:py-8">
     <div class="mb-6 rounded-2xl border border-border bg-white p-5 shadow-sm sm:p-7">
       <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#10B981]">Cuenta</p>
+          <p class="text-xs font-semibold tracking-[0.18em] text-[#10B981] uppercase">Cuenta</p>
           <h1 class="mt-2 text-2xl font-bold text-[#1A2B3C] sm:text-3xl">Tu plan, pagos y suscripcion</h1>
+
           <p class="mt-2 text-sm text-muted-foreground sm:text-base">
             Aqui puedes ver tu plan actual, cambiar de plan y revisar tu historial de pagos.
           </p>
         </div>
 
-        <%= link_to "Volver al dashboard", admin_root_path,
-              class: "inline-flex w-full items-center justify-center rounded-xl border border-border bg-secondary px-4 py-2.5 text-sm font-semibold text-[#1A2B3C] transition hover:bg-[#E5E7EB] sm:w-auto" %>
+        <%= render Buttons::Component.new(
+          text: "Volver al dashboard",
+          href: admin_root_path,
+          variant: :outline,
+        ) %>
       </div>
     </div>
 
@@ -24,7 +29,12 @@
     <% end %>
 
     <% if alert %>
-      <div class="mb-4 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive">
+      <div
+        class="
+          mb-4 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm font-medium
+          text-destructive
+        "
+      >
         <%= alert %>
       </div>
     <% end %>
@@ -41,6 +51,7 @@
         else @subscription.status.to_s.humanize
         end
       end %>
+
       <% subscription_badge_classes = if @subscription&.status == "active"
         "border-[#10B981]/30 bg-[#10B981]/10 text-[#1A2B3C]"
       elsif @subscription&.status == "trialing"
@@ -54,42 +65,50 @@
       <section class="rounded-2xl border border-border bg-card p-5 shadow-sm lg:col-span-2">
         <div class="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Suscripcion actual</p>
-            <h2 class="mt-1 text-2xl font-bold capitalize text-[#1A2B3C]"><%= @current_plan || "Sin plan" %></h2>
+            <p class="text-xs font-semibold tracking-wider text-muted-foreground uppercase">Suscripcion actual</p>
+            <h2 class="mt-1 text-2xl font-bold text-[#1A2B3C] capitalize"><%= @current_plan || "Sin plan" %></h2>
           </div>
-          <span class="rounded-full border px-3 py-1 text-xs font-semibold <%= subscription_badge_classes %>"><%= subscription_badge %></span>
+
+          <span class="rounded-full border px-3 py-1 text-xs font-semibold <%= subscription_badge_classes %>">
+            <%= subscription_badge %>
+          </span>
         </div>
 
         <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <% if @subscription&.canceled? %>
             <div class="rounded-xl border border-red-100 bg-red-50 p-3">
-              <p class="text-xs text-red-600 font-medium">Suscripción cancelada</p>
+              <p class="text-xs font-medium text-red-600">Suscripción cancelada</p>
+
               <p class="mt-1 text-sm font-semibold text-[#1A2B3C]">
                 Acceso hasta: <%= (@subscription.ends_at || @subscription.current_period_end).strftime("%d %b %Y") %>
               </p>
             </div>
-
           <% elsif @subscription&.active? && @subscription.current_period_end %>
             <div class="rounded-xl border border-border bg-secondary p-3">
               <p class="text-xs text-muted-foreground">Próximo cobro</p>
-              <p class="mt-1 text-sm font-semibold text-[#1A2B3C]"><%= @subscription.current_period_end.strftime("%d %b %Y") %></p>
+
+              <p class="mt-1 text-sm font-semibold text-[#1A2B3C]">
+                <%= @subscription.current_period_end.strftime("%d %b %Y") %>
+              </p>
             </div>
           <% end %>
 
-          <div class="rounded-2xl border border-border bg-white p-4 sm:col-span-2">
-            <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-[#4B5563]">Metodo de pago principal</p>
+          <div class="sm:col-span-2">
+            <p class="mb-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Metodo de pago principal
+            </p>
 
             <% if @default_method %>
               <% brand = @default_method.data["brand"].presence || "Tarjeta" %>
               <% last4 = @default_method.data["last4"].presence || "----" %>
               <% exp_month = @default_method.data["exp_month"].to_s.rjust(2, "0") %>
               <% exp_year = @default_method.data["exp_year"].to_s %>
-
               <div class="rounded-xl bg-[#1A2B3C] p-4 text-white shadow-sm">
                 <div class="mb-4 flex items-center justify-between gap-3">
-                  <span class="rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide">
+                  <span class="rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold tracking-wide uppercase">
                     <%= brand %>
                   </span>
+
                   <span class="text-xs font-medium text-white/80">Principal</span>
                 </div>
 
@@ -102,8 +121,8 @@
                 </p>
               </div>
             <% else %>
-              <div class="rounded-xl border border-dashed border-border bg-secondary px-4 py-4 text-sm text-[#4B5563]">
-                No tienes un metodo de pago guardado todavia.
+              <div class="rounded-xl border border-dashed border-border bg-secondary px-4 py-4 text-sm text-muted-foreground">
+                No tienes un metodo de pago guardado.
               </div>
             <% end %>
           </div>
@@ -113,123 +132,71 @@
           <%= button_to "Administrar cuenta", admin_billing_portal_path,
                 method: :post,
                 data: { turbo: false },
-                class: "inline-flex w-full items-center justify-center rounded-xl bg-[#1A2B3C] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 sm:w-auto cursor-pointer" %>
+                class: "btn-primary" %>
 
           <% if @subscription.present? && !@subscription.canceled? %>
-          <%= button_to "Cancelar suscripción", admin_subscription_path(@subscription), 
-                method: :delete, 
+            <%= button_to "Cancelar suscripción", admin_subscription_path(@subscription),
+                method: :delete,
                 data: { turbo_method: :delete, turbo_confirm: "¿Quieres cancelar tu suscripcion al final del periodo actual?" },
-                class: "inline-flex w-full items-center justify-center rounded-xl bg-[#EF4444] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 sm:w-auto cursor-pointer" %>
+                class: "btn-outline" %>
           <% end %>
 
           <% if @subscription&.on_grace_period? %>
-            <%= button_to "Reactivar Suscripción", 
-                          resume_admin_subscription_path(@subscription), 
-                          method: :patch, 
-                          class: "inline-flex w-full items-center justify-center rounded-xl bg-[#10B981] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 sm:w-auto cursor-pointer" %>
+            <%= button_to "Reactivar Suscripción",
+                          resume_admin_subscription_path(@subscription),
+                          method: :patch,
+                          class: "btn-accent" %>
           <% end %>
-        </div>  
+        </div>
       </section>
 
       <section class="rounded-2xl border border-border bg-card p-5 shadow-sm">
-        <h3 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Resumen</h3>
+        <h3 class="text-sm font-semibold tracking-wide text-muted-foreground uppercase">Resumen</h3>
+
         <dl class="mt-3 space-y-3">
           <div class="rounded-xl border border-border bg-secondary p-3">
             <dt class="text-xs text-muted-foreground">Plan</dt>
-            <dd class="mt-1 text-sm font-semibold capitalize text-[#1A2B3C]"><%= @current_plan || "Sin plan" %></dd>
+            <dd class="mt-1 text-sm font-semibold text-primary capitalize"><%= @current_plan || "Sin plan" %></dd>
           </div>
+
           <div class="rounded-xl border border-border bg-secondary p-3">
             <dt class="text-xs text-muted-foreground">Pagos registrados</dt>
-            <dd class="mt-1 text-sm font-semibold text-[#1A2B3C]"><%= @charges.size %></dd>
+            <dd class="mt-1 text-sm font-semibold text-primary"><%= @charges.size %></dd>
           </div>
+
           <div class="rounded-xl border border-border bg-secondary p-3">
             <dt class="text-xs text-muted-foreground">Cuenta</dt>
-            <dd class="mt-1 break-all text-sm font-medium text-[#1A2B3C]"><%= current_user.email_address %></dd>
+            <dd class="mt-1 text-sm font-medium break-all text-primary"><%= current_user.email_address %></dd>
           </div>
         </dl>
       </section>
     </div>
 
-    <section class="mt-6 rounded-2xl border border-border bg-card p-5 shadow-sm">
-      <div class="mb-4 flex items-end justify-between gap-2">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Planes disponibles</p>
-          <h2 class="text-xl font-bold text-[#1A2B3C]">Escala cuando quieras</h2>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
-        <% @plans.each do |plan| %>
-          <% is_current_plan = @current_plan.to_s == plan[:name].to_s %>
-          <article class="flex h-full flex-col rounded-xl border <%= is_current_plan ? "border-[#10B981] bg-[#10B981]/5" : "border-border bg-white" %> p-4">
-            <div class="mb-3 flex items-start justify-between gap-2">
-              <div>
-                <p class="text-sm font-semibold text-[#1A2B3C]"><%= plan[:label] %></p>
-                <p class="mt-1 text-lg font-bold text-[#1A2B3C]"><%= plan[:amount] %></p>
-              </div>
-              <% if is_current_plan %>
-                <span class="rounded-full bg-[#10B981]/15 px-2.5 py-1 text-[11px] font-semibold text-[#1A2B3C]">Actual</span>
-              <% end %>
-            </div>
-
-            <ul class="mb-4 flex-1 space-y-2">
-              <% plan[:features].each do |feature| %>
-                <li class="flex items-start gap-2 text-sm text-[#4B5563]">
-                  <span class="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-[#10B981]"></span>
-                  <span><%= feature %></span>
-                </li>
-              <% end %>
-            </ul>
-
-            <% if is_current_plan %>
-              <div class="rounded-lg border border-border bg-secondary px-3 py-2 text-center text-sm font-medium text-secondary-foreground">
-                Este es tu plan actual
-              </div>
-            <% else %>
-              <%= button_to "Elegir #{plan[:label]}", admin_subscriptions_path,
-                    method: :post,
-                    params: { plan: plan[:name] },
-                    data: { turbo: false },
-                    class: "w-full rounded-lg bg-[#1A2B3C] px-3 py-2 text-sm font-semibold text-white transition hover:opacity-90 cursor-pointer" %>
-            <% end %>
-          </article>
+    <section class="mt-6 mb-6 rounded-2xl shadow-sm">
+      <%= render(Card::Component.new) do |card| %>
+        <% card.with_header do %>
+          <p class="text-xs font-semibold tracking-wider text-muted-foreground uppercase">Planes disponibles</p>
+          <h2 class="text-xl font-bold text-primary">Escala cuando quieras</h2>
         <% end %>
-      </div>
-    </section>
 
-    <section class="mt-6 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-      <div class="border-b border-border px-5 py-4">
-        <h2 class="text-lg font-bold text-[#1A2B3C]">Historial de pagos</h2>
-      </div>
-
-      <% if @charges.any? %>
-        <div class="divide-y divide-border">
-          <% @charges.reverse_each do |charge| %>
-            <% payment_status = if charge.refunded?
-              ["Reembolsado", "text-destructive"]
-            elsif charge.amount_refunded.to_i > 0
-              ["Reembolso parcial", "text-[#1A2B3C]"]
-            else
-              ["Pagado", "text-[#10B981]"]
-            end %>
-            <div class="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p class="text-sm font-semibold text-[#1A2B3C]"><%= charge.created_at.strftime("%d %b %Y") %></p>
-                <p class="text-xs text-muted-foreground"><%= charge.data&.dig("description") || "Suscripcion" %></p>
-              </div>
-              <div class="flex items-center justify-between gap-3 sm:justify-end">
-                <span class="text-xs font-semibold <%= payment_status[1] %>"><%= payment_status[0] %></span>
-                <span class="text-sm font-bold text-[#1A2B3C]">$<%= sprintf("%.2f", charge.amount / 100.0) %></span>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="px-5 py-8 text-center">
-          <p class="text-sm font-medium text-[#1A2B3C]">Todavia no hay pagos registrados.</p>
-          <p class="mt-1 text-xs text-muted-foreground">Cuando se procese el primer cobro, lo veras aqui.</p>
-        </div>
+        <% card.with_body do %>
+          <div class="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <% @plans.each do |plan| %>
+              <%= render "pricing_card", plan: plan, is_current_plan: @current_plan.to_s == plan[:name].to_s %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </section>
+
+    <%= render(Card::Component.new(divide: true)) do |card| %>
+      <% card.with_header do %>
+        <h3 class="text-lg/6 font-bold text-primary">Historial de pagos</h3>
+      <% end %>
+
+      <% card.with_body do %>
+        <%= render "payment_history", charges: @charges %>
+      <% end %>
+    <% end %>
   </div>
 </div>

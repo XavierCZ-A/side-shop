@@ -7,7 +7,7 @@
   /* Texto blanco sobre fondo primario */
 
   /*
-    --color-secondary: Color secundario. 
+    --color-secondary: Color secundario.
     Usado para elementos de menor jerarquía, fondos de tarjetas secundarias o estados neutros.
   */
   --color-secondary: #F3F4F6;
@@ -46,7 +46,7 @@
   --color-muted: #F3F4F6;
   --color-muted-foreground: #4B5563;
 
-  /* 
+  /*
     =========================================
     FONDO Y TEXTO BASE (Background & Foreground)
     =========================================
@@ -77,13 +77,13 @@
   /* --color-ring: Color del anillo de enfoque (focus outline) para accesibilidad. */
   --color-ring: #10B981;
 
-  /* 
+  /*
     =========================================
     VARIABLES DE DISEÑO (Layout & Typography)
     =========================================
   */
 
-  /* 
+  /*
     --radius: Radio de borde base.
     Las variantes md/lg/sm se calculan a partir de un estándar.
     Cámbialo aquí para que toda la app sea más "redonda" o más "cuadrada".
@@ -133,6 +133,18 @@
 
   .flex-center {
     @apply flex items-center justify-center;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap rounded-lg bg-primary px-3 py-2 text-sm text-primary-foreground hover:opacity-90 cursor-pointer transition-all duration-200 select-none active:scale-95 touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap rounded-lg bg-transparent px-3 py-2 text-sm text-primary border border-primary hover:bg-primary/5 focus-visible:outline-primary cursor-pointer transition-all duration-200 select-none active:scale-95 touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap rounded-lg bg-accent px-3 py-2 text-sm text-primary-foreground hover:opacity-90 cursor-pointer transition-all duration-200 select-none active:scale-95 touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
   }
 }
 

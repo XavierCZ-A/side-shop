@@ -1,11 +1,15 @@
-<div id="<%= dom_id(product) %>" 
-  class="h-full flex flex-col bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow duration-300"
-  data-animation-products-target="card">
-
+<div
+  id="<%= dom_id(product) %>"
+  class="
+    flex h-full flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-shadow
+    duration-300 hover:shadow-md
+  "
+  data-animation-products-target="card"
+>
   <% if product.images.attached? %>
-    <div data-controller="carousel" class="relative h-64 overflow-hidden group shrink-0">
+    <div data-controller="carousel" class="group relative h-64 shrink-0 overflow-hidden">
       <% product.images.each_with_index do |image, index| %>
-        <div data-carousel-target="slide" class="<%= 'hidden' unless index == 0 %> w-full h-full">
+        <div data-carousel-target="slide" class="h-full w-full <%= 'hidden' unless index == 0 %>">
           <%= image_tag image.variant(resize_to_fill: [400, 256]),
               alt: product.name,
               class: "w-full h-full object-cover" %>
@@ -13,55 +17,70 @@
       <% end %>
 
       <% if product.images.length > 1 %>
-        <button type="button" data-action="carousel#prev"
-          class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+        <button
+          type="button"
+          data-action="carousel#prev"
+          class="
+            absolute top-1/2 left-2 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center
+            rounded-full bg-black/40 text-white opacity-0 transition-opacity group-hover:opacity-100
+            hover:bg-black/60
+          "
+        >
           <%= render_svg("chevron_left.svg", styles: "w-4 h-4") %>
         </button>
-        <button type="button" data-action="carousel#next"
-          class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+        <button
+          type="button"
+          data-action="carousel#next"
+          class="
+            absolute top-1/2 right-2 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center
+            rounded-full bg-black/40 text-white opacity-0 transition-opacity group-hover:opacity-100
+            hover:bg-black/60
+          "
+        >
           <%= render_svg("chevron_rigth.svg", styles: "w-4 h-4") %>
         </button>
-
-        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+        <div class="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
           <% product.images.each_with_index do |_, index| %>
-            <button type="button"
+            <button
+              type="button"
               data-carousel-target="indicator"
               data-action="carousel#goTo"
               data-index="<%= index %>"
-              class="w-2 h-2 rounded-full transition-colors cursor-pointer <%= index == 0 ? 'bg-white' : 'bg-white/50' %>">
-            </button>
+              class="h-2 w-2 cursor-pointer rounded-full transition-colors <%= index == 0 ? 'bg-white' : 'bg-white/50' %>"
+            ></button>
           <% end %>
         </div>
       <% end %>
     </div>
   <% else %>
-    <div class="h-64 bg-[#F3F4F6] flex items-center justify-center shrink-0">
+    <div class="flex h-64 shrink-0 items-center justify-center bg-[#F3F4F6]">
       <%= render_svg("photo.svg", styles: "w-12 h-12 text-gray-300") %>
     </div>
   <% end %>
 
-  <div class="p-5 flex flex-col grow">
-    
-    <div class="flex justify-between items-start mb-2 gap-4">
-      <h3 class="text-xl font-bold text-[#1A2B3C] leading-tight">
+  <div class="flex grow flex-col p-5">
+    <div class="mb-2 flex items-start justify-between gap-4">
+      <h3 class="text-xl leading-tight font-bold text-[#1A2B3C]">
         <%= product.name %>
       </h3>
-      <span class="text-xl text-primary font-bold shrink-0">
-        <%= number_to_currency(product.price) %>
-      </span>
+
+      <span class="shrink-0 text-xl font-bold text-primary"><%= number_to_currency(product.price) %></span>
     </div>
 
-    <p class="text-gray-600 leading-relaxed mb-6 line-clamp-3">
+    <p class="mb-6 line-clamp-3 leading-relaxed text-gray-600">
       <%= product.description %>
     </p>
 
-    <div class="flex gap-2 mt-auto">
+    <div class="mt-auto flex gap-2">
       <%= render Buttons::Component.new(
         text: product.active? ? "Desactivar" : "Activar",
         variant: :secondary,
         full_width: true,
         href: toggle_active_admin_product_path(product),
-        data: { turbo_method: :patch, turbo_confirm: "Cuando desactives este producto, no se mostrará en tu tienda." }
+        data: {
+          turbo_method: :patch,
+          turbo_confirm: product.active? ? "Al desactivar este producto no estará visible en tu tienda." : "Al activar este producto estará visible en tu tienda.",
+        }
       ) %>
 
       <%= render Buttons::Component.new(

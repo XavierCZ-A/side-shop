@@ -39,3 +39,4 @@ application.register("modal", ModalController)
 
 import OnboardingController from "./onboarding_controller"
 application.register("onboarding", OnboardingController)
+

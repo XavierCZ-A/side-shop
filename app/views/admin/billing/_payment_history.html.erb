@@ -1,0 +1,30 @@
+<% if charges.any? %>
+  <div class="divide-y divide-border">
+    <% charges.reverse_each do |charge| %>
+      <% payment_status = if charge.refunded?
+              ["Reembolsado", "text-destructive"]
+            elsif charge.amount_refunded.to_i > 0
+              ["Reembolso parcial", "text-[#1A2B3C]"]
+            else
+              ["Pagado", "text-[#10B981]"]
+            end %>
+
+      <div class="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm font-semibold text-[#1A2B3C]"><%= charge.created_at.strftime("%d %b %Y") %></p>
+          <p class="text-xs text-muted-foreground"><%= charge.data&.dig("description") || "Suscripcion" %></p>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 sm:justify-end">
+          <span class="text-xs font-semibold <%= payment_status[1] %>"><%= payment_status[0] %></span>
+          <span class="text-sm font-bold text-[#1A2B3C]">$<%= sprintf("%.2f", charge.amount / 100.0) %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="px-5 py-8 text-center">
+    <p class="text-sm font-medium text-[#1A2B3C]">Todavia no hay pagos registrados.</p>
+    <p class="mt-1 text-xs text-muted-foreground">Cuando se procese el primer cobro, lo veras aqui.</p>
+  </div>
+<% end %>

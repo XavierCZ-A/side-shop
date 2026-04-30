@@ -6,7 +6,6 @@ class Admin::BillingController < ApplicationController
     @charges        = processor&.charges&.last(5)
     @plans          = PricingPlan.all
     @current_plan   = @subscription&.name || "Basico"
-    pp @current_plan
     @default_method = @charges.first
 
     if params[:success]
