@@ -7,6 +7,12 @@ import { application } from "./application"
 import AccordionController from "./accordion_controller"
 application.register("accordion", AccordionController)
 
+import CartAddController from "./cart_add_controller"
+application.register("cart-add", CartAddController)
+
+import CartBadgeController from "./cart_badge_controller"
+application.register("cart-badge", CartBadgeController)
+
 import AnimationProductsController from "./animation_products_controller"
 application.register("animation-products", AnimationProductsController)
 
@@ -37,6 +43,8 @@ application.register("image-preview", ImagePreviewController)
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
+import NavbarController from "./navbar_controller"
+application.register("navbar", NavbarController)
+
 import OnboardingController from "./onboarding_controller"
 application.register("onboarding", OnboardingController)
-

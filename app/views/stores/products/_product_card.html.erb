@@ -1,68 +1,68 @@
-<div id="<%= dom_id(product) %>" 
-  class="opacity-0 h-full flex flex-col bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow duration-300"
-  data-animation-products-target="card">
+<div id="<%= dom_id(product) %>" class="group flex flex-col opacity-0" data-animation-products-target="card" data-controller="cart-add">
+  <div class="relative aspect-square w-full shrink-0 overflow-hidden rounded-xl bg-gray-200 transition-shadow duration-500 group-hover:shadow-lg sm:rounded-2xl lg:w-4/5">
+    <% if product.images.attached? %>
+      <div data-controller="carousel" class="h-full w-full">
+        <% product.images.each_with_index do |image, index| %>
+          <div data-carousel-target="slide" class="h-full w-full <%= 'hidden' unless index == 0 %>">
+            <%= image_tag image.variant(resize_to_fill: [500, 500]),
+                alt: product.name,
+                class: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" %>
+          </div>
+        <% end %>
 
-  <% if product.images.attached? %>
-    <div data-controller="carousel" class="relative h-64 overflow-hidden group shrink-0">
-      <% product.images.each_with_index do |image, index| %>
-        <div data-carousel-target="slide" class="<%= 'hidden' unless index == 0 %> w-full h-full">
-          <%= image_tag image.variant(resize_to_fill: [400, 256]),
-              alt: product.name,
-              class: "w-full h-full object-cover" %>
-        </div>
-      <% end %>
-
-      <% if product.images.length > 1 %>
-        <button type="button" data-action="carousel#prev"
-          class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-          <%= render_svg("chevron_left.svg", styles: "w-4 h-4") %>
-        </button>
-        <button type="button" data-action="carousel#next"
-          class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-          <%= render_svg("chevron_rigth.svg", styles: "w-4 h-4") %>
-        </button>
-
-        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-          <% product.images.each_with_index do |_, index| %>
-            <button type="button"
-              data-carousel-target="indicator"
-              data-action="carousel#goTo"
-              data-index="<%= index %>"
-              class="w-2 h-2 rounded-full transition-colors cursor-pointer <%= index == 0 ? 'bg-white' : 'bg-white/50' %>">
-            </button>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="h-64 bg-[#F3F4F6] flex items-center justify-center shrink-0">
-      <%= render_svg("photo.svg", styles: "w-12 h-12 text-gray-300") %>
-    </div>
-  <% end %>
-
-  <div class="p-5 flex flex-col grow">
-    
-    <div class="flex justify-between items-start mb-2 gap-4">
-      <h3 class="text-xl font-bold text-[#1A2B3C] leading-tight">
-        <%= product.name %>
-      </h3>
-      <span class="text-xl font-bold shrink-0" style="color: <%= @current_store.primary_color %>;" >
-        <%= number_to_currency(product.price) %>
-      </span>
-    </div>
-
-    <p class="text-gray-600 leading-relaxed mb-6 line-clamp-3">
-      <%= product.description %>
-    </p>
-
-    <%= form_with url: line_items_path(store_slug: @current_store.slug, product_id: product), method: :post, class: "w-full" do %>
-      <%= render Buttons::Component.new(
-        text: "Agregar al carrito",
-        type: "submit",
-        pill: true,
-        full_width: true,
-    ) %>
+        <% if product.images.length > 1 %>
+          <button
+            type="button"
+            data-action="carousel#prev"
+            class="
+              absolute top-1/2 left-2 z-20 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center
+              rounded-full bg-black/25 text-white transition-opacity hover:bg-black/40
+              opacity-100 md:opacity-0 md:group-hover:opacity-100
+            "
+          >
+            <%= render_svg("chevron_left.svg", styles: "w-4 h-4") %>
+          </button>
+          <button
+            type="button"
+            data-action="carousel#next"
+            class="
+              absolute top-1/2 right-2 z-20 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center
+              rounded-full bg-black/25 text-white transition-opacity hover:bg-black/40
+              opacity-100 md:opacity-0 md:group-hover:opacity-100
+            "
+          >
+            <%= render_svg("chevron_rigth.svg", styles: "w-4 h-4") %>
+          </button>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="flex h-full w-full items-center justify-center text-gray-400">
+        <%= render_svg("photo.svg", styles: "w-10 h-10") %>
+      </div>
     <% end %>
+
+    <div
+      class="
+        absolute right-2 bottom-2 z-30 sm:right-3 sm:bottom-3
+        translate-y-0 opacity-100 transition-all duration-300
+        md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100
+      "
+    >
+      <%= button_to "Añadir", line_items_path(store_slug: current_store.slug, product_id: product),
+          method: :post,
+          class: "btn-primary-xs min-h-[36px] min-w-[36px] transition-all",
+          data: { cart_add_target: "button" },
+          form: { data: { action: "submit->cart-add#animate" } } %>
+    </div>
+  </div>
+
+  <div class="mt-3 flex w-full items-start justify-between gap-2 px-0.5 lg:w-4/5 sm:mt-4 sm:gap-4 sm:px-1">
+    <h3 class="font-serif text-sm leading-snug tracking-wide text-primary transition-opacity duration-300 group-hover:opacity-70 sm:text-base">
+      <%= product.name %>
+    </h3>
+
+    <span class="shrink-0 text-sm font-light text-gray-500 sm:text-base">
+      <%= number_to_currency(product.price, precision: 0) %>
+    </span>
   </div>
 </div>
-

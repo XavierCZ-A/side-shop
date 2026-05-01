@@ -1,53 +1,130 @@
-<% content_for :title, @current_store.name %>
+<% content_for :title, @current_store.name.capitalize %>
+<%= render "stores/navbar", current_store: @current_store %>
+<%= render "stores/cart/shopping_cart" %>
 
-<div class="relative" data-controller="cart" data-store-id="<%= @current_store.id %>">
+<div id="top" class="relative bg-[#ecece9]">
+  <%# Hero %>
+  <section class="mx-auto max-w-7xl px-3 py-4 sm:px-6 sm:py-8 lg:px-8">
+    <div class="relative h-[22rem] w-full overflow-hidden rounded-2xl shadow-sm sm:h-[28rem] md:h-[34rem]">
+      <% if @current_store.image.attached? %>
+        <%= image_tag @current_store.image, alt: "#{@current_store.name} banner",
+          class: "absolute inset-0 w-full h-full object-cover object-center" %>
+      <% else %>
+        <div class="absolute inset-0 bg-gradient-to-br from-stone-300 via-stone-200 to-stone-300"></div>
+      <% end %>
 
-    <div class="h-16 sm:h-20 md:h-24 w-full" style="background: linear-gradient(135deg, <%= @current_store.primary_color %> 0%, <%= @current_store.primary_color %>99 50%, <%= @current_store.primary_color %>66 100%);"></div>
+      <div class="absolute inset-0 bg-gradient-to-tr from-black/70 via-black/35 to-transparent"></div>
 
-    <div class="max-w-2xl mx-auto px-4 -mt-12 sm:-mt-16 relative z-10">
-        <div class="flex justify-center mb-4">
-            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-white text-2xl sm:text-3xl font-bold" style="background-color: <%= @current_store.primary_color %>;">
-                <%= @current_store.name.first.upcase %>
-            </div>
-        </div>
+      <div class="relative z-10 flex h-full flex-col justify-end p-5 sm:p-10">
+        <p class="mb-2.5 text-[10px] tracking-[0.3em] text-white/80 uppercase sm:mb-3 sm:text-[11px]">
+          Envío gratis en pedidos +$50
+        </p>
+        <h1 class="mb-3 max-w-2xl font-serif text-3xl leading-tight text-white sm:mb-4 sm:text-5xl md:text-6xl">
+          <%= @current_store.name.capitalize %>
+        </h1>
+        <% if @current_store.description.present? %>
+          <p class="mb-5 max-w-md text-sm leading-relaxed font-light text-white/90 sm:mb-7 sm:text-base">
+            <%= truncate(@current_store.description, length: 120) %>
+          </p>
+        <% else %>
+          <p class="mb-5 max-w-md font-serif text-base leading-relaxed font-light text-white/90 italic sm:mb-7 sm:text-lg">
+            Edición limitada de primavera.
+          </p>
+        <% end %>
 
-        <div class="text-center">
-            <h1 class="text-2xl sm:text-3xl font-bold text-[#1A2B3C] mb-2" style="font-family: 'Georgia', serif;">
-                <%= @current_store.name %>
-            </h1>
-            <% if @current_store.description.present? %>
-                <p class="text-gray-600 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
-                    <%= @current_store.description %>
-                </p>
-            <% end %>
-
-            <% if @current_store.instagram.present? || @current_store.facebook.present? || @current_store.whatsapp.present? %>
-                <div class="flex justify-center items-center gap-4 my-4">
-                    <% if @current_store.instagram.present? %>
-                        <%= link_to @current_store.instagram, target: "_blank", class: "p-2 rounded-full hover:bg-[#F3F4F6] transition-colors duration-200" do %>
-                            <%= render_svg("instagram.svg", styles: "w-5 h-5 text-gray-600 hover:text-pink-500") %>
-                        <% end %>
-                    <% end %>
-                    <% if @current_store.facebook.present? %>
-                        <%= link_to @current_store.facebook, target: "_blank", class: "p-2 rounded-full hover:bg-[#F3F4F6] transition-colors duration-200" do %>
-                            <%= render_svg("facebook.svg", styles: "w-5 h-5 text-gray-600 hover:text-[#1A2B3C]") %>
-                        <% end %>
-                    <% end %>
-                    <% if @current_store.whatsapp.present? %>
-                        <%= link_to "https://wa.me/#{@current_store.whatsapp.gsub(/\D/, '')}", target: "_blank", class: "p-2 rounded-full hover:bg-[#F3F4F6] transition-colors duration-200" do %>
-                            <%= render_svg("whatsapp.svg", styles: "w-5 h-5 text-gray-600 hover:text-green-500") %>
-                        <% end %>
-                    <% end %>
-                </div>
-            <% end %>
-        </div>
+        <a
+          href="#productos"
+          class="
+            group inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-primary
+            transition-all duration-300 hover:bg-primary hover:text-primary-foreground sm:px-6 sm:py-3
+          "
+        >
+          Ver colección
+          <span class="transition-transform duration-300 group-hover:translate-x-1">
+            <%= render_svg("arrow_right.svg", styles: "w-4 h-4") %>
+          </span>
+        </a>
+      </div>
     </div>
-        
-    <%= render "stores/cart/shopping_cart" %>
+  </section>
 
-    <div class="w-full mx-auto px-4 py-8 border-t border-gray-200 bg-[#F3F4F6]">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4" data-controller="animation-products">
-            <%= render partial: "stores/products/product_card", collection: @products, as: :product, cached: true %>
+  <%# Features strip: 3 columnas en todos los tamaños %>
+  <section class="border-t border-b border-gray-200 bg-[#f1efe9] px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div class="mx-auto grid max-w-7xl grid-cols-3 gap-3 sm:gap-6">
+      <div class="flex flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:gap-3 sm:text-left">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-sm">
+          <%= render_svg("truck.svg", styles: "w-5 h-5") %>
+        </span>
+        <div>
+          <p class="text-[11px] font-semibold text-primary sm:text-sm">Envío gratis</p>
+          <p class="hidden text-xs text-gray-500 sm:block">En pedidos de $50 o más</p>
         </div>
+      </div>
+
+      <div class="flex flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:gap-3 sm:text-left">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-sm">
+          <%= render_svg("paint.svg", styles: "w-5 h-5") %>
+        </span>
+        <div>
+          <p class="text-[11px] font-semibold text-primary sm:text-sm">Hecho a mano</p>
+          <p class="hidden text-xs text-gray-500 sm:block">Por artesanos locales</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:gap-3 sm:text-left">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-sm">
+          <%= render_svg("shield_check.svg", styles: "w-5 h-5") %>
+        </span>
+        <div>
+          <p class="text-[11px] font-semibold text-primary sm:text-sm">Pago seguro</p>
+          <p class="hidden text-xs text-gray-500 sm:block">Se aceptan todas las tarjetas</p>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <%# Products section %>
+  <section id="productos" class="mx-auto max-w-7xl px-3 py-10 sm:px-6 sm:py-16 lg:px-8">
+    <div class="mb-7 flex items-end justify-between sm:mb-10">
+      <div>
+        <p class="mb-1.5 text-[10px] tracking-[0.3em] text-gray-500 uppercase sm:mb-2 sm:text-[11px]">
+          Colección
+        </p>
+        <h2 class="font-serif text-2xl text-primary sm:text-3xl sm:text-4xl">
+          Productos destacados
+        </h2>
+      </div>
+      <% if @products.any? %>
+        <p class="text-xs text-gray-500 sm:text-sm">
+          <%= pluralize(@products.size, "producto") %>
+        </p>
+      <% end %>
+    </div>
+
+    <% if @products.any? %>
+      <div
+        class="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-4 sm:gap-y-12 lg:grid-cols-4"
+        data-controller="animation-products"
+      >
+        <%= render partial: "stores/products/product_card", collection: @products, as: :product, cached: true, locals: { current_store: @current_store } %>
+      </div>
+    <% else %>
+      <div
+        class="
+          flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white/40
+          px-6 py-16 text-center sm:py-20
+        "
+      >
+        <span class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-400">
+          <%= render_svg("photo.svg", styles: "w-6 h-6") %>
+        </span>
+        <p class="font-serif text-lg text-primary">Próximamente</p>
+        <p class="mt-1 text-sm text-gray-500">
+          Estamos preparando nuevos productos para ti.
+        </p>
+      </div>
+    <% end %>
+  </section>
+
+  <%= render "stores/footer_store" %>
 </div>

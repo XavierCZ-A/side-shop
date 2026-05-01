@@ -1,0 +1,107 @@
+<footer id="contacto" class="mt-12 border-t border-gray-200 bg-[#f3f3f0] py-10 sm:mt-20 sm:py-14">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span
+            class="
+              flex h-9 w-9 items-center justify-center rounded-full bg-primary font-serif text-sm font-bold
+              text-primary-foreground
+            "
+          >
+            <%= @current_store.name.first.upcase %>
+          </span>
+          <h2 class="font-serif text-xl tracking-tight text-primary">
+            <%= @current_store.name.capitalize %>
+          </h2>
+        </div>
+
+        <p class="mt-4 max-w-xs text-sm leading-relaxed font-light text-gray-500">
+          <% if @current_store.description.present? %>
+            <%= truncate(@current_store.description, length: 140) %>
+          <% else %>
+            Objetos pequeños, historias grandes.
+          <% end %>
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-semibold tracking-[0.2em] text-primary uppercase">
+          Tienda
+        </h3>
+        <ul class="mt-5 space-y-2.5 text-sm text-gray-500">
+          <li><a href="#productos" class="transition-colors hover:text-primary">Productos</a></li>
+          <li><%= link_to "Carrito", cart_path, class: "transition-colors hover:text-primary" %></li>
+          <li><a href="#sobre" class="transition-colors hover:text-primary">Sobre nosotros</a></li>
+        </ul>
+      </div>
+
+      <% has_socials = @current_store.whatsapp.present? || @current_store.instagram.present? || @current_store.facebook.present? %>
+      <% if has_socials %>
+        <div>
+          <h3 class="text-xs font-semibold tracking-[0.2em] text-primary uppercase">
+            Síguenos
+          </h3>
+          <div class="mt-5 flex gap-3">
+            <% if @current_store.instagram.present? %>
+              <a
+                href="https://instagram.com/<%= @current_store.instagram %>"
+                target="_blank"
+                rel="noopener"
+                aria-label="Instagram"
+                class="
+                  flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 text-gray-500
+                  transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary
+                "
+              >
+                <%= render_svg("instagram.svg", styles: "w-4 h-4") %>
+              </a>
+            <% end %>
+            <% if @current_store.facebook.present? %>
+              <a
+                href="https://facebook.com/<%= @current_store.facebook %>"
+                target="_blank"
+                rel="noopener"
+                aria-label="Facebook"
+                class="
+                  flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 text-gray-500
+                  transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary
+                "
+              >
+                <%= render_svg("facebook.svg", styles: "w-4 h-4") %>
+              </a>
+            <% end %>
+            <% if @current_store.whatsapp.present? %>
+              <a
+                href="https://wa.me/<%= @current_store.whatsapp %>"
+                target="_blank"
+                rel="noopener"
+                aria-label="WhatsApp"
+                class="
+                  flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 text-gray-500
+                  transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary
+                "
+              >
+                <%= render_svg("whatsapp.svg", styles: "w-4 h-4") %>
+              </a>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div
+      class="
+        mt-12 flex flex-col items-start justify-between gap-3 border-t border-gray-200 pt-6 text-xs text-gray-400
+        md:flex-row md:items-center
+      "
+    >
+      <p>
+        &copy; <%= Date.current.year %> <%= @current_store.name.capitalize %>. Todos los derechos reservados.
+      </p>
+      <p class="tracking-wide">
+        Hecho con cuidado en <span class="text-primary">pocketshop</span>
+      </p>
+    </div>
+  </div>
+</footer>
