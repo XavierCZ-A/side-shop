@@ -7,12 +7,6 @@ import { application } from "./application"
 import AccordionController from "./accordion_controller"
 application.register("accordion", AccordionController)
 
-import CartAddController from "./cart_add_controller"
-application.register("cart-add", CartAddController)
-
-import CartBadgeController from "./cart_badge_controller"
-application.register("cart-badge", CartBadgeController)
-
 import AnimationProductsController from "./animation_products_controller"
 application.register("animation-products", AnimationProductsController)
 
@@ -22,8 +16,17 @@ application.register("banner", BannerController)
 import CarouselController from "./carousel_controller"
 application.register("carousel", CarouselController)
 
+import CartAddController from "./cart_add_controller"
+application.register("cart-add", CartAddController)
+
+import CartBadgeController from "./cart_badge_controller"
+application.register("cart-badge", CartBadgeController)
+
 import ClipboardController from "./clipboard_controller"
 application.register("clipboard", ClipboardController)
+
+import DesignEditorController from "./design_editor_controller"
+application.register("design-editor", DesignEditorController)
 
 import DropdownController from "./dropdown_controller"
 application.register("dropdown", DropdownController)

@@ -3,22 +3,14 @@
     <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
       <div>
         <div class="flex items-center gap-2.5">
-          <span
-            class="
-              flex h-9 w-9 items-center justify-center rounded-full bg-primary font-serif text-sm font-bold
-              text-primary-foreground
-            "
-          >
-            <%= @current_store.name.first.upcase %>
-          </span>
           <h2 class="font-serif text-xl tracking-tight text-primary">
-            <%= @current_store.name.capitalize %>
+            <%= current_store.name.capitalize %>
           </h2>
         </div>
 
         <p class="mt-4 max-w-xs text-sm leading-relaxed font-light text-gray-500">
-          <% if @current_store.description.present? %>
-            <%= truncate(@current_store.description, length: 140) %>
+          <% if current_store.description.present? %>
+            <%= truncate(current_store.description, length: 140) %>
           <% else %>
             Objetos pequeños, historias grandes.
           <% end %>
@@ -29,6 +21,7 @@
         <h3 class="text-xs font-semibold tracking-[0.2em] text-primary uppercase">
           Tienda
         </h3>
+
         <ul class="mt-5 space-y-2.5 text-sm text-gray-500">
           <li><a href="#productos" class="transition-colors hover:text-primary">Productos</a></li>
           <li><%= link_to "Carrito", cart_path, class: "transition-colors hover:text-primary" %></li>
@@ -36,16 +29,18 @@
         </ul>
       </div>
 
-      <% has_socials = @current_store.whatsapp.present? || @current_store.instagram.present? || @current_store.facebook.present? %>
+      <% has_socials = current_store.whatsapp.present? || current_store.instagram.present? || current_store.facebook.present? %>
+
       <% if has_socials %>
         <div>
           <h3 class="text-xs font-semibold tracking-[0.2em] text-primary uppercase">
             Síguenos
           </h3>
+
           <div class="mt-5 flex gap-3">
-            <% if @current_store.instagram.present? %>
+            <% if current_store.instagram.present? %>
               <a
-                href="https://instagram.com/<%= @current_store.instagram %>"
+                href="<%= current_store.instagram %>"
                 target="_blank"
                 rel="noopener"
                 aria-label="Instagram"
@@ -57,9 +52,10 @@
                 <%= render_svg("instagram.svg", styles: "w-4 h-4") %>
               </a>
             <% end %>
-            <% if @current_store.facebook.present? %>
+
+            <% if current_store.facebook.present? %>
               <a
-                href="https://facebook.com/<%= @current_store.facebook %>"
+                href="<%= current_store.facebook %>"
                 target="_blank"
                 rel="noopener"
                 aria-label="Facebook"
@@ -71,9 +67,10 @@
                 <%= render_svg("facebook.svg", styles: "w-4 h-4") %>
               </a>
             <% end %>
-            <% if @current_store.whatsapp.present? %>
+
+            <% if current_store.whatsapp.present? %>
               <a
-                href="https://wa.me/<%= @current_store.whatsapp %>"
+                href="https://wa.me/<%= current_store.whatsapp %>"
                 target="_blank"
                 rel="noopener"
                 aria-label="WhatsApp"
@@ -97,8 +94,9 @@
       "
     >
       <p>
-        &copy; <%= Date.current.year %> <%= @current_store.name.capitalize %>. Todos los derechos reservados.
+        &copy; <%= Date.current.year %> <%= current_store.name.capitalize %>. Todos los derechos reservados.
       </p>
+
       <p class="tracking-wide">
         Hecho con cuidado en <span class="text-primary">pocketshop</span>
       </p>

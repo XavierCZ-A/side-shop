@@ -24,10 +24,6 @@ class Admin::DashboardsController < ApplicationController
     end
   end
 
-  def share
-    render layout: false if turbo_frame_request?
-  end
-
   private
 
   def store_params
