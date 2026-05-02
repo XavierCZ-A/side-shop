@@ -1,0 +1,23 @@
+<section class="hero-variant hero-variant--banner">
+  <div class="mx-auto max-w-6xl px-6 py-10">
+    <div class="relative overflow-hidden shadow-sm" style="border-radius: var(--sp-radius);">
+      <div class="relative h-44 w-full sm:h-56">
+        <% if store.image.attached? %>
+          <%= image_tag store.image, alt: store.name, class: "absolute inset-0 h-full w-full object-cover" %>
+        <% else %>
+          <div class="absolute inset-0 bg-gradient-to-br from-stone-300 via-stone-200 to-stone-300"></div>
+        <% end %>
+
+        <div class="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent"></div>
+
+        <div class="relative z-10 flex h-full flex-col justify-center px-8">
+          <p class="mb-2 text-[10px] tracking-[0.4em] text-white/80 uppercase">Envío gratis +$50</p>
+
+          <h1 class="text-3xl leading-tight text-white sm:text-4xl" style="font-family: var(--sp-font-heading);">
+            <%= store.name.capitalize %>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

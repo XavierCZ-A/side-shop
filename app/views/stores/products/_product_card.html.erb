@@ -1,5 +1,16 @@
-<div id="<%= dom_id(product) %>" class="group flex flex-col opacity-0" data-animation-products-target="card" data-controller="cart-add">
-  <div class="relative aspect-square w-full shrink-0 overflow-hidden rounded-xl bg-gray-200 transition-shadow duration-500 group-hover:shadow-lg sm:rounded-2xl lg:w-4/5">
+<div
+  id="<%= dom_id(product) %>"
+  class="group flex flex-col opacity-0"
+  data-animation-products-target="card"
+  data-controller="cart-add"
+>
+  <div
+    class="
+      relative w-full shrink-0 overflow-hidden bg-gray-200 transition-shadow duration-500 group-hover:shadow-lg
+      lg:w-4/5
+    "
+    style="aspect-ratio: var(--sp-aspect, 1 / 1); border-radius: var(--sp-radius, 0.75rem);"
+  >
     <% if product.images.attached? %>
       <div data-controller="carousel" class="h-full w-full">
         <% product.images.each_with_index do |image, index| %>
@@ -16,8 +27,8 @@
             data-action="carousel#prev"
             class="
               absolute top-1/2 left-2 z-20 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center
-              rounded-full bg-black/25 text-white transition-opacity hover:bg-black/40
-              opacity-100 md:opacity-0 md:group-hover:opacity-100
+              rounded-full bg-black/25 text-white opacity-100 transition-opacity hover:bg-black/40 md:opacity-0
+              md:group-hover:opacity-100
             "
           >
             <%= render_svg("chevron_left.svg", styles: "w-4 h-4") %>
@@ -27,8 +38,8 @@
             data-action="carousel#next"
             class="
               absolute top-1/2 right-2 z-20 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center
-              rounded-full bg-black/25 text-white transition-opacity hover:bg-black/40
-              opacity-100 md:opacity-0 md:group-hover:opacity-100
+              rounded-full bg-black/25 text-white opacity-100 transition-opacity hover:bg-black/40 md:opacity-0
+              md:group-hover:opacity-100
             "
           >
             <%= render_svg("chevron_rigth.svg", styles: "w-4 h-4") %>
@@ -43,8 +54,7 @@
 
     <div
       class="
-        absolute right-2 bottom-2 z-30 sm:right-3 sm:bottom-3
-        translate-y-0 opacity-100 transition-all duration-300
+        absolute right-2 bottom-2 z-30 translate-y-0 opacity-100 transition-all duration-300 sm:right-3 sm:bottom-3
         md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100
       "
     >
@@ -56,8 +66,11 @@
     </div>
   </div>
 
-  <div class="mt-3 flex w-full items-start justify-between gap-2 px-0.5 lg:w-4/5 sm:mt-4 sm:gap-4 sm:px-1">
-    <h3 class="font-serif text-sm leading-snug tracking-wide text-primary transition-opacity duration-300 group-hover:opacity-70 sm:text-base">
+  <div class="mt-3 flex w-full items-start justify-between gap-2 px-0.5 sm:mt-4 sm:gap-4 sm:px-1 lg:w-4/5">
+    <h3
+      class="text-sm leading-snug tracking-wide transition-opacity duration-300 group-hover:opacity-70 sm:text-base"
+      style="font-family: var(--sp-font-heading); color: var(--sp-color-primary, #1A2B3C);"
+    >
       <%= product.name %>
     </h3>
 

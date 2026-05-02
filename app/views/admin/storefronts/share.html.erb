@@ -1,0 +1,41 @@
+<%= turbo_frame_tag "modal" do %>
+  <div data-controller="modal">
+    <div
+      data-modal-target="overlay"
+      data-action="click->modal#close"
+      class="fixed inset-0 z-[60] bg-black/40 opacity-0 transition-opacity duration-300 ease-out"
+    ></div>
+
+    <div
+      data-modal-target="sidebar"
+      class="
+        fixed inset-x-0 bottom-0 z-[70] flex max-h-[92vh] w-full translate-y-full flex-col overflow-hidden
+        rounded-t-2xl bg-white opacity-0 shadow-2xl ring-1 ring-black/5 transition-all duration-300 ease-out
+        md:top-1/2 md:bottom-auto md:left-1/2 md:max-h-[90vh] md:w-[600px] md:-translate-x-1/2 md:-translate-y-1/2
+        md:translate-y-4 md:scale-95 md:rounded-2xl
+      "
+    >
+      <div class="flex items-center justify-between border-b border-gray-200 p-4 text-black">
+        <div class="flex w-full flex-col border-gray-200">
+          <div class="mb-1 flex items-center justify-between">
+            <h1 class="text-lg font-bold">Compartir tienda</h1>
+
+            <button
+              type="button"
+              data-action="click->modal#close"
+              class="rounded-full bg-gray-200 p-2 transition duration-200 hover:bg-gray-300"
+            >
+              <%= render_svg("close.svg") %>
+            </button>
+          </div>
+
+          <p class="text-sm text-gray-500">Tu tienda está lista para recibir visitas.</p>
+        </div>
+      </div>
+
+      <div class="scrollbar-hide flex-1 overflow-y-auto bg-white p-5">
+        <%= render "store_share", store: @store %>
+      </div>
+    </div>
+  </div>
+<% end %>

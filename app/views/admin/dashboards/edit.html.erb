@@ -50,20 +50,12 @@
         </div>
 
         <div data-controller="image-preview" data-image-preview-max-files-value="2">
-          <div class="mb-2 flex gap-1">
-            <%= form.label :image, "Imágenes", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
-            <span class="text-red-500">*</span>
-            <span data-image-preview-target="counter" class="ml-auto text-xs text-gray-400">0 / 2</span>
-          </div>
-
           <% if current_user.store.persisted? && current_user.store.image.attached? %>
             <div class="mb-3">
-              <p class="mb-2 text-xs text-gray-500">Imágen actual:</p>
+              <p class="mb-2 text-xs text-gray-500">Banner actual:</p>
 
-              <div class="flex flex-wrap gap-3">
-                <div class="relative h-20 w-20 overflow-hidden rounded-xl shadow-sm ring-1 ring-gray-200">
-                  <%= image_tag current_user.store.image, alt: "Imagen de la tienda", class: "w-full h-full object-cover" %>
-                </div>
+              <div class="relative h-50 w-full overflow-hidden rounded-xl shadow-sm ring-1 ring-gray-200">
+                <%= image_tag current_user.store.image, alt: "Imagen de la tienda", class: "w-full h-full object-cover" %>
               </div>
             </div>
           <% end %>
@@ -81,7 +73,7 @@
               <%= render_svg("upload.svg", styles: "mx-auto h-10 w-10 text-gray-300") %>
 
               <p class="mt-2 text-sm text-gray-500">
-                Arrastra tus imágenes aquí o <span class="font-medium text-[#10B981]">haz clic para seleccionar</span>
+                Arrastra tu imágen aquí o <span class="font-medium text-[#10B981]">haz clic para seleccionar</span>
               </p>
 
               <p class="mt-1 text-xs text-gray-400">JPG, PNG o WebP · Máx. 10 MB</p>

@@ -1,0 +1,261 @@
+<%# Sidebar del customizer — inputs reales cableados a Stimulus %>
+<aside class="w-full max-w-[380px] overflow-hidden border-r border-gray-200 bg-white shadow-sm">
+  <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4">
+    <div>
+      <span class="text-[10px] font-medium tracking-widest text-gray-400 uppercase">Customizer</span>
+      <h1 class="font-serif text-3xl text-gray-800">Diseño</h1>
+    </div>
+
+    <%= link_to admin_root_path, class: "text-gray-400 transition-colors hover:text-gray-600" do %>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        ></path>
+      </svg>
+    <% end %>
+  </div>
+
+  <div class="space-y-8 p-6">
+    <section>
+      <div class="mb-4 flex items-center gap-2">
+        <span class="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-400 italic">01</span>
+        <h2 class="font-serif text-xl text-gray-700">Vibra</h2>
+      </div>
+
+      <div class="space-y-3">
+        <% [
+             { value: "editorial", label: "Editorial", subtitle: "Fraunces · Inter",  swatch: "#F9F5F0", dot: "#7C2D12", font_class: "font-serif" },
+             { value: "organic",   label: "Orgánico",  subtitle: "Sora · DM Sans",    swatch: "#F1F3E9", dot: "#15803D", font_class: "font-sans font-medium" },
+             { value: "modern",    label: "Moderno",   subtitle: "Inter · Inter",     swatch: "#FFFFFF", dot: "#0A0A0A", font_class: "font-sans" }
+           ].each do |opt| %>
+          <% selected = store.vibe == opt[:value] %>
+
+          <label
+            class="group relative flex cursor-pointer items-center rounded-xl border bg-white p-3 transition-colors <%= selected ? "border-2 border-gray-800" : "border-gray-200 hover:border-gray-300" %>"
+            data-design-editor-target="vibeOption"
+            data-vibe-value="<%= opt[:value] %>"
+          >
+            <%= tag.input(
+              type: "radio",
+              name: "store[vibe]",
+              value: opt[:value],
+              class: "sr-only",
+              checked: selected,
+              data: { action: "change->design-editor#update" }
+            ) %>
+
+            <span
+              class="relative mr-4 flex h-12 w-12 items-center justify-center rounded-lg ring-1 ring-gray-200"
+              style="background-color: <%= opt[:swatch] %>"
+            >
+              <span class="text-xl <%= opt[:font_class] %>">Aa</span>
+
+              <span
+                class="absolute right-1 bottom-1 h-1.5 w-1.5 rounded-full"
+                style="background-color: <%= opt[:dot] %>"
+              ></span>
+            </span>
+
+            <span class="flex-1">
+              <span class="block text-sm font-medium text-gray-900"><%= opt[:label] %></span>
+              <span class="block text-[11px] text-gray-400"><%= opt[:subtitle] %></span>
+            </span>
+          </label>
+        <% end %>
+      </div>
+    </section>
+
+    <section>
+      <div class="mb-4 flex items-center gap-2">
+        <span class="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-400 italic">02</span>
+        <h2 class="font-serif text-xl text-gray-700">Hero</h2>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3">
+        <% [
+             { value: "centered", label: "Centrado" },
+             { value: "split",    label: "Split" },
+             { value: "banner",   label: "Banner" }
+           ].each do |opt| %>
+          <% selected = store.hero_layout == opt[:value] %>
+
+          <label
+            class="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl p-4 transition-colors <%= selected ? "border-2 border-gray-800 text-gray-900" : "border border-gray-200 text-gray-400 hover:border-gray-300" %>"
+            data-design-editor-target="heroOption"
+            data-hero-value="<%= opt[:value] %>"
+          >
+            <%= tag.input(
+              type: "radio",
+              name: "store[hero_layout]",
+              value: opt[:value],
+              class: "sr-only",
+              checked: selected,
+              data: { action: "change->design-editor#update" }
+            ) %>
+
+            <% case opt[:value] %>
+            <% when "centered" %>
+              <span class="h-1 w-8 rounded-full bg-current"></span>
+            <% when "split" %>
+              <span class="flex gap-0.5">
+                <span class="h-4 w-2.5 rounded-sm border border-current"></span>
+                <span class="h-4 w-5 rounded-sm border border-current bg-gray-50"></span>
+              </span>
+            <% when "banner" %>
+              <span class="relative h-4 w-8 overflow-hidden rounded-sm border border-current">
+                <span class="absolute top-0 right-0 h-2 w-4 bg-current"></span>
+              </span>
+            <% end %>
+
+            <span class="text-[10px] font-medium tracking-tighter uppercase"><%= opt[:label] %></span>
+          </label>
+        <% end %>
+      </div>
+    </section>
+
+    <section>
+      <div class="mb-4 flex items-center gap-2">
+        <span class="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-400 italic">03</span>
+        <h2 class="font-serif text-xl text-gray-700">Esquinas</h2>
+      </div>
+
+      <div class="mb-2 grid grid-cols-3 gap-3">
+        <% [
+             { value: 0,  label: "Cuadradas", swatch: "" },
+             { value: 8,  label: "Suaves",    swatch: "rounded-md" },
+             { value: 24, label: "Curvas",    swatch: "rounded-2xl" }
+           ].each do |opt| %>
+          <% selected = store.border_radius == opt[:value] %>
+
+          <label
+            class="flex cursor-pointer flex-col items-center gap-3 rounded-xl p-4 transition-colors <%= selected ? "border-2 border-gray-800" : "border border-gray-200 hover:bg-gray-50" %>"
+            data-design-editor-target="radiusOption"
+            data-radius-value="<%= opt[:value] %>"
+          >
+            <%= tag.input(
+              type: "radio",
+              name: "store[border_radius]",
+              value: opt[:value],
+              class: "sr-only",
+              checked: selected,
+              data: { action: "change->design-editor#update" }
+            ) %>
+
+            <span class="h-10 w-10 bg-gray-200 <%= opt[:swatch] %>"></span>
+
+            <span class="text-[11px] <%= selected ? "font-medium text-gray-900" : "text-gray-600" %>">
+              <%= opt[:label] %>
+            </span>
+          </label>
+        <% end %>
+      </div>
+
+      <p
+        class="mt-3 text-center font-mono text-[10px] tracking-widest text-gray-400 uppercase"
+        data-design-editor-target="radiusLabel"
+      >
+        radio actual · <%= store.border_radius %>px
+      </p>
+    </section>
+
+    <%# 04 · Aspect ratio %>
+    <section>
+      <div class="mb-4 flex items-center gap-2">
+        <span class="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-400 italic">04</span>
+        <h2 class="font-serif text-xl text-gray-700">Imágenes</h2>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <% [
+             { value: "1:1", label: "Cuadrado", w: "h-10 w-10" },
+             { value: "4:5", label: "Vertical", w: "h-12 w-10" }
+           ].each do |opt| %>
+          <% selected = store.aspect_ratio == opt[:value] %>
+
+          <label
+            class="flex cursor-pointer flex-col items-center gap-3 rounded-xl p-4 transition-colors <%= selected ? "border-2 border-gray-800" : "border border-gray-200 hover:bg-gray-50" %>"
+            data-design-editor-target="aspectOption"
+            data-aspect-value="<%= opt[:value] %>"
+          >
+            <%= tag.input(
+              type: "radio",
+              name: "store[aspect_ratio]",
+              value: opt[:value],
+              class: "sr-only",
+              checked: selected,
+              data: { action: "change->design-editor#update" }
+            ) %>
+
+            <span class="rounded bg-gray-200 <%= opt[:w] %>"></span>
+
+            <span class="text-center">
+              <span class="text-[11px] <%= selected ? "font-medium text-gray-900" : "text-gray-600" %>">
+                <%= opt[:label] %>
+              </span>
+
+              <span class="font-mono text-[10px] text-gray-400"><%= opt[:value] %></span>
+            </span>
+          </label>
+        <% end %>
+      </div>
+    </section>
+
+    <%# 05 · Filtro de grano %>
+    <div class="border-t border-gray-100 pt-4">
+      <div class="flex items-center justify-between rounded-xl border border-gray-200 p-4">
+        <div class="flex items-start gap-3">
+          <div class="mt-1 text-gray-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+              ></path>
+            </svg>
+          </div>
+
+          <div>
+            <p class="text-sm font-medium text-gray-900">Filtro de grano</p>
+            <p class="text-[11px] text-gray-400">textura sutil al fondo</p>
+          </div>
+        </div>
+
+        <label class="relative inline-flex cursor-pointer items-center">
+          <%= tag.input(
+              type: "checkbox",
+              name: "store[grain_enabled]",
+              value: "1",
+              class: "peer sr-only",
+              checked: store.grain_enabled,
+              data: { action: "change->design-editor#update" }
+            ) %>
+
+          <span
+            class="
+              peer h-5 w-10 rounded-full bg-gray-200 peer-checked:bg-gray-900 after:absolute after:top-0.5
+              after:left-0.5 after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300
+              after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full
+              peer-checked:after:border-white
+            "
+          ></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</aside>

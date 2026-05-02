@@ -2,51 +2,11 @@
 <%= render "stores/navbar", current_store: @current_store %>
 <%= render "stores/cart/shopping_cart" %>
 
-<div id="top" class="relative bg-[#ecece9]">
-  <%# Hero %>
-  <section class="mx-auto max-w-7xl px-3 py-4 sm:px-6 sm:py-8 lg:px-8">
-    <div class="relative h-[22rem] w-full overflow-hidden rounded-2xl shadow-sm sm:h-[28rem] md:h-[34rem]">
-      <% if @current_store.image.attached? %>
-        <%= image_tag @current_store.image, alt: "#{@current_store.name} banner",
-          class: "absolute inset-0 w-full h-full object-cover object-center" %>
-      <% else %>
-        <div class="absolute inset-0 bg-gradient-to-br from-stone-300 via-stone-200 to-stone-300"></div>
-      <% end %>
-
-      <div class="absolute inset-0 bg-gradient-to-tr from-black/70 via-black/35 to-transparent"></div>
-
-      <div class="relative z-10 flex h-full flex-col justify-end p-5 sm:p-10">
-        <p class="mb-2.5 text-[10px] tracking-[0.3em] text-white/80 uppercase sm:mb-3 sm:text-[11px]">
-          Envío gratis en pedidos +$50
-        </p>
-        <h1 class="mb-3 max-w-2xl font-serif text-3xl leading-tight text-white sm:mb-4 sm:text-5xl md:text-6xl">
-          <%= @current_store.name.capitalize %>
-        </h1>
-        <% if @current_store.description.present? %>
-          <p class="mb-5 max-w-md text-sm leading-relaxed font-light text-white/90 sm:mb-7 sm:text-base">
-            <%= truncate(@current_store.description, length: 120) %>
-          </p>
-        <% else %>
-          <p class="mb-5 max-w-md font-serif text-base leading-relaxed font-light text-white/90 italic sm:mb-7 sm:text-lg">
-            Edición limitada de primavera.
-          </p>
-        <% end %>
-
-        <a
-          href="#productos"
-          class="
-            group inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-primary
-            transition-all duration-300 hover:bg-primary hover:text-primary-foreground sm:px-6 sm:py-3
-          "
-        >
-          Ver colección
-          <span class="transition-transform duration-300 group-hover:translate-x-1">
-            <%= render_svg("arrow_right.svg", styles: "w-4 h-4") %>
-          </span>
-        </a>
-      </div>
-    </div>
-  </section>
+<div id="top" class="relative">
+  <%# Hero — los 3 variants viven en el DOM; CSS muestra solo el activo según data-hero-layout en <body>. %>
+  <%= render "storefronts/hero_centered", store: @current_store %>
+  <%= render "storefronts/hero_split",    store: @current_store %>
+  <%= render "storefronts/hero_banner",   store: @current_store %>
 
   <%# Features strip: 3 columnas en todos los tamaños %>
   <section class="border-t border-b border-gray-200 bg-[#f1efe9] px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
@@ -55,6 +15,7 @@
         <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-sm">
           <%= render_svg("truck.svg", styles: "w-5 h-5") %>
         </span>
+
         <div>
           <p class="text-[11px] font-semibold text-primary sm:text-sm">Envío gratis</p>
           <p class="hidden text-xs text-gray-500 sm:block">En pedidos de $50 o más</p>
@@ -65,6 +26,7 @@
         <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-sm">
           <%= render_svg("paint.svg", styles: "w-5 h-5") %>
         </span>
+
         <div>
           <p class="text-[11px] font-semibold text-primary sm:text-sm">Hecho a mano</p>
           <p class="hidden text-xs text-gray-500 sm:block">Por artesanos locales</p>
@@ -75,6 +37,7 @@
         <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-sm">
           <%= render_svg("shield_check.svg", styles: "w-5 h-5") %>
         </span>
+
         <div>
           <p class="text-[11px] font-semibold text-primary sm:text-sm">Pago seguro</p>
           <p class="hidden text-xs text-gray-500 sm:block">Se aceptan todas las tarjetas</p>
@@ -90,10 +53,15 @@
         <p class="mb-1.5 text-[10px] tracking-[0.3em] text-gray-500 uppercase sm:mb-2 sm:text-[11px]">
           Colección
         </p>
-        <h2 class="font-serif text-2xl text-primary sm:text-3xl sm:text-4xl">
+
+        <h2
+          class="text-2xl sm:text-3xl sm:text-4xl"
+          style="font-family: var(--sp-font-heading); color: var(--sp-color-primary, #1A2B3C);"
+        >
           Productos destacados
         </h2>
       </div>
+
       <% if @products.any? %>
         <p class="text-xs text-gray-500 sm:text-sm">
           <%= pluralize(@products.size, "producto") %>
@@ -118,7 +86,9 @@
         <span class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-400">
           <%= render_svg("photo.svg", styles: "w-6 h-6") %>
         </span>
+
         <p class="font-serif text-lg text-primary">Próximamente</p>
+
         <p class="mt-1 text-sm text-gray-500">
           Estamos preparando nuevos productos para ti.
         </p>
@@ -126,5 +96,5 @@
     <% end %>
   </section>
 
-  <%= render "stores/footer_store" %>
+  <%= render "stores/footer_store", current_store: @current_store %>
 </div>

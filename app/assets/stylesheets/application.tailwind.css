@@ -140,7 +140,7 @@
   }
 
   .btn-primary-xs {
-    @apply inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap rounded-lg bg-primary p-2 text-xs text-primary-foreground hover:opacity-90 cursor-pointer transition-all duration-200 select-none active:scale-95 touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap p-2 text-xs text-primary-foreground hover:opacity-90 cursor-pointer transition-all duration-200 select-none active:scale-95 touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .btn-outline {
@@ -154,6 +154,39 @@
   .nav-text {
     @apply text-sm text-gray-600 hover:text-black transition-colors cursor-pointer font-medium;
   }
+}
+
+/*
+  =========================================
+  STOREFRONT PREVIEW (Customizer)
+  =========================================
+  Variables aplicadas en el wrapper .storefront-preview se consumen
+  via var(--sp-*) en los partials. Ver app/helpers/storefronts_helper.rb.
+*/
+.storefront-preview .hero-variant {
+  display: none;
+}
+
+.storefront-preview[data-hero-layout="centered"] .hero-variant--centered,
+.storefront-preview[data-hero-layout="split"] .hero-variant--split,
+.storefront-preview[data-hero-layout="banner"] .hero-variant--banner {
+  display: block;
+}
+
+.storefront-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+}
+
+.storefront-grain>* {
+  position: relative;
+  z-index: 2;
 }
 
 /* .auth-form-content {
