@@ -1,27 +1,28 @@
-<nav class="w-full bg-white border-b border-gray-200 shadow-sm px-4 md:px-8 z-50 sticky top-0">
-  <div class="max-w-7xl mx-auto h-16 flex justify-between items-center">
-    <div class="flex items-center w-full justify-between">
-
+<nav class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white px-4 shadow-sm md:px-8">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between">
+    <div class="flex w-full items-center justify-between">
       <h1 class="text-xl font-bold">Shopy</h1>
 
-      <div class="flex items-center gap-4 relative">
+      <div class="relative flex items-center gap-4">
         <%= render Buttons::Component.new(
           text: "Compartir Tienda",
           icon: render_svg("share.svg", styles: "w-4 h-4"),
           pill: true,
           data: { turbo_frame: "modal" },
-          href: admin_share_path,
+          href: share_admin_storefront_path,
           classes: "[&_span:not(.shrink-0)]:hidden md:[&_span:not(.shrink-0)]:inline",
         ) %>
+
         <div data-controller="dropdown" data-action="click@window->dropdown#close" class="relative">
           <button class="cursor-pointer" data-action="click->dropdown#toggle">
             <%= user_avatar(current_user.email_address, "#1b69d8", "white") %>
           </button>
+
           <%= render "admin/dropdown" %>
         </div>
+
         <%= render "admin/dropdown" %>
       </div>
-
     </div>
   </div>
 </nav>

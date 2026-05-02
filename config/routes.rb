@@ -19,19 +19,28 @@ Rails.application.routes.draw do
 
   namespace :admin, path: "dashboard" do
     root "dashboards#index"
+
+    get  "/billing",        to: "billing#show"
+    post "/billing/portal", to: "billing#portal"
+
     resources :subscriptions, only: [ :new, :create, :destroy ] do
       patch :resume, on: :member
     end
-    get  "/billing",        to: "billing#show"
-    post "/billing/portal", to: "billing#portal"
+
     resources :products, only: [ :new, :create, :edit, :update ] do
       member do
         patch :toggle_active
       end
     end
-    get "customize", to: "dashboards#edit", as: :customize
+
+    resource :storefront, only: [ :edit, :update ] do
+      member do
+        get :share, to: "storefronts#share"
+      end
+    end
+
+    get   "customize", to: "dashboards#edit",   as: :customize
     patch "customize", to: "dashboards#update"
-    get "share", to: "dashboards#share"
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

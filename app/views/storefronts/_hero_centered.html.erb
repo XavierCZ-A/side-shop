@@ -1,0 +1,26 @@
+<section class="hero-variant hero-variant--centered">
+  <div class="mx-auto max-w-3xl px-6 py-20 text-center sm:py-28">
+    <p class="mb-3 text-[10px] tracking-[0.4em] text-gray-500 uppercase">Edición primavera</p>
+
+    <h1 class="mb-5 text-5xl leading-tight sm:text-6xl" style="font-family: var(--sp-font-heading);">
+      <%= store.name.capitalize %>
+    </h1>
+
+    <% if store.description.present? %>
+      <p class="mx-auto mb-7 max-w-xl text-base leading-relaxed text-gray-600">
+        <%= truncate(store.description, length: 140) %>
+      </p>
+    <% else %>
+      <p class="mx-auto mb-7 max-w-xl text-base leading-relaxed text-gray-600 italic">
+        Piezas curadas para una temporada de transición.
+      </p>
+    <% end %>
+
+    <button
+      class="inline-block px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+      style="background-color: var(--sp-color-primary); border-radius: var(--sp-radius);"
+    >
+      Ver colección
+    </button>
+  </div>
+</section>

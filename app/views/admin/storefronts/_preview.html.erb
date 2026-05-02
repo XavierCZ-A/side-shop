@@ -1,0 +1,50 @@
+<%# Vista previa del storefront — usa CSS vars desde el helper.
+    Stimulus actualiza data-attrs y CSS vars en este wrapper sin re-render. %>
+<div id="storefront-preview"
+     class="<%= storefront_classes(store) %> relative isolate flex-1 overflow-y-auto"
+     style="<%= storefront_css_vars(store) %>; background-color: var(--sp-color-bg); font-family: var(--sp-font-body); color: var(--sp-color-fg);"
+     data-design-editor-target="preview"
+     data-vibe="<%= store.vibe %>"
+     data-hero-layout="<%= store.hero_layout %>"
+     data-aspect-ratio="<%= store.aspect_ratio %>">
+
+  <%# Topbar mock %>
+  <header class="sticky top-0 z-10 flex items-center justify-between border-b border-black/5 bg-white/70 px-6 py-4 backdrop-blur-sm">
+    <span class="text-sm tracking-wider uppercase" style="font-family: var(--sp-font-heading);"><%= store.name %></span>
+    <nav class="hidden gap-6 text-xs text-gray-500 sm:flex">
+      <span>Tienda</span>
+      <span>Colección</span>
+      <span>Contacto</span>
+    </nav>
+    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
+      <%= render_svg("shopping_cart.svg", styles: "w-4 h-4 text-gray-600") rescue nil %>
+    </div>
+  </header>
+
+  <%# Heroes — los 3 viven en el DOM; CSS muestra solo el activo %>
+  <%= render "storefronts/hero_centered", store: store %>
+  <%= render "storefronts/hero_split",    store: store %>
+  <%= render "storefronts/hero_banner",   store: store %>
+
+  <%# Productos %>
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="mb-8 flex items-end justify-between">
+      <div>
+        <p class="text-[10px] tracking-[0.3em] text-gray-500 uppercase">Colección</p>
+        <h2 class="text-2xl sm:text-3xl" style="font-family: var(--sp-font-heading);">Productos destacados</h2>
+      </div>
+      <p class="text-xs text-gray-500"><%= pluralize(products.size, "producto") %></p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4">
+      <% products.each do |product| %>
+        <%= render "admin/storefronts/preview_product_card", product: product %>
+      <% end %>
+    </div>
+  </section>
+
+  <%# Footer mock %>
+  <footer class="border-t border-black/5 px-6 py-8 text-center text-xs text-gray-500">
+    © <%= Date.current.year %> · <%= store.name %>
+  </footer>
+</div>
