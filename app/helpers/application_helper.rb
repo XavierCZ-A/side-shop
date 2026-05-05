@@ -20,6 +20,10 @@ module ApplicationHelper
     end
   end
 
+  def tw(*classes)
+    TailwindMerge::Merger.new.merge(classes.compact.join(" "))
+  end
+
   def primary_colors
     %w[
       #4F46E5 #EF4444 #F59E0B #10B981

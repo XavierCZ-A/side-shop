@@ -58,15 +58,27 @@ module Buttons
       @options = options
     end
 
+
+    # def button_classes
+    #   [
+    #     base_classes,
+    #     size_classes,
+    #     shape_classes,
+    #     variant_classes,
+    #     @full_width ? "w-full" : nil,
+    #     @classes
+    #   ].compact.reject(&:empty?).join(" ")
+    # end
+
     def button_classes
-      [
+      helpers.tw(
         base_classes,
         size_classes,
         shape_classes,
         variant_classes,
         @full_width ? "w-full" : nil,
         @classes
-      ].compact.reject(&:empty?).join(" ")
+      )
     end
 
     def tag_name

@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   constraints StoreSubdomain do
     root "stores#show", as: :store_root
     resources :line_items, only: [ :create, :destroy, :update ]
-    resource  :cart,       only: [ :show, :destroy ]
+    resource  :cart,       only: [ :destroy ]
+    resource  :checkout,   only: [ :show ]
   end
 
   resource :onboardings, path: "get-started", only: [ :show, :create ]

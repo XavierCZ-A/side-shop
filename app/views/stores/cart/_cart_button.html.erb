@@ -1,0 +1,35 @@
+<button
+  type="button"
+  id="cart_nav"
+  data-action="click->cart-slide#open"
+  data-controller="cart-badge"
+  class="
+    fixed right-5 bottom-5 z-50 group transition-transform duration-300 hover:-translate-y-1 cursor-pointer
+    md:right-6 md:bottom-6
+  "
+  aria-label="Abrir carrito"
+>
+  <div class="flex items-center md:gap-3">
+    <div
+      class="
+        relative flex shrink-0 items-center justify-center md:rounded-[0.85rem] md:bg-white md:p-2.5
+        md:backdrop-blur-sm
+      "
+    >
+      <span
+        class="
+          absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-full border-[1.5px]
+          border-transparent bg-primary px-1.5 text-[10px] font-extrabold text-primary-foreground shadow-md
+          md:text-[11px]
+        "
+        data-cart-badge-target="badge"
+      >
+        <%= @cart&.line_items&.sum(:quantity) || 0 %>
+      </span>
+
+      <span data-cart-badge-target="icon" class="inline-flex">
+        <%= render_svg("shopping_bag.svg", styles: "w-6 h-6 md:w-6 md:h-6 text-primary") %>
+      </span>
+    </div>
+  </div>
+</button>

@@ -1,6 +1,4 @@
-<%= turbo_stream.replace "cart_nav" do %>
-  <%= render partial: "stores/cart/shopping_cart" %>
-<% end %>
+<%= render "stores/cart/cart_updates" %>
 
 <%= turbo_stream.update "flash_notice_container" do %>
   <%= render partial: "shared/flash_notice" %>

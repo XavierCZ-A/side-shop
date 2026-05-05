@@ -23,14 +23,13 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
 
     <% if defined?(@current_store) && @current_store %>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap">
-      <style>:root { <%= storefront_css_vars(@current_store) %>; }</style>
+      <%= storefront_fonts_link %>
+      <style>:root { <%= raw storefront_css_vars(@current_store) %>; }</style>
     <% end %>
   </head>
 
   <% body_attrs = (defined?(@current_store) && @current_store) ? storefront_body_attrs(@current_store) : {} %>
+
   <%= tag.body(**body_attrs) do %>
     <% unless content_for?(:skip_global_flash) %>
       <div id="flash_notice_container">
@@ -38,6 +37,7 @@
       </div>
     <% end %>
 
+    <%= turbo_frame_tag "modal" %>
     <%= yield %>
   <% end %>
 </html>

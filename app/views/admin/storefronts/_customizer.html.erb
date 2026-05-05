@@ -32,11 +32,7 @@
       </div>
 
       <div class="space-y-3">
-        <% [
-             { value: "editorial", label: "Editorial", subtitle: "Fraunces · Inter",  swatch: "#F9F5F0", dot: "#7C2D12", font_class: "font-serif" },
-             { value: "organic",   label: "Orgánico",  subtitle: "Sora · DM Sans",    swatch: "#F1F3E9", dot: "#15803D", font_class: "font-sans font-medium" },
-             { value: "modern",    label: "Moderno",   subtitle: "Inter · Inter",     swatch: "#FFFFFF", dot: "#0A0A0A", font_class: "font-sans" }
-           ].each do |opt| %>
+        <% vibe_options.each do |opt| %>
           <% selected = store.vibe == opt[:value] %>
 
           <label

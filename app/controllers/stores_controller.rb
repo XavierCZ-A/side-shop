@@ -4,5 +4,6 @@ class StoresController < StoreBaseController
 
   def show
     @products = @current_store.products.with_attached_images.active
+    @line_items = @cart.line_items.includes(:product)
   end
 end

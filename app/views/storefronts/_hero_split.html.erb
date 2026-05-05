@@ -1,10 +1,8 @@
 <section class="hero-variant hero-variant--split">
   <div class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 py-16 sm:py-20 md:grid-cols-2 md:items-center">
     <div>
-      <p class="mb-3 text-[10px] tracking-[0.4em] text-gray-500 uppercase">Nuevo</p>
-
       <h1 class="mb-5 text-4xl leading-tight sm:text-5xl" style="font-family: var(--sp-font-heading);">
-        <%= store.name %>
+        <%= store.name.capitalize %>
       </h1>
 
       <% if store.description.present? %>

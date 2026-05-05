@@ -1,4 +1,22 @@
 module StorefrontsHelper
+  STOREFRONT_FONTS_HREF =
+    "https://fonts.googleapis.com/css2?" \
+    "family=DM+Sans:wght@400;500;700&" \
+    "family=Fraunces:wght@400;600;700&" \
+    "family=Inter:wght@400;500;600;700&" \
+    "family=Nunito:wght@400;500;600;700&" \
+    "family=Playfair+Display:wght@400;600;700&" \
+    "family=Space+Grotesk:wght@400;500;600;700&" \
+    "display=swap"
+
+  def storefront_fonts_link
+    safe_join([
+      tag.link(rel: "preconnect", href: "https://fonts.googleapis.com"),
+      tag.link(rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: ""),
+      tag.link(rel: "stylesheet", href: STOREFRONT_FONTS_HREF)
+    ])
+  end
+
   VIBE_TOKENS = {
     "editorial" => {
       key:                 "editorial",

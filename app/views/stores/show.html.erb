@@ -1,6 +1,6 @@
 <% content_for :title, @current_store.name.capitalize %>
-<%= render "stores/navbar", current_store: @current_store %>
-<%= render "stores/cart/shopping_cart" %>
+<%= render "storefronts/navbar", current_store: @current_store %>
+<%= render "stores/cart/shopping_cart", line_items: @line_items %>
 
 <div id="top" class="relative">
   <%# Hero — los 3 variants viven en el DOM; CSS muestra solo el activo según data-hero-layout en <body>. %>
@@ -8,93 +8,10 @@
   <%= render "storefronts/hero_split",    store: @current_store %>
   <%= render "storefronts/hero_banner",   store: @current_store %>
 
-  <%# Features strip: 3 columnas en todos los tamaños %>
-  <section class="border-t border-b border-gray-200 bg-[#f1efe9] px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
-    <div class="mx-auto grid max-w-7xl grid-cols-3 gap-3 sm:gap-6">
-      <div class="flex flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:gap-3 sm:text-left">
-        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-sm">
-          <%= render_svg("truck.svg", styles: "w-5 h-5") %>
-        </span>
+  <%= render "storefronts/products_section",
+        products: @products,
+        current_store: @current_store,
+        interactive: true %>
 
-        <div>
-          <p class="text-[11px] font-semibold text-primary sm:text-sm">Envío gratis</p>
-          <p class="hidden text-xs text-gray-500 sm:block">En pedidos de $50 o más</p>
-        </div>
-      </div>
-
-      <div class="flex flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:gap-3 sm:text-left">
-        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-sm">
-          <%= render_svg("paint.svg", styles: "w-5 h-5") %>
-        </span>
-
-        <div>
-          <p class="text-[11px] font-semibold text-primary sm:text-sm">Hecho a mano</p>
-          <p class="hidden text-xs text-gray-500 sm:block">Por artesanos locales</p>
-        </div>
-      </div>
-
-      <div class="flex flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:gap-3 sm:text-left">
-        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-sm">
-          <%= render_svg("shield_check.svg", styles: "w-5 h-5") %>
-        </span>
-
-        <div>
-          <p class="text-[11px] font-semibold text-primary sm:text-sm">Pago seguro</p>
-          <p class="hidden text-xs text-gray-500 sm:block">Se aceptan todas las tarjetas</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <%# Products section %>
-  <section id="productos" class="mx-auto max-w-7xl px-3 py-10 sm:px-6 sm:py-16 lg:px-8">
-    <div class="mb-7 flex items-end justify-between sm:mb-10">
-      <div>
-        <p class="mb-1.5 text-[10px] tracking-[0.3em] text-gray-500 uppercase sm:mb-2 sm:text-[11px]">
-          Colección
-        </p>
-
-        <h2
-          class="text-2xl sm:text-3xl sm:text-4xl"
-          style="font-family: var(--sp-font-heading); color: var(--sp-color-primary, #1A2B3C);"
-        >
-          Productos destacados
-        </h2>
-      </div>
-
-      <% if @products.any? %>
-        <p class="text-xs text-gray-500 sm:text-sm">
-          <%= pluralize(@products.size, "producto") %>
-        </p>
-      <% end %>
-    </div>
-
-    <% if @products.any? %>
-      <div
-        class="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-4 sm:gap-y-12 lg:grid-cols-4"
-        data-controller="animation-products"
-      >
-        <%= render partial: "stores/products/product_card", collection: @products, as: :product, cached: true, locals: { current_store: @current_store } %>
-      </div>
-    <% else %>
-      <div
-        class="
-          flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white/40
-          px-6 py-16 text-center sm:py-20
-        "
-      >
-        <span class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-400">
-          <%= render_svg("photo.svg", styles: "w-6 h-6") %>
-        </span>
-
-        <p class="font-serif text-lg text-primary">Próximamente</p>
-
-        <p class="mt-1 text-sm text-gray-500">
-          Estamos preparando nuevos productos para ti.
-        </p>
-      </div>
-    <% end %>
-  </section>
-
-  <%= render "stores/footer_store", current_store: @current_store %>
+  <%= render "storefronts/footer", current_store: @current_store %>
 </div>

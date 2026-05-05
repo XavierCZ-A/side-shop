@@ -1,0 +1,125 @@
+<nav
+  data-controller="navbar"
+  class="sticky top-0 z-50 w-full border-b border-gray-200 px-4 backdrop-blur-md transition-all duration-300 md:px-8"
+  style="background-color: var(--sp-color-bg); font-family: var(--sp-font-body); color: var(--sp-color-fg);"
+>
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between">
+    <%# Aqui debe ir el logo o nombre de la tienda %>
+    <%= link_to "#top", class: "text-lg font-semibold" do %>
+      <%= current_store.name.capitalize %>
+    <% end %>
+
+    <%# Desktop links %>
+    <div class="hidden items-center md:flex">
+      <%= render Buttons::Component.new(
+          text: "Inicio",
+          variant: :ghost,
+          size: :sm,
+          href: "#top",
+        ) %>
+
+      <%= render Buttons::Component.new(
+          text: "Catalogo",
+          variant: :ghost,
+          size: :sm,
+          href: "#products",
+        ) %>
+
+      <% if current_store.whatsapp.present? %>
+        <%= render Buttons::Component.new(
+          text: "Contacto",
+          variant: :ghost,
+          size: :sm,
+          href: "https://wa.me/#{current_store.whatsapp}",
+          target: "_blank",
+          rel: "noopener",
+        ) %>
+      <% else %>
+        <%= render Buttons::Component.new(
+          text: "Contacto",
+          variant: :ghost,
+          size: :sm,
+          href: "#contacto"
+        ) %>
+      <% end %>
+    </div>
+
+    <%# Mobile hamburger button %>
+
+    <%= render Buttons::Component.new(
+        icon: render_svg("bars.svg", styles: "w-5 h-5"),
+        icon_only: true,
+        variant: :ghost,
+        classes: "md:hidden",
+        data: { navbar_target: "hamburger", action: "click->navbar#toggle" },
+    ) %>
+
+    <%= render Buttons::Component.new(
+      icon: render_svg("close.svg", styles: "w-5 h-5"),
+        icon_only: true,
+        variant: :ghost,
+        classes: "hidden",
+        data: { navbar_target: "close", action: "click->navbar#toggle" },
+    ) %>
+
+    <%= render Buttons::Component.new(
+      icon: render_svg("search.svg"),
+      icon_only: true,
+      variant: :ghost,
+      size: :lg,
+    ) %>
+  </div>
+
+  <%# Mobile menu panel %>
+  <div data-navbar-target="menu" class="hidden md:hidden">
+    <div class="flex flex-col gap-1 border-t border-gray-100 px-2 pt-3 pb-4">
+      <a
+        href="#products"
+        data-action="click->navbar#close"
+        class="
+          flex items-center rounded-xl px-3 py-3.5 text-base font-medium text-primary transition-colors
+          hover:bg-gray-100
+        "
+      >
+        Tienda
+      </a>
+
+      <a
+        href="#sobre"
+        data-action="click->navbar#close"
+        class="
+          flex items-center rounded-xl px-3 py-3.5 text-base font-medium text-primary transition-colors
+          hover:bg-gray-100
+        "
+      >
+        Sobre
+      </a>
+
+      <% if current_store.whatsapp.present? %>
+        <a
+          href="https://wa.me/<%= current_store.whatsapp %>"
+          target="_blank"
+          rel="noopener"
+          data-action="click->navbar#close"
+          class="
+            flex items-center rounded-xl px-3 py-3.5 text-base font-medium text-primary transition-colors
+            hover:bg-gray-100
+          "
+        >
+          Contacto
+        </a>
+      <% else %>
+        <a
+          href="#contacto"
+          data-action="click->navbar#close"
+          class="
+            flex items-center rounded-xl px-3 py-3.5 text-base font-medium text-primary transition-colors
+            hover:bg-gray-100
+          "
+        >
+          Contacto
+        </a>
+      <% end %>
+    </div>
+  </div>
+</nav>

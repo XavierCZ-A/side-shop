@@ -2,16 +2,10 @@ import { Controller } from "@hotwired/stimulus"
 import { animate } from "motion"
 
 export default class extends Controller {
-  static targets = ["menu", "hamburger"]
+  static targets = ["menu", "hamburger", "close"]
 
   connect() {
     this._menuOpen = false
-    this.scrollHandler = this.#handleScroll.bind(this)
-    window.addEventListener("scroll", this.scrollHandler, { passive: true })
-  }
-
-  disconnect() {
-    window.removeEventListener("scroll", this.scrollHandler)
   }
 
   toggle() {
@@ -24,22 +18,30 @@ export default class extends Controller {
 
   #openMenu() {
     this._menuOpen = true
+
+    // Anima icono hamburguesa -> X
+    animate(this.hamburgerTarget, { rotate: 90, scale: 0, opacity: 0 }, { duration: 0.15 }).finished.then(() => {
+      this.hamburgerTarget.classList.add("hidden")
+      this.closeTarget.classList.remove("hidden")
+      animate(this.closeTarget, { rotate: [-90, 0], scale: [0, 1], opacity: [0, 1] }, { duration: 0.15 })
+    })
+
+    // Anima menú
     this.menuTarget.classList.remove("hidden")
     animate(this.menuTarget, { opacity: [0, 1], y: [-6, 0] }, { duration: 0.18, easing: [0.25, 0.1, 0.25, 1] })
-    this.hamburgerTarget.querySelector(".icon-open")?.classList.add("hidden")
-    this.hamburgerTarget.querySelector(".icon-close")?.classList.remove("hidden")
   }
 
   #closeMenu() {
     this._menuOpen = false
+
+    animate(this.closeTarget, { rotate: 90, scale: 0, opacity: 0 }, { duration: 0.15 }).finished.then(() => {
+      this.closeTarget.classList.add("hidden")
+      this.hamburgerTarget.classList.remove("hidden")
+      animate(this.hamburgerTarget, { rotate: [-90, 0], scale: [0, 1], opacity: [0, 1] }, { duration: 0.15 })
+    })
+
     animate(this.menuTarget, { opacity: [1, 0], y: [0, -6] }, { duration: 0.15 }).finished.then(() => {
       this.menuTarget.classList.add("hidden")
     })
-    this.hamburgerTarget.querySelector(".icon-open")?.classList.remove("hidden")
-    this.hamburgerTarget.querySelector(".icon-close")?.classList.add("hidden")
-  }
-
-  #handleScroll() {
-    this.element.classList.toggle("shadow-sm", window.scrollY > 10)
   }
 }

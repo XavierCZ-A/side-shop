@@ -1,10 +1,6 @@
 class CartsController < StoreBaseController
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
-  allow_unauthenticated_access only: %i[ show destroy ]
-
-  def show
-    @products = @cart.line_items.includes(:product)
-  end
+  allow_unauthenticated_access only: %i[ destroy ]
 
   def destroy
     @cart.destroy if @cart.id == session[:store_carts][@current_store.id]

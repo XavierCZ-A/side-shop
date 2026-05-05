@@ -1,0 +1,27 @@
+<% content_for :title, "Checkout" %>
+
+<div class="min-h-screen bg-[#F3F4F6]">
+  <div class="sticky top-0 z-20 border-b border-gray-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-4 sm:py-5">
+      <div class="flex items-center gap-3">
+        <%= link_to store_root_path, class: "p-1.5 rounded-full hover:bg-[#F3F4F6] transition-colors" do %>
+          <%= render_svg("arrow_left.svg", styles: "w-5 h-5 text-gray-700") %>
+        <% end %>
+
+        <h1 class="text-xl font-bold text-[#1A2B3C] sm:text-2xl">Finalizar compra</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-3xl px-4 py-12 text-center">
+    <div class="rounded-2xl border border-dashed border-gray-300 bg-white p-12">
+      <h2 class="mb-2 text-xl font-bold text-[#1A2B3C]">Próximamente</h2>
+      <p class="text-sm text-gray-500">El checkout estará disponible pronto.</p>
+
+      <p class="mt-6 text-sm text-gray-700">
+        Total a pagar:
+        <strong class="text-[#1A2B3C]"><%= number_to_currency(@cart.total_price) %></strong>
+      </p>
+    </div>
+  </div>
+</div>

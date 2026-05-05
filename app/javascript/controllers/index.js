@@ -22,6 +22,9 @@ application.register("cart-add", CartAddController)
 import CartBadgeController from "./cart_badge_controller"
 application.register("cart-badge", CartBadgeController)
 
+import CartSlideController from "./cart_slide_controller"
+application.register("cart-slide", CartSlideController)
+
 import ClipboardController from "./clipboard_controller"
 application.register("clipboard", ClipboardController)
 

@@ -1,0 +1,23 @@
+<div
+  data-cart-slide-target="container"
+  class="fixed inset-0 z-[60] hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cart_slide_title"
+>
+  <div
+    data-cart-slide-target="backdrop"
+    data-action="click->cart-slide#closeOnBackdrop"
+    class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300 ease-in-out"
+  ></div>
+
+  <aside
+    data-cart-slide-target="panel"
+    class="
+      absolute top-0 right-0 flex h-full w-full max-w-md translate-x-full flex-col bg-white shadow-2xl
+      transition-transform duration-300 ease-out
+    "
+  >
+    <%= render "stores/cart/slide_content" %>
+  </aside>
+</div>

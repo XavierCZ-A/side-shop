@@ -8,8 +8,8 @@ class LineItemsController < StoreBaseController
 
     if @line_item.save
       respond_to do |format|
+        format.turbo_stream
         format.html { redirect_to store_root_path(store_slug: @current_store.slug) }
-        format.turbo_stream { flash.now[:notice] = "Añadido al carrito test: #{product.name}" }
       end
     else
       redirect_to store_root_path(store_slug: @current_store.slug), alert: "No se pudo añadir al carrito"
@@ -27,17 +27,21 @@ class LineItemsController < StoreBaseController
 
     if @line_item.save
       respond_to do |format|
-        format.html { redirect_to cart_path }
+        format.html { redirect_to store_root_path }
         format.turbo_stream
       end
     else
-      redirect_to cart_path, alert: "No se pudo actualizar el carrito"
+      redirect_to store_root_path, alert: "No se pudo actualizar el carrito"
     end
   end
 
   def destroy
     @line_item = @cart.line_items.find(params[:id])
     @line_item.destroy
-    redirect_to cart_path, status: :see_other
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to store_root_path, status: :see_other }
+    end
   end
 end
