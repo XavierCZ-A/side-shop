@@ -27,7 +27,7 @@ class Admin::DashboardsController < ApplicationController
   private
 
   def store_params
-    params.require(:store).permit(:name, :description, :instagram, :facebook, :whatsapp, :primary_color, :image)
+    params.expect(store: [ :name, :description, :instagram, :facebook, :whatsapp, :primary_color, :image ])
   end
 
   def set_store

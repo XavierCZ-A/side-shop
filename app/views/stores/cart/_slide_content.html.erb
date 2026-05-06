@@ -78,13 +78,8 @@
       <% end %>
     </div>
     <footer class="border-t border-gray-100 bg-gray-50 px-5 py-4">
-      <div class="mb-3 flex items-center justify-between text-sm">
-        <span class="text-gray-500">Subtotal</span>
-        <span class="font-medium text-[#1A2B3C]"><%= number_to_currency(@cart.total_price) %></span>
-      </div>
-
       <div class="mb-4 flex items-center justify-between">
-        <span class="text-base font-bold text-[#1A2B3C]">Total</span>
+        <span class="text-base font-bold text-[#1A2B3C]">Total estimado</span>
         <span class="text-xl font-bold text-[#1A2B3C]"><%= number_to_currency(@cart.total_price) %></span>
       </div>
 

@@ -10,7 +10,7 @@ Rails.application.configure do
   config.good_job.enable_cron = true
   config.good_job.cron = {
     cleanup_abandoned_carts: {
-      cron: "*/2 * * * *",
+      cron: "15 */6 * * *",
       class: "CleanupAbandonedCartsJob"
     }
   }

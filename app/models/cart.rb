@@ -16,14 +16,16 @@ class Cart < ApplicationRecord
   has_many :line_items, dependent: :destroy
   belongs_to :store
 
+  validates :store, presence: true
+
   def add_product(product)
     current_item = line_items.find_or_initialize_by(product: product)
     current_item.quantity += 1 unless current_item.new_record?
-    
+
     current_item
   end
 
   def total_price
-    line_items.joins(:product).sum('products.price * line_items.quantity')
+    line_items.joins(:product).sum("products.price * line_items.quantity")
   end
 end

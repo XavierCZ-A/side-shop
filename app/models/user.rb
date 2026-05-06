@@ -20,21 +20,9 @@ class User < ApplicationRecord
   has_one :store, dependent: :destroy
 
   alias_attribute :email, :email_address
-  
-  validates :email_address, presence: true, uniqueness: true
-  validates :password, presence: true, length: { minimum: 6 }
+
+  validates :email_address, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, presence: true, length: { minimum: 6 }, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+\z/, message: "debe incluir al menos una letra mayúscula, una letra minúscula y un número" }
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
-
-  def subscribed?
-    payment_processor&.subscribed? || false
-  end
-
-  def on_trial?
-    trial_ends_at? && trial_ends_at > Time.current
-  end
-
-  def active_subscription
-    payment_processor&.subscription
-  end
 end
