@@ -2,12 +2,17 @@ class Admin::DashboardsController < ApplicationController
   layout "dashboard_layout"
   before_action :set_store
 
+  TABS = %w[products orders].freeze
+  PRODUCT_STATUSES = %w[active inactive].freeze
+
   def index
-    @tab = %w[products orders].include?(params[:tab]) ? params[:tab] : "products"
+    @tab = TABS.include?(params[:tab]) ? params[:tab] : "products"
 
     if @tab == "products"
-      @product_status = %w[active inactive].include?(params[:status]) ? params[:status] : "active"
-      @products = @store.products.with_attached_images.send(@product_status).order(created_at: :desc)
+      @product_status = PRODUCT_STATUSES.include?(params[:status]) ? params[:status] : "active"
+      @products = @store.products.with_attached_images.public_send(@product_status).order(created_at: :desc)
+      @active_count = @store.products.active.count
+      @inactive_count = @store.products.inactive.count
     else
       @orders = []
     end

@@ -1,0 +1,8 @@
+<div>
+  <% case tab %>
+  <% when "products" %>
+    <%= render "admin/products/products_list", products: @products %>
+  <% when "orders" %>
+    <%= render "admin/orders/orders_list", orders: @orders %>
+  <% end %>
+</div>
