@@ -3,7 +3,7 @@ class StoresController < StoreBaseController
   skip_before_action :check_onboarding_status
 
   def show
-    @products = @current_store.products.with_attached_images.active
-    @line_items = @cart.line_items.includes(:product)
+    products = @current_store.products.with_attached_images.active
+    @pagy, @products = pagy(:offset, products, limit: 8)
   end
 end
