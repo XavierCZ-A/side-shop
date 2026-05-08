@@ -28,6 +28,8 @@ class Store < ApplicationRecord
   BORDER_RADII  = [ 0, 8, 24 ].freeze
   ASPECT_RATIOS = %w[1:1 4:5].freeze
 
+  before_validation :generate_slug, on: :create
+
   has_one_attached :image
 
   belongs_to :user
@@ -55,5 +57,36 @@ class Store < ApplicationRecord
     return if BORDER_RADII.include?(design_config["border_radius"].to_i)
 
     errors.add(:border_radius, :inclusion)
+  end
+
+  def generate_slug
+    return if slug.present?
+    return if name.blank?
+
+    base_slug = slugify(name)
+    candidate = base_slug
+    counter = 2
+
+    while Store.exists?(slug: candidate)
+      candidate = "#{base_slug}-#{counter}"
+      counter += 1
+    end
+
+    self.slug = candidate
+  end
+
+  def slugify(text)
+    text.to_s
+        .downcase
+        .strip
+        .gsub(/[áàäâã]/, "a")
+        .gsub(/[éèëê]/, "e")
+        .gsub(/[íìïî]/, "i")
+        .gsub(/[óòöôõ]/, "o")
+        .gsub(/[úùüû]/, "u")
+        .gsub(/ñ/, "n")
+        .gsub(/\s+/, "-")
+        .gsub(/[^\w\-]/, "")
+        .gsub(/\-\-+/, "-")
   end
 end

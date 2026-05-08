@@ -55,7 +55,6 @@ class Onboarding
   def create_store
     current_user.create_store!(
       name: name,
-      slug: generate_slug,
       industry: resolved_industry,
       primary_color: primary_color,
       onboarding_complete: true
@@ -71,28 +70,28 @@ class Onboarding
     )
   end
 
-  def generate_slug
-    base_slug = name.to_s
-                    .downcase
-                    .strip
-                    .gsub(/[áàäâã]/, "a")
-                    .gsub(/[éèëê]/, "e")
-                    .gsub(/[íìïî]/, "i")
-                    .gsub(/[óòöôõ]/, "o")
-                    .gsub(/[úùüû]/, "u")
-                    .gsub(/ñ/, "n")
-                    .gsub(/\s+/, "-")
-                    .gsub(/[^\w\-]/, "")
-                    .gsub(/\-\-+/, "-")
+  # def generate_slug
+  #   base_slug = name.to_s
+  #                   .downcase
+  #                   .strip
+  #                   .gsub(/[áàäâã]/, "a")
+  #                   .gsub(/[éèëê]/, "e")
+  #                   .gsub(/[íìïî]/, "i")
+  #                   .gsub(/[óòöôõ]/, "o")
+  #                   .gsub(/[úùüû]/, "u")
+  #                   .gsub(/ñ/, "n")
+  #                   .gsub(/\s+/, "-")
+  #                   .gsub(/[^\w\-]/, "")
+  #                   .gsub(/\-\-+/, "-")
 
-    slug = base_slug
-    counter = 1
+  #   slug = base_slug
+  #   counter = 1
 
-    while Store.exists?(slug: slug)
-      slug = "#{base_slug}-#{counter}"
-      counter += 1
-    end
+  #   while Store.exists?(slug: slug)
+  #     slug = "#{base_slug}-#{counter}"
+  #     counter += 1
+  #   end
 
-    slug
-  end
+  #   slug
+  # end
 end

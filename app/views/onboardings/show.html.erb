@@ -1,19 +1,34 @@
-<main data-controller="onboarding" class="min-h-screen flex flex-col bg-gradient-to-br from-[#F3F4F6] via-[#EAF2F8] to-[#ECFDF5] relative overflow-hidden">
+<main
+  data-controller="onboarding"
+  class="relative flex min-h-screen flex-col overflow-hidden bg-gradient-to-br from-[#F3F4F6] via-[#EAF2F8] to-[#ECFDF5]"
+>
+  <div class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="absolute -top-40 -right-40 h-80 w-80 animate-pulse rounded-full bg-[#1A2B3C]/20 blur-3xl"></div>
 
-  <div class="absolute inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute -top-40 -right-40 w-80 h-80 bg-[#1A2B3C]/20 rounded-full blur-3xl animate-pulse"></div>
-    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-200/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+    <div
+      class="absolute -bottom-40 -left-40 h-80 w-80 animate-pulse rounded-full bg-primary/20 blur-3xl"
+      style="animation-delay: 1s;"
+    ></div>
+
+    <div
+      class="
+        absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full
+        bg-pink-200/20 blur-3xl
+      "
+      style="animation-delay: 2s;"
+    ></div>
   </div>
 
-  <div class="relative z-10 pt-6 pb-4 px-4">
-    <div class="max-w-md mx-auto">
+  <div class="relative z-10 px-4 pt-6 pb-4">
+    <div class="mx-auto max-w-md">
       <div class="flex items-center justify-between">
         <% @onboarding.steps.each_with_index do |step, index| %>
           <div class="flex items-center">
-
-            <div 
-              class="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm transition-all duration-300 shadow-sm"
+            <div
+              class="
+                flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold shadow-sm
+                transition-all duration-300
+              "
               data-onboarding-target="indicator"
               data-step-index="<%= index %>"
             >
@@ -31,11 +46,10 @@
               <% end %>
             </div>
           </div>
-          
-          <% unless index == @onboarding.steps.length - 1 %>
 
-            <div class="flex-1 h-1 mx-2 rounded-full bg-gray-200 transition-all duration-300">
-              <div 
+          <% unless index == @onboarding.steps.length - 1 %>
+            <div class="mx-2 h-1 flex-1 rounded-full bg-gray-200 transition-all duration-300">
+              <div
                 class="h-full rounded-full bg-[#10B981] transition-all duration-500"
                 data-onboarding-target="progressLine"
                 data-line-index="<%= index %>"
@@ -48,7 +62,7 @@
     </div>
   </div>
 
-  <div class="flex-1 flex items-center justify-center px-4 py-6 relative z-10">
+  <div class="relative z-10 flex flex-1 items-center justify-center px-4 py-6">
     <%= form_with model: @onboarding, class: "w-full" do |form| %>
       <% @onboarding.steps.each_with_index do |step, index| %>
         <div
@@ -57,21 +71,21 @@
           data-onboarding-target="step"
           data-step-index="<%= index %>"
         >
-          <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl shadow-[#1A2B3C]/10 border border-white/50 p-6 sm:p-8">
-            <div class="text-center mb-6">
-              <h2 class="text-2xl sm:text-3xl font-bold text-[#1A2B3C] mb-2">
+          <div class="rounded-3xl border border-white/50 bg-white/70 p-6 shadow-xl shadow-[#1A2B3C]/10 backdrop-blur-xl sm:p-8">
+            <div class="mb-6 text-center">
+              <h2 class="mb-2 text-2xl font-bold text-[#1A2B3C] sm:text-3xl">
                 <%= step.title %>
               </h2>
-              
+
               <%= tag.p step.description, class: "text-base text-gray-600" if step.description.present? %>
             </div>
 
             <div class="space-y-5">
               <% step.fields.each do |field| %>
                 <%= render partial: "onboardings/fields/#{field[:type]}", locals: { form: form, field: field } %>
-                
+
                 <% if field[:hint].present? %>
-                  <p class="text-sm text-center text-gray-500">
+                  <p class="text-center text-sm text-gray-500">
                     <%= field[:hint] %>
                   </p>
                 <% end %>
@@ -100,7 +114,6 @@
       <% end %>
     <% end %>
   </div>
-
 
   <div class="relative z-10 pb-6 text-center">
     <p class="text-sm text-gray-500">

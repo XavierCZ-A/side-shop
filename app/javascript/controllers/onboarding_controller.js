@@ -83,6 +83,8 @@ export default class extends Controller {
 
     const currentStepElement = this.stepTargets[this.stepValue];
 
+    console.log("Current Step Element:", currentStepElement);
+
     if (currentStepElement) {
       currentStepElement.classList.add("opacity-0", "scale-95");
     }
@@ -103,6 +105,14 @@ export default class extends Controller {
     setTimeout(() => {
       this.stepValue = this.stepValue + 1;
     }, 150);
+  }
+
+  back(event) {
+    event.preventDefault();
+
+    if (this.stepValue > 0) {
+      this.stepValue = this.stepValue - 1;
+    }
   }
 
   // Private methods
@@ -164,6 +174,11 @@ export default class extends Controller {
           "shadow-lg",
           "shadow-accent/30",
         );
+
+        indicator.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+        </svg>`;
+
       } else if (isCurrent) {
         indicator.classList.add(
           "bg-white",
@@ -172,8 +187,10 @@ export default class extends Controller {
           "ring-offset-2",
           "shadow-lg",
         );
+
+          indicator.innerHTML = `<span class="text-sm">${index + 1}</span>`;
       } else {
-        indicator.classList.add("bg-gray-100", "text-gray-500");
+        indicator.classList.add("bg-white", "text-gray-500");
       }
     });
   }

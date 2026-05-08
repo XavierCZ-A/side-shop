@@ -54,7 +54,7 @@
  ### 🔴 CRÍTICO
 
  1. **`stores.slug` sin índice único en DB** — `db/schema.rb` (tabla stores). Cada request a un subdomain hace `Store.find_by!(slug:)` sin índice. Solución:
- migración `add_index :stores, :slug, unique: true`.
+ migración `add_index :stores, :slug, unique: true`.   ✔️
 
  2. **Tabla `orders` sin foreign keys ni índices** — `db/migrate/20260222042044_create_orders.rb`. No hay relación con `store` ni `user`. Multi-tenancy roto.
  Solución: migración añadiendo `add_reference :orders, :store, foreign_key: true, index: true` + `add_reference :orders, :user`.
@@ -64,10 +64,10 @@
  cancelled: 3 }`, validaciones.
 
  4. **`Cart` sin validaciones** — `app/models/cart.rb`. `store_id` es NOT NULL en DB pero sin `validates :store_id, presence: true`. Permite carts huérfanos a
- nivel ActiveRecord. Solución: añadir `belongs_to :store` (que valida automáticamente) y validaciones.
+ nivel ActiveRecord. Solución: añadir `belongs_to :store` (que valida automáticamente) y validaciones. ✔️
 
  5. **`LineItem` sin validar `quantity > 0`** — `app/models/line_item.rb:18-24`. Permite cantidades negativas o cero. Solución: `validates :quantity, presence:
- true, numericality: { greater_than: 0 }`.
+ true, numericality: { greater_than: 0 }`. ✔️
 
  6. **N+1 en `Cart#total_price`** — `app/models/cart.rb:26-28`. Aunque usa `joins`, el método se invoca también en views con cada `item.product.price`. Solución:
   usar `.includes(:product)` o calcular en SQL puro con un único query (`sum('products.price * line_items.quantity')` ya está bien, pero hay que asegurar que el
@@ -83,7 +83,7 @@
 
  10. **`GenerateImageVariantsJob` sin error handling ni idempotencia** — `app/jobs/generate_image_variants_job.rb:1-10`. Falla silenciosamente si la imagen no
  existe; regenera variantes en cada ejecución. Solución: `discard_on ActiveStorage::FileNotFoundError`, `retry_on Errno::ECONNREFUSED, wait:
- :polynomially_longer`, check `.processed?` antes de invocar `.processed`.
+ :polynomially_longer`, check `.processed?` antes de invocar `.processed`. ✔️
 
  ### 🟠 ALTO
 
