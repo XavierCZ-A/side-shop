@@ -22,7 +22,7 @@ class User < ApplicationRecord
   alias_attribute :email, :email_address
 
   validates :email_address, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, presence: true, length: { minimum: 6 }, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+\z/, message: "debe incluir al menos una letra mayúscula, una letra minúscula y un número" }
+  validates :password, presence: true, length: { minimum: 8 }, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+\z/, message: "debe incluir al menos una letra mayúscula, una letra minúscula y un número" }
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 end

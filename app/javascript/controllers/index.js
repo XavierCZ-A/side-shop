@@ -54,3 +54,6 @@ application.register("navbar", NavbarController)
 
 import OnboardingController from "./onboarding_controller"
 application.register("onboarding", OnboardingController)
+
+import PasswordController from "./password_controller"
+application.register("password", PasswordController)

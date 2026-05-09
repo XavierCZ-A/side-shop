@@ -86,9 +86,9 @@
 
       <p class="mt-6 text-center text-[0.6875rem] leading-relaxed text-[#9a9ab0]">
         Al continuar, aceptas nuestros
-        <a href="#" class="font-medium text-[#1a1a2e] underline underline-offset-2 transition-colors hover:text-[#0f9f72]">Términos de Servicio</a>
+        <%= link_to "Términos de Servicio", admin_root_path, class: "font-medium text-primary underline underline-offset-2 transition-colors hover:text-accent" %>
         y
-        <a href="#" class="font-medium text-[#1a1a2e] underline underline-offset-2 transition-colors hover:text-[#0f9f72]">Política de Privacidad</a>.
+        <%= link_to "Política de Privacidad", admin_root_path, class: "font-medium text-primary underline underline-offset-2 transition-colors hover:text-accent" %>.
       </p>
     </div>
   </div>

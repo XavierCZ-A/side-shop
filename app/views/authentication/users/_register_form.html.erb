@@ -1,12 +1,13 @@
 <% if user.errors.any? %>
-  <div class="mb-5 p-3.5 bg-red-50 border border-red-200 rounded-xl">
-    <div class="flex items-center gap-2 mb-1.5">
+  <div class="mb-5 rounded-xl border border-red-200 bg-red-50 p-3.5">
+    <div class="mb-1.5 flex items-center gap-2">
       <%= render_svg("exclamation_circle.svg", styles: "w-5 h-5 text-red-500 shrink-0") %>
       <span class="text-[0.8125rem] font-semibold text-red-700">No se pudo crear la cuenta</span>
     </div>
-    <ul class="pl-6 space-y-0.5">
+
+    <ul class="space-y-0.5 pl-6">
       <% user.errors.full_messages.each do |message| %>
-        <li class="text-[0.75rem] text-red-600 list-disc"><%= message %></li>
+        <li class="list-disc text-[0.75rem] text-red-600"><%= message %></li>
       <% end %>
     </ul>
   </div>
@@ -14,30 +15,28 @@
 
 <%= form_with(model: @user, class: "w-full") do |form| %>
   <div class="mb-5">
-    <div class="flex justify-between items-center mb-2">
-      <label class="text-[0.8125rem] font-medium text-[#1a1a2e]" for="email_address">Correo Electrónico</label>
+    <div class="mb-2">
+      <label class="text-sm font-medium text-primary" for="email_address">Correo Electrónico</label>
+      <span class="text-red-500">*</span>
     </div>
+
     <%= form.email_field :email_address,
+        id: "email_address",
         required: true,
         autofocus: true,
-        autocomplete: "username",
-        placeholder: "tu@email.com",
-        value: @email,
-        id: "email_address",
-          class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white" %>
+        autocomplete: "email_address",
+        placeholder: "example@email.com",
+        class: "form-control" %>
   </div>
 
-  <div class="mb-5">
-    <div class="flex justify-between items-center mb-2">
-      <label class="text-[0.8125rem] font-medium text-[#1a1a2e]" for="password">Contraseña</label>
-    </div>
-    <%= form.password_field :password,
-        required: true,
-        autocomplete: "current-password",
-        placeholder: "••••••••",
-        maxlength: 72,
-        id: "password",
-        class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white" %>
+  <div class="mb-8">
+    <%= render Password::Component.new(
+      id: "password",
+      label: "Contraseña",
+      required: true,
+      name: "user[password]",
+      placeholder: "••••••••",
+    ) %>
   </div>
 
   <%= render Buttons::Component.new(

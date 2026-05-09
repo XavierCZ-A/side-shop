@@ -11,21 +11,17 @@
             class: "peer sr-only",
             checked: idx == 0,
             required: field[:required],
-            data: { action: "change->onboarding#updateColor" }
-        %>
+            data: { action: "change->onboarding#updateColor" } %>
 
         <label
           for="<%= element_id %>"
-          class="block aspect-square w-full cursor-pointer rounded-2xl shadow-md ring-2 ring-transparent ring-offset-2 ring-offset-[#F3F4F6] transition-all duration-200 hover:scale-110 peer-checked:scale-110 peer-checked:ring-4 peer-checked:ring-offset-4"
-          style="background-color: <%= color %>; box-shadow: 0 4px 14px <%= color %>40;"
+          class="
+            block aspect-square h-15 w-15 cursor-pointer rounded-2xl shadow-md transition-all duration-200
+            peer-checked:scale-110 hover:scale-110
+          "
+          style="background-color: <%= color %>;"
         >
           <span class="sr-only">Color <%= color %></span>
-
-          <div class="hidden h-full w-full items-center justify-center peer-checked:flex">
-            <svg class="h-5 w-5 text-white drop-shadow-md sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-            </svg>
-          </div>
         </label>
       </div>
     <% end %>
@@ -46,9 +42,9 @@
           <span class="text-sm font-semibold">Tu Tienda</span>
         </div>
 
-        <span
-          class="rounded-full bg-white/20 px-2.5 py-1 text-[10px] font-medium tracking-wider uppercase"
-        >Online</span>
+        <span class="rounded-full bg-white/20 px-2.5 py-1 text-[10px] font-medium tracking-wider uppercase">
+          Online
+        </span>
       </div>
 
       <div class="flex items-center justify-between bg-gradient-to-b from-gray-50 to-white px-3 py-2.5">
@@ -58,7 +54,9 @@
           class="rounded-lg px-2.5 py-1 text-xs font-medium text-white shadow-sm transition-colors duration-300"
           data-onboarding-target="colorPreview"
           style="background-color: #4F46E5;"
-        >Comprar</span>
+        >
+          Comprar
+        </span>
       </div>
     </div>
   </div>
