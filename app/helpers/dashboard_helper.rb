@@ -15,4 +15,9 @@ module DashboardHelper
       data: { turbo_frame: "dashboard_content" }
     )
   end
+
+  def nav_link(text, path)
+    active = current_page?(path) ? "bg-gray-100 p-3 rounded-lg text-primary font-medium" : "p-3 rounded-lg text-primary font-medium hover:bg-gray-100"
+    link_to text, path, class: " #{active}"
+  end
 end

@@ -59,8 +59,11 @@
   <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
       <div class="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
-        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[#A7F3D0] bg-[#ECFDF5] px-3 py-1">
-          <span class="text-xs font-semibold tracking-wide text-accent uppercase">Ideal para emprendedores</span>
+        <div class="mb-6">
+          <%= render Badge::Component.new(
+            text: "Ideal para emprendedores",
+            variant: :green,
+          ) %>
         </div>
 
         <h1 class="mb-6 text-4xl leading-[1.1] font-black tracking-tight text-foreground sm:text-5xl lg:text-6xl">
