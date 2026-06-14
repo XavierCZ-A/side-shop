@@ -141,46 +141,6 @@
       </div>
     </div>
 
-    <div class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5">
-      <div class="border-b border-gray-900/5 bg-[#F3F4F6] p-4">
-        <div class="flex items-center gap-3">
-          <div class="rounded-lg bg-[#EAF2F8] p-2">
-            <%= render_svg("paint.svg", styles: "w-5 h-5 text-[#1A2B3C]") %>
-          </div>
-
-          <h2 class="text-base leading-7 font-semibold text-[#1A2B3C]">Apariencia</h2>
-        </div>
-      </div>
-
-      <div class="p-4 sm:p-6">
-        <label class="mb-4 block text-sm leading-6 font-medium text-primary"> Color Principal </label>
-
-        <div class="grid grid-cols-5 gap-4 sm:grid-cols-8 md:grid-cols-10">
-          <% primary_colors.each_with_index do |color, idx| %>
-            <% element_id = "primary_color_#{color.gsub('#', '')}" %>
-
-            <div class="relative flex items-center justify-center">
-              <%= form.radio_button :primary_color, color,
-                                id: element_id,
-                                class: "peer sr-only",
-                                data: { action: "change->onboarding#updateColor" } %>
-
-              <label
-                for="<%= element_id %>"
-                class="
-                  h-10 w-10 cursor-pointer rounded-full shadow-sm ring-2 ring-transparent transition-all
-                  duration-200 peer-checked:ring-gray-300 peer-checked:ring-offset-2 hover:scale-110
-                "
-                style="background-color: <%= color %>;"
-              >
-                <span class="sr-only">Color <%= color %></span>
-              </label>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
     <div class="flex items-center justify-end gap-x-6 pt-4">
       <%= render Buttons::Component.new(
           text: "Cancelar",
