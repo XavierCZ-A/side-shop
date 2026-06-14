@@ -1,7 +1,6 @@
 <div class="flex flex-col gap-0">
   <div class="mx-6 h-px bg-gray-100"></div>
 
-  <%# ── Link público ── %>
   <div class="px-6 py-5">
     <section>
       <label class="mb-2 block text-[11px] font-bold tracking-wider text-gray-500 uppercase sm:text-xs">
@@ -100,7 +99,7 @@
       <span class="text-sm text-gray-500">Tu tienda recibe visitas</span>
     </div>
 
-    <%= link_to store.name, target: "_blank", rel: "noopener",
+    <%= link_to store_root_url(subdomain: @store.slug), target: "_blank", rel: "noopener",
           class: "inline-flex items-center gap-1.5 rounded-full bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800 active:bg-black" do %>
       Ver mi tienda <%= render_svg("arrow_top.svg", styles: "h-4 w-4") %>
     <% end %>

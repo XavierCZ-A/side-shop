@@ -1,0 +1,24 @@
+<main class="min-h-screen">
+  <div class="mx-auto max-w-7xl p-8">
+    <div class="mb-8 flex items-center justify-end gap-4">
+      <%= render Buttons::Component.new(
+            text: "Nuevo Producto",
+            icon: render_svg("plus.svg", styles: "w-4 h-4"),
+            href: new_admin_product_path,
+            classes: "[&_span:not(.shrink-0)]:hidden md:[&_span:not(.shrink-0)]:inline",
+        ) %>
+    </div>
+
+    <div class="grid grid-cols-4 gap-4">
+      <%= render CardInfo::Component.with_collection(product_stats(@all_products)) %>
+    </div>
+
+    <%= render "filters" %>
+
+    <%= turbo_frame_tag "products_table", class: "mt-8 block", data: { turbo_action: "advance" } do %>
+      <%= render Table::Component.new(products: @products, sort: params[:sort], dir: params[:dir]) %>
+
+      <%= render Pagination::Component.new(pagy: @pagy) %>
+    <% end %>
+  </div>
+</main>

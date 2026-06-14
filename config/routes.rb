@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       patch :resume, on: :member
     end
 
-    resources :products, only: [ :new, :create, :edit, :update ] do
+    resources :products, only: [ :index, :new, :create, :edit, :update ] do
       member do
         patch :toggle_active
       end

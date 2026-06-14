@@ -79,6 +79,7 @@ export default class extends Controller {
         card.innerHTML = `
           <div class="relative w-20 h-20 rounded-xl overflow-hidden ring-1 ring-gray-200 shadow-sm">
             <img src="${e.target.result}" alt="${file.name}" class="w-full h-full object-cover" />
+            ${index === 0 ? `<span class="absolute left-1 top-1 rounded bg-primary px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white">Principal</span>` : ""}
             <button type="button"
               data-action="image-preview#remove"
               data-index="${index}"

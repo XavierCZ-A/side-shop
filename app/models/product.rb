@@ -10,6 +10,7 @@
 #  updated_at  :datetime         not null
 #  store_id    :integer          not null
 #  description :text
+#  stock       :integer          default(0), not null
 #
 # Indexes
 #
@@ -17,8 +18,13 @@
 #
 
 class Product < ApplicationRecord
-  has_many_attached :images, dependent: :destroy
+  SORTABLE = {
+    "price" => :price,
+    "name" => :name,
+    "stock" => :stock
+  }.freeze
 
+  has_many_attached :images, dependent: :destroy
   belongs_to :store
   has_many :line_items, dependent: :destroy
   has_many :order_items
@@ -27,6 +33,7 @@ class Product < ApplicationRecord
 
   validates :name, presence: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :stock, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   validates :images, presence: true
   validate :image_count_within_limits
@@ -34,6 +41,13 @@ class Product < ApplicationRecord
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
+  scope :count_active, -> { active.count }
+  scope :count_inactive, -> { inactive.count }
+  scope :search_by_name, ->(query) { where("name ILIKE ?", "%#{query}%") if query.present? }
+  scope :sorted_by, ->(field, dir) {
+    column = SORTABLE[field] or return all
+    order(column => (dir == "desc" ? :desc : :asc))
+  }
 
   def toggle_active!
     update!(active: !active)

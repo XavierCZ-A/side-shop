@@ -1,109 +1,154 @@
-<%= form_with(model: [:admin, product], class: "space-y-6 w-full") do |form| %>
-  <div data-controller="image-preview" data-image-preview-max-files-value="2">
-    <div class="mb-2 flex gap-1">
-      <%= form.label :images, "Imágenes", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
-      <span class="text-red-500">*</span>
-      <span data-image-preview-target="counter" class="ml-auto text-xs text-gray-400">0 / 2</span>
+<%= form_with(model: [:admin, product], class: "space-y-6") do |form| %>
+  <%# ---------- Información ---------- %>
+  <section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+    <h2 class="mb-5 text-base font-semibold text-primary">Información</h2>
+
+    <div class="mb-5">
+      <%= form.label :name, "Nombre del producto",
+            class: "mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400" %>
+
+      <%= form.text_field :name,
+            placeholder: "Ej. Tazón ondas — terracota",
+            class: "form-control #{'error' if product.errors[:name].any?}" %>
+
+      <%= display_field_errors(product, :name) %>
     </div>
 
-    <% if product.persisted? && product.images.attached? %>
-      <div class="mb-3">
-        <p class="mb-2 text-xs text-gray-500">Imágenes actuales:</p>
+    <div>
+      <%= form.label :description, "Descripción",
+            class: "mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400" %>
 
-        <div class="flex flex-wrap gap-3">
-          <% product.images.each do |img| %>
-            <div class="relative h-20 w-20 overflow-hidden rounded-xl shadow-sm ring-1 ring-gray-200">
-              <%= image_tag img, class: "w-full h-full object-cover" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
+      <%= form.text_area :description,
+            rows: 4,
+            placeholder: "Describe materiales, tamaños, colores disponibles...",
+            class: "form-control resize-none #{'error' if product.errors[:description].any?}" %>
+
+      <%= display_field_errors(product, :description) %>
+    </div>
+  </section>
+
+  <section
+    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+    data-controller="image-preview"
+    data-image-preview-max-files-value="2"
+  >
+    <div class="mb-1 flex items-center justify-between">
+      <h2 class="text-base font-semibold text-primary">Fotos y media</h2>
+      <span data-image-preview-target="counter" class="text-xs text-gray-400">0 / 2</span>
+    </div>
+
+    <p class="mb-4 text-xs tracking-wide text-gray-400 uppercase">arrastra para reordenar · la 1ª es la principal</p>
 
     <div
       data-image-preview-target="dropzone"
-      data-action="dragover->image-preview#dragover dragleave->image-preview#dragleave drop->image-preview#drop"
+      data-action="dragover->image-preview#dragOver dragleave->image-preview#dragLeave drop->image-preview#drop"
       class="
-        relative cursor-pointer rounded-xl border-2 border-dashed border-gray-200 p-6 text-center transition-all
-        hover:border-[#10B981]
+        relative cursor-pointer rounded-xl border-2 border-dashed border-gray-200 bg-[#fafafa] p-8 text-center
+        transition-all hover:border-accent
       "
       onclick="this.querySelector('input[type=file]').click()"
     >
       <div data-placeholder>
-        <%= render_svg("upload.svg", styles: "mx-auto h-10 w-10 text-gray-300") %>
+        <span class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
+          <%= render_svg("photo.svg", styles: "h-5 w-5 text-gray-400") %>
+        </span>
 
-        <p class="mt-2 text-sm text-gray-500">
-          Arrastra tus imágenes aquí o <span class="font-medium text-[#10B981]">haz clic para seleccionar</span>
+        <p class="text-sm text-gray-600">
+          Arrastra imágenes o <span class="font-medium text-accent">explora archivos</span>
         </p>
 
-        <p class="mt-1 text-xs text-gray-400">JPG, PNG o WebP · Máx. 10 MB · Hasta 2 imágenes</p>
+        <p class="mt-1 text-xs tracking-wide text-gray-400 uppercase">PNG · JPG · WEBP — hasta 10 MB c/u</p>
       </div>
 
       <%= form.file_field :images,
-          multiple: true,
-          accept: "image/jpeg,image/png,image/webp",
-          data: { image_preview_target: "input", action: "change->image-preview#selectFiles" },
-          class: "sr-only",
-          direct_upload: true %>
+            multiple: true,
+            accept: "image/jpeg,image/png,image/webp",
+            data: { image_preview_target: "input", action: "change->image-preview#selectFiles" },
+            class: "sr-only",
+            direct_upload: true %>
     </div>
 
-    <div data-image-preview-target="preview" class="mt-3 flex flex-wrap gap-3"></div>
+    <% if product.persisted? && product.images.attached? %>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <% product.images.each_with_index do |img, i| %>
+          <div class="relative h-20 w-20 overflow-hidden rounded-xl shadow-sm ring-1 ring-gray-200">
+            <%= image_tag img, alt: product.name, class: "h-full w-full object-cover" %>
+
+            <% if i.zero? %>
+              <span
+                class="
+                  absolute top-1 left-1 rounded bg-primary px-1.5 py-0.5 text-[9px] font-semibold tracking-wide
+                  text-white uppercase
+                "
+              >
+                Principal
+              </span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div data-image-preview-target="preview" class="mt-4 flex flex-wrap gap-3"></div>
 
     <%= display_field_errors(product, :images) %>
+  </section>
+
+  <section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+    <h2 class="mb-5 text-base font-semibold text-primary">Precio y Stock</h2>
+
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <div>
+        <%= form.label :price, "Precio",
+              class: "mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400" %>
+
+        <div class="relative">
+          <span class="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-sm text-gray-400">$</span>
+
+          <%= form.text_field :price,
+                placeholder: "0.00",
+                class: "form-control pl-7 pr-12 #{'error' if product.errors[:price].any?}" %>
+
+          <span class="pointer-events-none absolute inset-y-0 right-3.5 flex items-center text-xs text-gray-400 uppercase">
+            MXN
+          </span>
+        </div>
+
+        <%= display_field_errors(product, :price) %>
+      </div>
+
+      <div>
+        <%= form.label :stock, "Stock",
+              class: "mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400" %>
+
+        <%= form.number_field :stock,
+              min: 0,
+              step: 1,
+              placeholder: "0",
+              class: "form-control #{'error' if product.errors[:stock].any?}" %>
+
+        <%= display_field_errors(product, :stock) %>
+      </div>
+    </div>
+
+    <label class="mt-5 flex items-center gap-2.5 text-sm text-gray-700">
+      <%= form.check_box :active,
+            class: "h-4 w-4 rounded border-gray-300 text-accent focus:ring-accent" %>
+      Producto activo (visible en la tienda)
+    </label>
+  </section>
+
+  <div class="flex items-center justify-end gap-3">
+    <%= render Buttons::Component.new(
+          text: "Cancelar",
+          variant: :secondary,
+          href: admin_products_path
+        ) %>
+
+    <%= render Buttons::Component.new(
+          text: product.persisted? ? "Actualizar producto" : "Crear producto",
+          type: "submit",
+          data: { turbo_submits_with: "Guardando..." }
+        ) %>
   </div>
-
-  <div>
-    <div class="mb-2 flex gap-1">
-      <%= form.label :name, "Nombre", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
-      <span class="text-red-500">*</span>
-    </div>
-
-    <div class="relative rounded-md shadow-sm">
-      <%= form.text_field :name,
-          placeholder: "Nombre del producto",
-          class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white #{'border-red-300 focus:border-red-500 focus:ring-red-500/20' if product.errors[:name].any?}" %>
-    </div>
-
-    <%= display_field_errors(product, :name) %>
-  </div>
-
-  <div>
-    <div class="mb-2 flex gap-1">
-      <%= form.label :price, "Precio", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
-      <span class="text-red-500">*</span>
-    </div>
-
-    <div class="relative rounded-md shadow-sm">
-      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"></div>
-
-      <%= form.text_field :price,
-          placeholder: "$ 0.00",
-          class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white #{'border-red-300 focus:border-red-500 focus:ring-red-500/20' if product.errors[:price].any?}" %>
-    </div>
-
-    <%= display_field_errors(product, :price) %>
-  </div>
-
-  <div>
-    <div class="mb-2 flex gap-1">
-      <%= form.label :description, "Descripción", class: "block text-sm font-medium leading-6 text-[#1A2B3C]" %>
-      <span class="text-red-500">*</span>
-    </div>
-
-    <div class="relative rounded-md shadow-sm">
-      <%= form.text_area :description,
-          rows: 4,
-          placeholder: "Describe materiales, tamaños, colores disponibles...",
-          class: "block w-full px-3.5 py-3 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white #{'border-red-300 focus:border-red-500 focus:ring-red-500/20' if product.errors[:description].any?}" %>
-    </div>
-
-    <%= display_field_errors(product, :description) %>
-  </div>
-
-  <%= render Buttons::Component.new(
-    text: "Crear producto",
-    type: "submit",
-    pill: true,
-    full_width: true,
-  ) %>
 <% end %>

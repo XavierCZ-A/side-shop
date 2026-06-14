@@ -23,7 +23,6 @@ export default class extends Controller {
     }
   }
 
-  // Cerrar al hacer click fuera
   close(event) {
     if (!this.element.contains(event.target)) {
       this.menuTarget.classList.add("hidden", "opacity-0", "-translate-y-2")

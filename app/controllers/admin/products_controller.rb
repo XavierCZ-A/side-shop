@@ -1,5 +1,22 @@
 class Admin::ProductsController < ApplicationController
+  layout "dashboard_layout"
   before_action :set_product, only: %i[ edit update toggle_active ]
+
+  # GET /products
+  def index
+    products = current_user.store.products.with_attached_images
+    @all_products = products
+
+    case params[:status]
+    when "active"   then products = products.active
+    when "inactive" then products = products.inactive
+    end
+
+    products = products.search_by_name(params[:query])
+    products = products.sorted_by(params[:sort], params[:dir])
+
+    @pagy, @products = pagy(:offset, products, limit: 6)
+  end
 
   # GET /products/new
   def new
@@ -15,10 +32,7 @@ class Admin::ProductsController < ApplicationController
     @store = current_user.store
     @product = @store.products.build(product_params)
     if @product.save
-      respond_to do |format|
-        format.turbo_stream { flash.now[:notice] = "Producto creado exitosamente." }
-        format.html { redirect_to admin_root_path, notice: "Producto creado exitosamente." }
-      end
+      redirect_to admin_products_path, notice: "Producto creado exitosamente."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,11 +41,7 @@ class Admin::ProductsController < ApplicationController
   # PATCH/PUT /products/1 or /products/1.json
   def update
     if @product.update(product_params)
-      # @product.images.attach(params[:product][:images]) if params[:product][:images].present?
-      respond_to do |format|
-        format.turbo_stream { flash.now[:notice] = "Producto actualizado exitosamente." }
-        format.html { redirect_to admin_root_path, notice: "Producto actualizado exitosamente." }
-      end
+      redirect_to admin_products_path, notice: "Producto actualizado exitosamente."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -53,6 +63,6 @@ class Admin::ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.expect(product: [ :name, :price, :description, :active, images: [] ])
+      params.expect(product: [ :name, :price, :stock, :description, :active, images: [] ])
     end
 end

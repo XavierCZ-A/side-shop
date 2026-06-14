@@ -17,7 +17,7 @@ module DashboardHelper
   end
 
   def nav_link(text, path)
-    active = current_page?(path) ? "bg-gray-100 p-3 rounded-lg text-primary font-medium" : "p-3 rounded-lg text-primary font-medium hover:bg-gray-100"
+    active = current_page?(path) ? "bg-gray-100 px-6 py-1.5 rounded-lg text-primary font-medium" : " px-6 py-1.5 rounded-lg text-primary font-medium hover:bg-gray-100"
     link_to text, path, class: " #{active}"
   end
 end

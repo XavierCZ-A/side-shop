@@ -1,0 +1,41 @@
+<nav class="mt-4 flex items-center justify-between" aria-label="Paginación">
+  <p class="text-sm text-gray-500">
+    <%= range_label %>
+  </p>
+
+  <div class="flex items-center gap-1">
+    <%# Previous %>
+    <% if previous_url %>
+      <%= link_to previous_url, class: edge_classes(true), rel: "prev", "aria-label": "Anterior" do %>
+        <%= render_svg("chevron_left.svg", styles: "w-4 h-4") %>
+      <% end %>
+    <% else %>
+      <span class="<%= edge_classes(false) %>" aria-hidden="true">
+        <%= render_svg("chevron_left.svg", styles: "w-4 h-4") %>
+      </span>
+    <% end %>
+
+    <%# Page numbers %>
+    <% series.each do |item| %>
+      <% case item %>
+      <% when Integer %>
+        <%= link_to item, page_url(item), class: link_classes %>
+      <% when String %>
+        <span class="<%= current_classes %>" aria-current="page"><%= item %></span>
+      <% when :gap %>
+        <span class="<%= gap_classes %>">…</span>
+      <% end %>
+    <% end %>
+
+    <%# Next %>
+    <% if next_url %>
+      <%= link_to next_url, class: edge_classes(true), rel: "next", "aria-label": "Siguiente" do %>
+        <%= render_svg("chevron_rigth.svg", styles: "w-4 h-4 text-gray-400") %>
+      <% end %>
+    <% else %>
+      <span class="<%= edge_classes(false) %>" aria-hidden="true">
+        <%= render_svg("chevron_rigth.svg", styles: "w-4 h-4 text-gray-400") %>
+      </span>
+    <% end %>
+  </div>
+</nav>

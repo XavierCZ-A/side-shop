@@ -1,0 +1,30 @@
+<%= form_with url: admin_products_path, method: :get,
+  data: {
+        controller: "search",
+        action: "input->search#submit",
+        turbo_frame: "products_table"
+    } do |form| %>
+  <div class="my-6 flex items-center justify-around gap-6">
+    <div class="w-full">
+      <%= form.search_field :query, placeholder: "Buscar productos...", value: params[:query], data: { search_target: "input" }, class: "block w-3/5 px-3 py-2 text-sm text-[#1a1a2e] bg-[#fafafa] border-[1.5px] border-[#e5e5ec] rounded-[10px] outline-none transition-all duration-200 placeholder:text-[#b0b0c4] focus:border-[#10B981] focus:ring-[3px] focus:ring-[#10B981]/15 focus:bg-white" %>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <% { "Todos" => "", "Activos" => "active", "Inactivos" => "inactive" }.each do |label, value| %>
+        <button
+          type="button"
+          data-search-target="statusButton"
+          data-value="<%= value %>"
+          data-action="search#setStatus"
+          class="<%= params[:status].to_s == value ? "btn-primary" : "btn-outline" %>"
+        >
+          <%= label %>
+        </button>
+      <% end %>
+    </div>
+  </div>
+
+  <%= form.hidden_field :status, value: params[:status], data: { search_target: "statusField" } %>
+  <%= form.hidden_field :sort, value: params[:sort] %>
+  <%= form.hidden_field :dir, value: params[:dir] %>
+<% end %>

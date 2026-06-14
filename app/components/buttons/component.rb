@@ -123,12 +123,8 @@ module Buttons
 
     private
 
-    # def base_classes
-    #   "inline-flex items-center justify-center gap-1.5 font-medium whitespace-nowrap transition-all duration-100 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-    # end
-
     def base_classes
-      "inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap transition-all duration-200 select-none active:scale-95 touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+      "cursor-pointer inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap transition-all duration-200 select-none active:scale-95 touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
     end
 
     def size_classes

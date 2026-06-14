@@ -14,6 +14,7 @@ class GenerateImageVariantsJob < ApplicationJob
     product.images.each do |image|
       image.variant(resize_to_fill: [ 200, 200 ]).processed
       image.variant(resize_to_fill: [ 400, 256 ]).processed
+      image.variant(resize_to_fill: [ 80, 80 ]).processed
     end
   end
 end
