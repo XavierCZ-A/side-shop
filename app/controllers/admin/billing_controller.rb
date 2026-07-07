@@ -1,4 +1,6 @@
 class Admin::BillingController < ApplicationController
+  layout "dashboard_layout"
+
   def show
     processor = current_user.payment_processor
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_04_220907) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_27_060602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -163,7 +163,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_220907) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.bigint "cart_id"
+    t.decimal "commission_cents", precision: 10, scale: 2
     t.datetime "created_at", null: false
+    t.bigint "payment_account_id"
     t.string "payment_method"
     t.string "payment_reference"
     t.string "shipping_address"
@@ -171,8 +174,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_220907) do
     t.string "shipping_country"
     t.string "shipping_postal_code"
     t.integer "status", default: 0
+    t.bigint "store_id"
     t.decimal "total_cents", precision: 10, scale: 2
     t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_orders_on_cart_id"
+    t.index ["payment_account_id"], name: "index_orders_on_payment_account_id"
+    t.index ["store_id"], name: "index_orders_on_store_id"
   end
 
   create_table "pay_charges", force: :cascade do |t|
@@ -274,6 +281,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_220907) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "payment_accounts", force: :cascade do |t|
+    t.text "access_token"
+    t.datetime "connected_at"
+    t.datetime "created_at", null: false
+    t.boolean "live_mode", default: false, null: false
+    t.string "provider", default: "mercado_pago", null: false
+    t.string "provider_user_id"
+    t.string "public_key"
+    t.text "refresh_token"
+    t.integer "status", default: 0, null: false
+    t.bigint "store_id", null: false
+    t.datetime "token_expires_at"
+    t.datetime "updated_at", null: false
+    t.index ["store_id", "provider"], name: "index_payment_accounts_on_store_id_and_provider", unique: true
+    t.index ["store_id"], name: "index_payment_accounts_on_store_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
@@ -307,6 +331,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_220907) do
     t.boolean "onboarding_complete", default: false, null: false
     t.string "primary_color"
     t.string "slug", null: false
+    t.string "stripe_account_id"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.string "whatsapp"
@@ -329,10 +354,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_220907) do
   add_foreign_key "line_items", "products"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "carts"
+  add_foreign_key "orders", "payment_accounts"
+  add_foreign_key "orders", "stores"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
+  add_foreign_key "payment_accounts", "stores"
   add_foreign_key "products", "stores"
   add_foreign_key "sessions", "users"
   add_foreign_key "stores", "users"
