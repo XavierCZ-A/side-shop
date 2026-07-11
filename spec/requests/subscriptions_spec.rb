@@ -6,12 +6,12 @@ RSpec.describe "Admin::Subscriptions", type: :request do
 
   before do
     user.set_payment_processor :fake_processor, allow_fake: true
-    login_as(user) 
+    login_as(user)
   end
 
   describe "POST susbcription" do
     it "redirect to checkout" do
-      post admin_subscriptions_path, params: { plan: "fake" }
+      post admin_settings_subscriptions_path, params: { plan: "fake" }
       expect(response).to have_http_status(:redirect)
     end
   end

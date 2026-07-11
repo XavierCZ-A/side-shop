@@ -1,27 +1,17 @@
 <%# Sidebar del customizer — inputs reales cableados a Stimulus %>
-<aside class="w-full max-w-[380px] overflow-hidden border-r border-gray-200 bg-white shadow-sm">
+<aside class="min-h-0 w-full max-w-[380px] overflow-y-auto border-r border-gray-200 bg-white shadow-sm">
   <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4">
     <div>
-      <span class="text-[10px] font-medium tracking-widest text-gray-400 uppercase">Customizer</span>
       <h1 class="font-serif text-3xl text-gray-800">Diseño</h1>
     </div>
 
-    <%= link_to admin_root_path, class: "text-gray-400 transition-colors hover:text-gray-600" do %>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M6 18L18 6M6 6l12 12"
-        ></path>
-      </svg>
-    <% end %>
+    <%= render Buttons::Component.new(
+      icon: render_svg("close.svg"),
+      icon_only: true,
+      variant: :ghost,
+      size: :lg,
+      href: admin_root_path,
+    ) %>
   </div>
 
   <div class="space-y-8 p-6">
@@ -68,6 +58,45 @@
           </label>
         <% end %>
       </div>
+    </section>
+
+    <%# 05 · Banner %>
+    <section>
+      <div class="mb-4 flex items-center gap-2">
+        <span class="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-400 italic">05</span>
+        <h2 class="font-serif text-xl text-gray-700">Banner</h2>
+      </div>
+
+      <label
+        class="
+          group relative flex cursor-pointer flex-col items-center gap-3 rounded-xl border border-gray-200 p-4
+          hover:border-gray-300
+        "
+      >
+        <% if store.image.attached? %>
+          <%= image_tag store.image, class: "h-24 w-full rounded-lg object-cover",
+            alt: "Banner image", data: { design_editor_target: "bannerThumbnail" } %>
+        <% else %>
+          <div
+            class="flex h-24 w-full items-center justify-center rounded-lg bg-gray-100 text-gray-400"
+            data-design-editor-target="bannerThumbnail"
+          >
+            Sin imagen
+          </div>
+        <% end %>
+
+        <span class="text-[11px] font-medium text-gray-700">Cambiar imagen</span>
+
+        <input
+          type="file"
+          accept="image/*"
+          class="sr-only"
+          data-design-editor-target="bannerInput"
+          data-action="change->design-editor#uploadImage"
+        >
+      </label>
+
+      <p class="mt-2 text-center font-mono text-[10px] text-gray-400" data-design-editor-target="uploadStatus"></p>
     </section>
 
     <section>
@@ -162,96 +191,5 @@
         radio actual · <%= store.border_radius %>px
       </p>
     </section>
-
-    <%# 04 · Aspect ratio %>
-    <section>
-      <div class="mb-4 flex items-center gap-2">
-        <span class="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-400 italic">04</span>
-        <h2 class="font-serif text-xl text-gray-700">Imágenes</h2>
-      </div>
-
-      <div class="grid grid-cols-2 gap-3">
-        <% [
-             { value: "1:1", label: "Cuadrado", w: "h-10 w-10" },
-             { value: "4:5", label: "Vertical", w: "h-12 w-10" }
-           ].each do |opt| %>
-          <% selected = store.aspect_ratio == opt[:value] %>
-
-          <label
-            class="flex cursor-pointer flex-col items-center gap-3 rounded-xl p-4 transition-colors <%= selected ? "border-2 border-gray-800" : "border border-gray-200 hover:bg-gray-50" %>"
-            data-design-editor-target="aspectOption"
-            data-aspect-value="<%= opt[:value] %>"
-          >
-            <%= tag.input(
-              type: "radio",
-              name: "store[aspect_ratio]",
-              value: opt[:value],
-              class: "sr-only",
-              checked: selected,
-              data: { action: "change->design-editor#update" }
-            ) %>
-
-            <span class="rounded bg-gray-200 <%= opt[:w] %>"></span>
-
-            <span class="text-center">
-              <span class="text-[11px] <%= selected ? "font-medium text-gray-900" : "text-gray-600" %>">
-                <%= opt[:label] %>
-              </span>
-
-              <span class="font-mono text-[10px] text-gray-400"><%= opt[:value] %></span>
-            </span>
-          </label>
-        <% end %>
-      </div>
-    </section>
-
-    <%# 05 · Filtro de grano %>
-    <div class="border-t border-gray-100 pt-4">
-      <div class="flex items-center justify-between rounded-xl border border-gray-200 p-4">
-        <div class="flex items-start gap-3">
-          <div class="mt-1 text-gray-500">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-              ></path>
-            </svg>
-          </div>
-
-          <div>
-            <p class="text-sm font-medium text-gray-900">Filtro de grano</p>
-            <p class="text-[11px] text-gray-400">textura sutil al fondo</p>
-          </div>
-        </div>
-
-        <label class="relative inline-flex cursor-pointer items-center">
-          <%= tag.input(
-              type: "checkbox",
-              name: "store[grain_enabled]",
-              value: "1",
-              class: "peer sr-only",
-              checked: store.grain_enabled,
-              data: { action: "change->design-editor#update" }
-            ) %>
-
-          <span
-            class="
-              peer h-5 w-10 rounded-full bg-gray-200 peer-checked:bg-gray-900 after:absolute after:top-0.5
-              after:left-0.5 after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300
-              after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full
-              peer-checked:after:border-white
-            "
-          ></span>
-        </label>
-      </div>
-    </div>
   </div>
 </aside>

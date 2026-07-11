@@ -7,13 +7,13 @@ class Admin::SubscriptionsController < ApplicationController
 
   def create
     plan = PricingPlan.find(params[:plan])
-    return redirect_to new_admin_subscription_path, alert: "Plan inválido" unless plan
+    return redirect_to admin_settings_url, alert: "Plan inválido" unless plan
 
     checkout = current_user.payment_processor.checkout(
       mode:       "subscription",
       line_items: plan[:price_id],
-      success_url: admin_billing_url + "?success=true",
-      cancel_url:  new_admin_subscription_url,
+      success_url: admin_settings_url + "?success=true",
+      cancel_url:  admin_settings_url,
       subscription_data: {
         metadata: {
           pay_name: plan[:name]

@@ -34,7 +34,7 @@
       Este es tu plan actual
     </div>
   <% else %>
-    <%= button_to admin_subscriptions_path,
+    <%= button_to admin_settings_subscriptions_path,
         method: :post,
         params: { plan: plan[:name] }, data: { turbo: false },
         class: "w-full btn-primary" do %>

@@ -1,0 +1,43 @@
+<div class="py-6">
+  <div class="mb-6 flex items-start justify-between">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900">Pasarelas de Pago</h2>
+      <p class="mt-1 text-gray-500">Conecta las pasarelas con las que quieres cobrar en tu tienda.</p>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    <%= render "admin/settings/tabs/gateway_card",
+          name: "Stripe",
+          description: "Acepta tarjetas de crédito y débito internacionales.",
+          connected: true,
+          connect_path: admin_stripe_connection_path,
+          disconnect_path: admin_stripe_connection_path,
+          icon: :card %>
+
+    <%= render "admin/settings/tabs/gateway_card",
+          name: "Mercado Pago",
+          description: "Cobros locales en México, Argentina, Brasil, Chile y Colombia.",
+          connected: false,
+          connect_path: admin_mercado_pago_connection_path,
+          disconnect_path: admin_mercado_pago_connection_path,
+          icon: :bank %>
+  </div>
+
+  <div class="mt-8 flex gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
+    <div class="shrink-0">
+      <%= render_svg("exclamation_circle.svg", styles: "h-6 w-6 text-amber-600") %>
+    </div>
+
+    <div>
+      <h4 class="mb-1 text-sm font-semibold text-gray-900">Antes de conectar tu pasarela</h4>
+
+      <p class="text-sm leading-relaxed text-gray-600">
+        Solo puedes tener una pasarela activa a la vez. Al conectar Stripe o Mercado Pago, autorizas el uso de tu cuenta
+        para procesar los cobros de tu tienda; los fondos y comisiones son administrados directamente por la pasarela
+        según sus propios términos y condiciones. Verifica tu identidad y datos fiscales con el proveedor antes de
+        activar cobros reales.
+      </p>
+    </div>
+  </div>
+</div>

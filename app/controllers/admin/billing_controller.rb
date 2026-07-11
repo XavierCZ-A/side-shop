@@ -17,7 +17,7 @@ class Admin::BillingController < ApplicationController
 
   def portal
     portal_session = current_user.payment_processor.billing_portal(
-      return_url: admin_billing_url
+      return_url: admin_settings_url
     )
     redirect_to portal_session.url, allow_other_host: true
 

@@ -1,11 +1,10 @@
 <div
   id="storefront-preview"
-  class="relative isolate flex-1 overflow-y-auto <%= storefront_classes(store) %>"
+  class="relative isolate min-h-0 flex-1 overflow-y-auto <%= storefront_classes(store) %>"
   style="<%= storefront_css_vars(store) %>; background-color: var(--sp-color-bg); font-family: var(--sp-font-body); color: var(--sp-color-fg);"
   data-design-editor-target="preview"
   data-vibe="<%= store.vibe %>"
   data-hero-layout="<%= store.hero_layout %>"
-  data-aspect-ratio="<%= store.aspect_ratio %>"
 >
   <%= render "storefronts/navbar", current_store: store %>
 

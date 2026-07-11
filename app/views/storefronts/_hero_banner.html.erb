@@ -3,9 +3,13 @@
     <div class="relative overflow-hidden shadow-sm" style="border-radius: var(--sp-radius);">
       <div class="relative h-44 w-full sm:h-64 md:h-96">
         <% if store.image.attached? %>
-          <%= image_tag store.image, alt: store.name, class: "absolute inset-0 h-full w-full object-cover" %>
+          <%= image_tag store.image, alt: store.name, class: "absolute inset-0 h-full w-full object-cover",
+                data: { design_editor_target: "heroImage" } %>
         <% else %>
-          <div class="absolute inset-0 bg-gradient-to-br from-stone-300 via-stone-200 to-stone-300"></div>
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-stone-300 via-stone-200 to-stone-300"
+            data-design-editor-target="heroImagePlaceholder"
+          ></div>
         <% end %>
 
         <div class="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent"></div>

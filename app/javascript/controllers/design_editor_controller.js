@@ -38,7 +38,10 @@ export default class extends Controller {
     "preview",
     "radiusLabel",
     "vibeOption", "vibeCheck",
-    "heroOption", "radiusOption", "aspectOption"
+    "heroOption", "radiusOption", "aspectOption",
+    "bannerInput", "bannerThumbnail",
+    "heroImage", "heroImagePlaceholder",
+    "uploadStatus"
   ]
   static values = { updateUrl: String, csrf: String }
 
@@ -53,6 +56,29 @@ export default class extends Controller {
     this.#applyToPreview(key, value)
     this.#highlightSelection(key, value)
     this.#persist(key, value)
+  }
+
+  uploadImage() {
+    const file = this.bannerInputTarget.files[0]
+    if (!file) return
+
+    if (!file.type.startsWith("image/")) {
+      alert("Por favor selecciona una imagen válida")
+      this.bannerInputTarget.value = ""
+      return
+    }
+
+    const maxSizeMB = 5
+
+    if (file.size > maxSizeMB * 1024 * 1024) {
+      alert(`La imagen no debe pesar más de ${maxSizeMB}MB`)
+      this.bannerInputTarget.value = ""
+      return
+    }
+
+    const objectUrl = URL.createObjectURL(file)
+    this.#renderPreviewImage(objectUrl)
+    this.#persistImage(file)
   }
 
   #applyToPreview(key, value) {
@@ -121,6 +147,40 @@ export default class extends Controller {
     }
   }
 
+  #renderPreviewImage(url) {
+    this.heroImageTargets.forEach(img => { img.src = url })
+
+    this.heroImagePlaceholderTargets.forEach(placeholder => {
+      const img = document.createElement("img")
+      img.src = url
+      img.className = placeholder.className.replace(
+        "bg-gradient-to-br from-stone-300 via-stone-200 to-stone-300",
+        "object-cover"
+      )
+      img.dataset.designEditorTarget = "heroImage"
+      placeholder.replaceWith(img)
+    })
+
+    if (this.hasBannerThumbnailTarget) {
+      if (this.bannerThumbnailTarget.tagName === "IMG") {
+        this.bannerThumbnailTarget.src = url
+      } else {
+        const img = document.createElement("img")
+        img.src = url
+        img.className = "h-24 w-full rounded-lg object-cover"
+        img.dataset.designEditorTarget = "bannerThumbnail"
+        this.bannerThumbnailTarget.replaceWith(img)
+      }
+    }
+  }
+
+  #setStatus(message) {
+    if (this.hasUploadStatusTarget) {
+      this.uploadStatusTarget.textContent = message
+      setTimeout(() => { this.uploadStatusTarget.textContent = "" }, 2500)
+    }
+  }
+
   #persist(key, value) {
     if (!this.hasUpdateUrlValue) return
     fetch(this.updateUrlValue, {
@@ -133,5 +193,32 @@ export default class extends Controller {
       credentials: "same-origin",
       body: JSON.stringify({ store: { [key]: value } })
     }).catch(err => console.error("design-editor persist failed", err))
+  }
+
+  #persistImage(file) {
+    if (!this.hasUpdateUrlValue) return
+
+    this.#setStatus("Subiendo imagen...")
+
+    const formData = new FormData()
+    formData.append("store[image]", file)
+
+    fetch(this.updateUrlValue, {
+      method: "PATCH",
+      headers: {
+        "Accept":       "application/json",
+        "X-CSRF-Token": this.csrfValue
+      },
+      credentials: "same-origin",
+      body: formData
+    })
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        this.#setStatus("Imagen guardada")
+      })
+      .catch(err => {
+        console.error("design-editor image upload failed", err)
+        this.#setStatus("Error al subir la imagen")
+      })
   }
 }

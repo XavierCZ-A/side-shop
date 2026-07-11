@@ -21,12 +21,16 @@ Rails.application.routes.draw do
   namespace :admin, path: "dashboard" do
     root "dashboards#index"
 
-    get  "/billing",        to: "billing#show"
     post "/billing/portal", to: "billing#portal"
 
-    resources :subscriptions, only: [ :new, :create, :destroy ] do
-      patch :resume, on: :member
+    resource :settings, only: [ :show ] do
+      resources :subscriptions, only: [ :new, :create, :destroy ] do
+        patch :resume, on: :member
+      end
     end
+
+    resource :stripe_connection, only: [ :create, :destroy ]
+    resource :mercado_pago_connection, only: [ :create, :destroy ]
 
     resources :products, only: [ :index, :new, :create, :edit, :update ] do
       member do

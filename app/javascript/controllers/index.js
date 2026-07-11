@@ -60,3 +60,6 @@ application.register("password", PasswordController)
 
 import SearchController from "./search_controller"
 application.register("search", SearchController)
+
+import TabsController from "./tabs_controller"
+application.register("tabs", TabsController)

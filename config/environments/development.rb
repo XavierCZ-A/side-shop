@@ -29,7 +29,7 @@ Rails.application.configure do
 
   config.hosts << ".lvh.me"
 
-  config.hosts << "14cf-187-139-224-83.ngrok-free.app"
+  config.hosts << "5ee2-187-139-223-38.ngrok-free.app"
 
   # Change to :null_store to avoid any caching.
   config.cache_store = :solid_cache_store

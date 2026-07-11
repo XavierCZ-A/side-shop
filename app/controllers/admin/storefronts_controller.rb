@@ -26,10 +26,9 @@ class Admin::StorefrontsController < ApplicationController
 
   def design_params
     permitted = params.require(:store).permit(
-      :vibe, :hero_layout, :border_radius, :aspect_ratio, :grain_enabled
+      :vibe, :hero_layout, :border_radius, :images
     )
     permitted[:border_radius] = permitted[:border_radius].to_i if permitted.key?(:border_radius)
-    permitted[:grain_enabled] = ActiveModel::Type::Boolean.new.cast(permitted[:grain_enabled]) if permitted.key?(:grain_enabled)
     permitted
   end
 

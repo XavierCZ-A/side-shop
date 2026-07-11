@@ -83,7 +83,6 @@ module StorefrontsHelper
     t = vibe_tokens(store)
     [
       "--sp-radius: #{store.border_radius}px",
-      "--sp-aspect: #{store.aspect_ratio.sub(':', ' / ')}",
       "--sp-font-heading: #{t[:font_heading]}",
       "--sp-font-body: #{t[:font_body]}",
       "--sp-color-primary: #{t[:primary]}",
@@ -97,7 +96,6 @@ module StorefrontsHelper
 
   def storefront_classes(store)
     classes = [ "storefront-preview" ]
-    classes << "storefront-grain" if store.grain_enabled
     classes.join(" ")
   end
 
@@ -106,8 +104,7 @@ module StorefrontsHelper
       class: storefront_classes(store),
       style: "background-color: var(--sp-color-bg); font-family: var(--sp-font-body); color: var(--sp-color-fg);",
       data: {
-        hero_layout: store.hero_layout,
-        aspect_ratio: store.aspect_ratio
+        hero_layout: store.hero_layout
       }
     }
   end

@@ -1,0 +1,40 @@
+<div class="flex items-start justify-between rounded-xl border border-gray-200 bg-white p-6">
+  <div class="flex gap-4">
+    <div class="flex size-12 flex-shrink-0 items-center justify-center">
+      <% if name == "Stripe" %>
+        <%= render_svg("stripe.svg") %>
+      <% else %>
+        <%= render_svg("mercado_pago.svg") %>
+      <% end %>
+    </div>
+
+    <div>
+      <h3 class="font-semibold text-gray-900"><%= name %></h3>
+
+      <p class="mt-0.5 mb-3 text-sm text-gray-500"><%= description %></p>
+
+      <% if connected %>
+        <%= button_to "Desconectar",
+                admin_stripe_connection_path,
+                method: :post,
+                data: { turbo: false },
+                class: "btn-destructive" %>
+      <% else %>
+        <%= button_to "Conectar",
+                admin_stripe_connection_path,
+                method: :post,
+                data: { turbo: false },
+                class: "btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+  <span
+    class="
+      inline-flex items-center rounded-full border border-gray-200 px-3 py-1 text-sm font-medium whitespace-nowrap
+      text-gray-600
+    "
+  >
+    <%= connected ? "Conectado" : "Sin conectar" %>
+  </span>
+</div>
