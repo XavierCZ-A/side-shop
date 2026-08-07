@@ -1,4 +1,4 @@
-class Admin::ProductsController < ApplicationController
+class Admin::ProductsController < Admin::AdminBaseController
   layout "dashboard_layout"
   before_action :set_product, only: %i[ edit update toggle_active ]
 

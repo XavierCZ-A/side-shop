@@ -23,13 +23,27 @@
           classes: "[&_span:not(.shrink-0)]:hidden md:[&_span:not(.shrink-0)]:inline",
         ) %>
 
-        <div data-controller="dropdown" data-action="click@window->dropdown#close" class="relative">
-          <button class="cursor-pointer" data-action="click->dropdown#toggle">
-            <%= user_avatar(current_user.email_address, "#1b69d8", "white") %>
-          </button>
+        <%= render Popover::Component.new(
+          placement: "bottom",
+          interactive: true,
+          arrow: false,
+          offset: 8,
+          classes: "w-full"
+        ) do |c| %>
+          <% c.with_trigger do %>
+            <button
+              class="hover flex cursor-pointer items-center gap-2 rounded-lg p-1 transition-colors hover:bg-gray-200"
+              data-action="click->dropdown#toggle"
+            >
+              <%= user_avatar(current_user.email_address, "#1b69d8", "white") %>
+              <%= render_svg("chevron_down.svg", styles: "w-4 h-4 text-gray-500") %>
+            </button>
+          <% end %>
 
-          <%= render "admin/dropdown" %>
-        </div>
+          <% c.with_panel do %>
+            <%= render "admin/popover_content" %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

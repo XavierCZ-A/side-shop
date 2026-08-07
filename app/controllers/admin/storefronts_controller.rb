@@ -26,7 +26,7 @@ class Admin::StorefrontsController < ApplicationController
 
   def design_params
     permitted = params.require(:store).permit(
-      :vibe, :hero_layout, :border_radius, :images
+      :vibe, :hero_layout, :border_radius, :image
     )
     permitted[:border_radius] = permitted[:border_radius].to_i if permitted.key?(:border_radius)
     permitted

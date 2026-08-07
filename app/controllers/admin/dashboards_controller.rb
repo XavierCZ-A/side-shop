@@ -1,6 +1,5 @@
-class Admin::DashboardsController < ApplicationController
+class Admin::DashboardsController < Admin::AdminBaseController
   layout "dashboard_layout"
-  before_action :set_store
 
   TABS = %w[products orders].freeze
   PRODUCT_STATUSES = %w[active inactive].freeze
@@ -33,9 +32,5 @@ class Admin::DashboardsController < ApplicationController
 
   def store_params
     params.expect(store: [ :name, :description, :instagram, :facebook, :whatsapp, :primary_color, :image ])
-  end
-
-  def set_store
-    @store = current_user.store
   end
 end

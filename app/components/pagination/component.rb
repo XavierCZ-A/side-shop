@@ -4,6 +4,7 @@ module Pagination
   class Component < ViewComponent::Base
     include ApplicationHelper
     # @param pagy [Pagy] The Pagy instance returned by `pagy(...)` in the controller
+
     def initialize(pagy:)
       super()
       @data = pagy.data_hash

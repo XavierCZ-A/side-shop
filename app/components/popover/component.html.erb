@@ -1,0 +1,25 @@
+<%# <div>template here</div> %>
+
+<div class="<%= wrapper_classes %>" <%= tag.attributes(controller_data) %>>
+  <% if trigger? %>
+    <%= trigger %>
+  <% else %>
+    <button type="button" class="<%= trigger_button_classes %>">
+      <%= trigger_text %>
+    </button>
+  <% end %>
+
+  <template data-popover-target="content">
+    <% if title.present? %>
+      <p class="rounded-t-[0.4375rem] border-b border-b-neutral-100 bg-neutral-50 px-3 py-2.5 font-semibold text-neutral-700">
+        <%= title %>
+      </p>
+    <% end %>
+
+    <% if panel? %>
+      <div class="<%= panel_wrapper_classes %>">
+        <%= panel %>
+      </div>
+    <% end %>
+  </template>
+</div>

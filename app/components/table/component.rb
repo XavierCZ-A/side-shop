@@ -2,10 +2,13 @@
 
 module Table
   class Component < ViewComponent::Base
+    attr_reader :products, :sort, :dir
+
     include ApplicationHelper
     # @param products [Enumerable<Product>] The products to list in the table
     # @param sort [String, nil] Currently sorted column (see Product::SORTABLE)
     # @param dir [String, nil] Current sort direction ("asc" or "desc")
+
     def initialize(products:, sort: nil, dir: nil)
       super()
       @products = products
@@ -18,9 +21,6 @@ module Table
     end
 
     private
-
-    attr_reader :products, :sort, :dir
-
 
     def sort_link(label, field)
       active = sort.to_s == field.to_s

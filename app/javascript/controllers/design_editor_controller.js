@@ -58,6 +58,13 @@ export default class extends Controller {
     this.#persist(key, value)
   }
 
+  selectViaKeyboard(event) {
+    event.preventDefault()
+    const input = event.currentTarget.querySelector('input[type="radio"]')
+    input.checked = true
+    input.dispatchEvent(new Event("change", { bubbles: true }))
+  }
+
   uploadImage() {
     const file = this.bannerInputTarget.files[0]
     if (!file) return
@@ -96,13 +103,6 @@ export default class extends Controller {
         if (this.hasRadiusLabelTarget) {
           this.radiusLabelTarget.textContent = `radio actual · ${value}px`
         }
-        break
-      case "aspect_ratio":
-        root.dataset.aspectRatio = value
-        root.style.setProperty("--sp-aspect", value.replace(":", " / "))
-        break
-      case "grain_enabled":
-        root.classList.toggle("storefront-grain", Boolean(value))
         break
     }
   }
