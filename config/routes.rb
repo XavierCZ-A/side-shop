@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :line_items, only: [ :create, :destroy, :update ]
     resource  :cart,       only: [ :destroy ]
     resource  :checkout,   only: [ :show ]
+    resources :products, only: [ :index, :show ]
+    get "search", to: "products#search", as: :store_search
   end
 
   resource :onboardings, path: "get-started", only: [ :show, :create ]
@@ -47,6 +49,8 @@ Rails.application.routes.draw do
     get   "customize", to: "dashboards#edit",   as: :customize
     patch "customize", to: "dashboards#update"
   end
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -64,5 +64,8 @@ application.register("popover", PopoverController)
 import SearchController from "./search_controller"
 application.register("search", SearchController)
 
+import SearchStoreController from "./search_store_controller"
+application.register("search-store", SearchStoreController)
+
 import TabsController from "./tabs_controller"
 application.register("tabs", TabsController)

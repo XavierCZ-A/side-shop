@@ -1,0 +1,108 @@
+<%= render "storefronts/navbar", current_store: @current_store %>
+
+<div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+  <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
+    <%# Galería %>
+    <div data-controller="carousel">
+      <div
+        class="relative w-full overflow-hidden bg-gray-200"
+        style="aspect-ratio: var(--sp-aspect, 1 / 1); border-radius: var(--sp-radius, 0.75rem);"
+      >
+        <% if @product.images.attached? %>
+          <% @product.images.each_with_index do |image, index| %>
+            <div data-carousel-target="slide" class="h-full w-full <%= 'hidden' unless index == 0 %>">
+              <%= image_tag image.variant(resize_to_fill: [800, 800]),
+                    alt: @product.name,
+                    class: "h-full w-full object-cover" %>
+            </div>
+          <% end %>
+
+          <% if @product.images.length > 1 %>
+            <button
+              type="button"
+              data-action="carousel#prev"
+              class="
+                absolute top-1/2 left-3 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full
+                bg-black/25 text-white hover:bg-black/40
+              "
+            >
+              <%= render_svg("chevron_left.svg", styles: "w-4 h-4") %>
+            </button>
+            <button
+              type="button"
+              data-action="carousel#next"
+              class="
+                absolute top-1/2 right-3 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full
+                bg-black/25 text-white hover:bg-black/40
+              "
+            >
+              <%= render_svg("chevron_rigth.svg", styles: "w-4 h-4") %>
+            </button>
+          <% end %>
+        <% else %>
+          <div class="flex h-full w-full items-center justify-center text-gray-400">
+            <%= render_svg("photo.svg", styles: "w-10 h-10") %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @product.images.length > 1 %>
+        <div class="mt-3 flex gap-2">
+          <% @product.images.each_with_index do |image, index| %>
+            <button
+              type="button"
+              data-action="carousel#goTo"
+              data-index="<%= index %>"
+              class="h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-gray-200"
+            >
+              <%= image_tag image.variant(resize_to_fill: [100, 100]), class: "h-full w-full object-cover" %>
+            </button>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <%# Info %>
+    <div>
+      <h1
+        class="text-2xl sm:text-3xl"
+        style="font-family: var(--sp-font-heading); color: var(--sp-color-primary, #1A2B3C);"
+      >
+        <%= @product.name %>
+      </h1>
+
+      <p class="mt-2 text-xl font-light text-gray-500">
+        <%= number_to_currency(@product.price, precision: 0) %>
+      </p>
+
+      <% if @product.description.present? %>
+        <div class="mt-6 text-sm leading-relaxed text-gray-600 sm:text-base">
+          <%= simple_format(@product.description) %>
+        </div>
+      <% end %>
+
+      <div class="mt-8" data-controller="cart-add">
+        <%= button_to line_items_path(product_id: @product),
+              method: :post,
+              class: "btn-store-xs w-full rounded-full px-6 py-3.5 text-center text-sm font-medium text-white",
+              style: "background-color: var(--sp-color-primary); border-radius: var(--sp-radius);",
+              data: { cart_add_target: "button" },
+              form: { data: { action: "submit->cart-add#animate" } } do %>
+          Añadir al carrito
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%# Relacionados %>
+  <% if @related_products.any? %>
+    <div class="mt-16 border-t border-gray-100 pt-10">
+      <%= render "storefronts/products_section",
+            products: @related_products,
+            current_store: @current_store,
+            eyebrow: "También te puede gustar",
+            title: "Productos relacionados",
+            interactive: false %>
+    </div>
+  <% end %>
+</div>

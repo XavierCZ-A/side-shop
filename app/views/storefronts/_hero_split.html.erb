@@ -15,12 +15,11 @@
         </p>
       <% end %>
 
-      <button
-        class="inline-block px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        style="background-color: var(--sp-color-primary); border-radius: var(--sp-radius);"
-      >
+      <%= link_to products_path,
+        class: "inline-block px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90",
+        style: "background-color: var(--sp-color-primary); border-radius: var(--sp-radius);" do %>
         Ver colección
-      </button>
+      <% end %>
     </div>
 
     <div class="relative aspect-[4/5] w-full overflow-hidden shadow-sm" style="border-radius: var(--sp-radius);">

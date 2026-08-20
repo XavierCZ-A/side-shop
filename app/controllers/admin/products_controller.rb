@@ -55,6 +55,11 @@ class Admin::ProductsController < Admin::AdminBaseController
     end
   end
 
+  def search
+    @query = params[:q].to_s.strip
+    @products = @query.present? ? @store.products.active.where("name ILIKE ?", "%#{@query}%").limit(6) : []
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product

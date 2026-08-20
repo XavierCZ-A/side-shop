@@ -11,6 +11,6 @@ module StoreScoped
     slug = request.subdomain
     @current_store = Store.find_by!(slug: slug)
   rescue ActiveRecord::RecordNotFound
-    render file: "public/404.html", status: :not_found
+    render template: "errors/store_not_found", status: :not_found
   end
 end

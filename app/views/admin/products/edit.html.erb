@@ -9,12 +9,15 @@
       <% end %>
 
       <div>
-        <nav class="flex items-center gap-1.5 text-xs text-gray-400">
-          <%= link_to "Productos", admin_products_path, class: "hover:text-gray-600" %>
-          <span>›</span>
-          <span class="text-gray-500">Editar</span>
-        </nav>
-        <h1 class="text-2xl font-bold text-primary"><%= @product.name %></h1>
+        <%= render Breadcrumb::Component.new(
+          items: [
+            { label: "Productos", href: admin_products_path },
+            { label: "Editar producto", href: new_admin_product_path },
+          ],
+          separator: :chevron
+        ) %>
+
+        <h1 class="text-xl font-bold text-primary"><%= @product.name %></h1>
       </div>
     </div>
   </header>

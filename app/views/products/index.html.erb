@@ -1,0 +1,8 @@
+<%= render "storefronts/navbar", current_store: @current_store %>
+<%= render "stores/cart/shopping_cart", line_items: @line_items %>
+
+<%= render "storefronts/products_section",
+      products: @products,
+      current_store: @current_store,
+      eyebrow: params[:q].present? ? "Búsqueda" : "Catálogo",
+      title: params[:q].present? ? "Resultados para \"#{params[:q]}\"" : "Todos los productos" %>

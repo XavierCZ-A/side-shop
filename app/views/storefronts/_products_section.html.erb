@@ -1,23 +1,25 @@
 <% interactive = local_assigns.fetch(:interactive, true) %>
+<% eyebrow = local_assigns.fetch(:eyebrow, "Colección") %>
+<% title = local_assigns.fetch(:title, "Productos destacados") %>
 
 <section id="products" class="mx-auto max-w-7xl px-3 py-10 sm:px-6 sm:py-16 lg:px-8">
   <div class="mb-7 flex items-end justify-between sm:mb-10">
     <div>
       <p class="mb-1.5 text-[10px] tracking-[0.3em] text-gray-500 uppercase sm:mb-2 sm:text-[11px]">
-        Colección
+        <%= eyebrow %>
       </p>
 
       <h2
         class="text-2xl sm:text-3xl sm:text-4xl"
         style="font-family: var(--sp-font-heading); color: var(--sp-color-primary, #1A2B3C);"
       >
-        Productos destacados
+        <%= title %>
       </h2>
     </div>
 
     <% if products.any? %>
       <p class="text-xs text-gray-500 sm:text-sm">
-        <%= pluralize(products.size, "producto") %>
+        <%= pluralize(@pagy&.count || products.size, "producto") %>
       </p>
     <% end %>
   </div>

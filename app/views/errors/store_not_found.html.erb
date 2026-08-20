@@ -40,23 +40,12 @@
         Puede que el enlace esté mal escrito o que la tienda haya sido eliminada.
       </p>
 
-      <%= link_to root_path, class: "inline-block group relative" do %>
-        <div
-          class="
-            absolute inset-0 rounded-xl bg-gradient-to-r from-[#1A2B3C] to-[#10B981] opacity-75 blur
-            transition-opacity group-hover:opacity-100
-          "
-        ></div>
-
-        <div
-          class="
-            relative rounded-xl bg-gradient-to-r from-[#1A2B3C] to-[#10B981] px-10 py-4 font-bold text-white
-            transition-all hover:shadow-2xl
-          "
-        >
-          ✨ Crear mi tienda gratis
-        </div>
-      <% end %>
+      <%= render Buttons::Component.new(
+        text: "Crear mi tienda gratis",
+        href: root_url(subdomain: false),
+        size: :lg,
+        variant: :accent
+      ) %>
     </div>
   </div>
 </div>

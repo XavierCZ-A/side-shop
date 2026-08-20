@@ -1,0 +1,26 @@
+<%# app/views/products/search.html.erb %>
+<%= turbo_frame_tag "search_results" do %>
+  <% if @query.present? %>
+    <% if @products.any? %>
+      <div class="flex flex-col divide-y divide-gray-100 p-5">
+        <% @products.each do |product| %>
+          <%= link_to product_path(product), data: { action: "click->search-store#close" }, class: "-mx-2 flex items-center gap-4 rounded-lg px-2 py-3 hover:bg-gray-50" do %>
+            <%= image_tag product.images.first, class: "h-14 w-14 shrink-0 rounded-md bg-gray-100 object-cover" if product.images.attached? %>
+
+            <p class="text-sm font-medium text-gray-900"><%= product.name.upcase %></p>
+          <% end %>
+        <% end %>
+      </div>
+
+      <%= link_to catalog_path(q: @query),
+            data: { action: "click->search-store#close" },
+            class: "flex items-center justify-between border-t border-gray-100 px-5 py-4 text-sm font-medium text-gray-900 hover:bg-gray-50" do %>
+        Buscar "<%= @query %>" <%= render_svg("arrow_right.svg", styles: "w-4 h-4") %>
+      <% end %>
+    <% else %>
+      <p class="px-5 py-8 text-center text-sm text-gray-400">
+        No encontramos productos para "<%= @query %>"
+      </p>
+    <% end %>
+  <% end %>
+<% end %>

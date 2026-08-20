@@ -1,0 +1,47 @@
+<%#
+  Partial de búsqueda overlay.
+  Requiere:
+    - data-controller="search-store" en el <nav> padre (o contenedor que lo envuelva)
+    - store_search_path definida en routes
+    - current_store disponible en el contexto
+%>
+
+<div data-search-store-target="modal" class="pointer-events-none fixed inset-0 z-60 hidden">
+  <div
+    data-search-store-target="backdrop"
+    data-action="click->search-store#close"
+    class="fixed inset-0 bg-black/50 opacity-0 transition-opacity duration-200 ease-out"
+  ></div>
+
+  <div class="relative mx-auto max-w-5xl px-4 pt-6">
+    <div data-search-store-target="panel" class="-translate-y-3 opacity-0 transition-all duration-200 ease-out">
+      <div class="overflow-hidden rounded-xl bg-white shadow-2xl">
+        <%= form_with url: store_search_path, method: :get,
+            data: { turbo_frame: "search_results", search_store_target: "form" } do |f| %>
+          <div class="flex items-center gap-3 border-b border-gray-200 px-5 py-4">
+            <div class="flex-1">
+              <%= f.text_field :q,
+                    placeholder: "Buscar",
+                    autocomplete: "off",
+                    data: { search_store_target: "input", action: "input->search-store#search" },
+                    class: "form-control" %>
+            </div>
+
+            <%= render Buttons::Component.new(
+              icon: render_svg("close.svg", styles: "w-8 h-8"),
+              icon_only: true,
+              variant: :ghost,
+              size: :lg,
+              classes: "hidden shrink-0 ",
+              data: { action: "click->search-store#clear", search_store_target: "clearButton" },
+            ) %>
+          </div>
+        <% end %>
+
+        <div data-search-store-target="results" class="max-h-[60vh] overflow-y-auto">
+          <%= turbo_frame_tag "search_results" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
