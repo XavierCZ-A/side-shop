@@ -2,7 +2,7 @@
 
 module Buttons
   class Component < ViewComponent::Base
-    VARIANTS = %i[primary secondary outline ghost destructive accent].freeze
+    VARIANTS = %i[primary secondary outline ghost destructive accent link].freeze
     SIZES = %i[xs sm md lg].freeze
     STYLES = %i[basic fancy].freeze
 
@@ -167,6 +167,8 @@ module Buttons
         "border border-red-300/30 bg-red-600 text-white shadow-sm hover:bg-red-500 focus-visible:outline-primary-600"
       when :accent
         "border border-accent-400/30 bg-accent text-white shadow-sm hover:bg-accent-700 focus-visible:outline-accent-600"
+      when :link
+        "text-primary underline underline-offset-2 hover:text-primary-900"
       else
         basic_variant_classes_for(:primary)
       end
